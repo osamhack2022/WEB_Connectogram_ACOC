@@ -28,7 +28,7 @@
  - Redux
  - MUI (Material UI) : React Component Library
 
- ### 서버
+ ### Server
  - Oracle Cloud 2 Instances
  - MariaDB
  - pm2 (Back-end 구동 用)
