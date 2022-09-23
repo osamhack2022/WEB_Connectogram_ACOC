@@ -19,15 +19,20 @@
 
 ### Back-end
  - Node.js 16.17.0 LTS version
- - Express
- - MySql (mysql2/promise 라이브러리)
- - Pm2
- 
+ - Node Express
+ - Mysql2/Promise Library
+ - Mysql Session Library
+
 ### Front-end
  - React
- - Redux : 상태관리 Library
+ - Redux
  - MUI (Material UI) : React Component Library
- - nginx
+
+ ### 서버
+ - Oracle Cloud 2 Instances
+ - MariaDB
+ - pm2 (Back-end 구동 用)
+ - nginx (Front-end 구동 用)
 
 ### Communications
  - Notion
@@ -36,6 +41,7 @@
 ## 설치 안내 (Installation Process)
 ```bash
 $ git clone https://github.com/osamhack2022/WEB_Connectogram_ACOC.git
+$ cd [백엔드/프론트엔드 디렉터리]
 $ npm install
 ```
 
