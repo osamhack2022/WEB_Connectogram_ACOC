@@ -13,7 +13,7 @@ module.exports = (app) => {
     })
 
     /**
-     * GET 방식으로 testdata를 호출하는 라우터, querystring 에서 파라미터값을 받아온다 (application/json 형식).
+     * GET 방식으로 testdata를 호출하는 라우터, querystring 에서 파라미터값을 받아온다.
      * 예) http://[백엔드주소]:8810/testdata?key=[API_KEY]&name=[검색할내용]
      * @author 중사 박길선
      */
