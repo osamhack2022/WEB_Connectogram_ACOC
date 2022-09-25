@@ -17,7 +17,7 @@ module.exports = (app) => {
      * 예) http://[백엔드주소]:8810/testdata?key=[API_KEY]&name=[검색할내용]
      * @author 중사 박길선
      */
-    app.get("/testdata", async (req, res)=>{
+    app.get("/api/testdata", async (req, res)=>{
         let {idx, grade, name, org, position} = req.query; //GET 방식으로 호출하려면 request의 query에서 필요한 param을 추출하고 구조분해할당 한다.
         let param = {idx, grade, name, org, position};
         res.send(await sqlMap.test.selectTestTable(param));
@@ -37,7 +37,7 @@ module.exports = (app) => {
             })
      * @author 중사 박길선
      */
-    app.post("/testdata", async (req, res)=>{
+    app.post("/api/testdata", async (req, res)=>{
         let {idx, grade, name, org, position} = req.body; //POST에서 호출하려면 request의 body에서 필요한 param을 추출하고 구조분해할당 한다.
         let param = {idx, grade, name, org, position};
         res.send(await sqlMap.test.selectTestTable(param));
