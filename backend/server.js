@@ -11,6 +11,7 @@ const cors = require('cors');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 const apiRouter = require('./src/router/api-router');
 
@@ -19,7 +20,7 @@ app.use((req,res,next)=>{
     if(req.body.key == process.env.API_KEY || req.query.key == process.env.API_KEY) next();
     else res.send({err_msg : "API Key is not valid."});
 })
-app.use(cors());
+
 apiRouter(app);
 
 app.listen(globalConfig.port, ()=>{
