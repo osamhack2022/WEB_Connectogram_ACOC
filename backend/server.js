@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const globalConfig = require('./src/config/global_config');
+const cors = require('cors');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,6 +19,7 @@ app.use((req,res,next)=>{
     if(req.body.key == process.env.API_KEY || req.query.key == process.env.API_KEY) next();
     else res.send({err_msg : "API Key is not valid."});
 })
+app.use(cors());
 apiRouter(app);
 
 app.listen(globalConfig.port, ()=>{
