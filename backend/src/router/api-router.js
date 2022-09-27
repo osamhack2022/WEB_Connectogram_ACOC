@@ -87,25 +87,17 @@ module.exports = (app) => {
      */
     app.get("/api/user/userApproval", async (req, res) => {
         let { idx, approval } = req.query;
-        console.log(1)
         let param = { idx, approval };
-        console.log(2)
         var updateResult = await sqlMap.user.updateTbUserAppl({ approval: approval, idx: idx })
-        console.log(3)
         if (updateResult.err_msg == undefined) {
-            console.log(4)
             if (approval == '승인') {
-                console.log(5)
                 let insertResult = await sqlMap.user.insertTbUser({ idx: idx });
-                console.log(6)
                 if (insertResult.err_msg != undefined) {
-                    console.log(7)
                     res.send({ err_msg: "회원가입 처리중 오류." })
                 }
 
             }
         }
-        console.log(8)
         res.send({ msg: "처리완료" })
     })
 
