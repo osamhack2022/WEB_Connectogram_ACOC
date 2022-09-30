@@ -1,11 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import './Intro.css';
 
-export default function ReactMain() {
+export default function Intro() {
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+                <p>
+                    커넥토그램
+                </p>
                 <p>
                     Edit <code>src/App.js</code> and save to reload
                 </p>
