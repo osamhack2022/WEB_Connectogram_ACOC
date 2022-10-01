@@ -27,4 +27,4 @@ app.listen(globalConfig.port, ()=>{
     console.log(`Server Is Opened Port ${globalConfig.port}`);
 })
 
-// backend brance test 20220926test
+// 경환이가 만든 프론트의 Conflict 해소.
