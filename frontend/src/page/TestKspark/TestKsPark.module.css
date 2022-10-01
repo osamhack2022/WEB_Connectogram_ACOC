@@ -1,0 +1,11 @@
+table{
+    border-collapse: collapse;
+}
+table tr td, table tr th{
+    border: 1px solid black;
+    padding: .5rem;
+    text-align: center;
+}
+table tr th{
+    background-color: rgb(255, 255, 197);
+}
