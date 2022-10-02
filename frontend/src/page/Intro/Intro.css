@@ -1,39 +1,49 @@
-.App {
-    text-align: center;
-  }
-  
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./font/NotoSansKR-Bold.otf");
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("./font/NotoSerifKR-Medium.otf");
+}
+
+.Intro {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url('./intro_background.png');
   }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+
+.subtitle {
+  color: #ffffff;
+  font-size: calc(36px);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.title {
+  margin-top: -48px;
+  color: #ffffff;
+  font-size: calc(160px);
+  font-family: 'Noto Serif KR', sans-serif;
+}
+
+.signin_button {
+  margin-top: 36px;
+  color: #ffffff;
+  font-family: 'Noto Sans KR';
+  font-size: 40px;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
+  padding: 6px 40px 6px 40px;
+}
+
+.signup_button {
+  color: #ffffff;
+  font-family: 'Noto Sans KR';
+  font-size: 30px;
+  text-decoration: underline;
+  margin-top: 32px;
+}

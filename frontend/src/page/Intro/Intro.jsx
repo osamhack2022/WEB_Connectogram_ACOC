@@ -2,23 +2,13 @@ import './Intro.css';
 
 export default function Intro() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    커넥토그램
-                </p>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn Reactsdfsf
-                </a>
-            </header>
+        <div className="Intro">
+            <div className="subtitle">군 사이버 보안의 미래</div>
+            <div className="title">Connectogram</div>
+            <div className="signin_button">
+                LOGIN
+            </div>
+            <div className='signup_button'>계정 신청</div>
         </div>
     );
 }
