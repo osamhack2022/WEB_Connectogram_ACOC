@@ -25,4 +25,5 @@ apiRouter(app);
 
 app.listen(globalConfig.port, ()=>{
     console.log(`Server Is Opened Port ${globalConfig.port}`);
-}) 
+
+})
