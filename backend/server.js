@@ -7,9 +7,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const globalConfig = require('./src/config/global_config');
-const cors = require("cors");
+const cors = require('cors');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 const apiRouter = require('./src/router/api-router');
 
@@ -19,12 +21,9 @@ app.use((req,res,next)=>{
     else res.send({err_msg : "API Key is not valid."});
 })
 
-app.use(cors());
-
 apiRouter(app);
 
 app.listen(globalConfig.port, ()=>{
     console.log(`Server Is Opened Port ${globalConfig.port}`);
-})
 
-// 경환이가 만든 프론트의 Conflict 해소.
+})

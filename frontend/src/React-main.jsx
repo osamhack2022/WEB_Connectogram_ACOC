@@ -15,7 +15,7 @@ export default function ReactMain() {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Learn Reactsdfsf
+                    Learn React
                 </a>
             </header>
         </div>
