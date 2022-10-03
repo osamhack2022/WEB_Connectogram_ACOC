@@ -1,6 +1,7 @@
-## 백엔드
-- Framework : Node.js (Express)
-- DB : Maria DB
+## backend
+* Framework : Node.js (Express)
+* DB : Maria DB
+* 디렉터리 구조
 - src
 	- config
 		- global_config.js : Node 구동을 위한 설정값이 들어있음
@@ -12,9 +13,12 @@
 	- router
 		- api-user-router.js : 회원가입, 로그인처리 등을 위한 router
 		- api-extension-router.js : 크롬 확장기능에서 요청하는 request 처리를 위한 router
-		
-## 크롬 확장기능 (Chrome-Extension)
-- 페이지를 이동하면 해당 페이지에서 요청하는 모든 네트워크 퍼포먼스를 서버에 전송함
+
+## chrome-extension
+- 페이지를 이동하면 해당 페이지에서 요청하는 모든 네트워크 퍼포먼스를 서버에 전송하는 기능
+
+## frontend
+- main으로 merge 될때마다 pull 해서 관리 (터치 X)
 
 ## 브랜치관리
 - 박길선
