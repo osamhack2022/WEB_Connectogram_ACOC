@@ -1,6 +1,4 @@
-console.log("running extension...........")
-console.log(location.href)
-console.log(document.title)
+console.log("running Connectogram extension...........by. Team ACOC")
 
 var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance;
 var performanceData = performance.getEntries().map(item => {
@@ -11,5 +9,4 @@ var performanceData = performance.getEntries().map(item => {
     }
 })
 
-chrome.runtime.sendMessage({msg : "sendPerformanceData", payload : performanceData}, (res)=>{console.log(res);})
-chrome.runtime.sendMessage({msg : "backgroundText"}, (res)=>{console.log(res);})
+chrome.runtime.sendMessage({msg : "sendPerformanceData", payload : performanceData}, (res)=>{})
