@@ -7,7 +7,7 @@
  * @returns {Array} SQL의 결과값을 반환한다
  */
 const mysql = require('mysql2/promise');
-const globalConfig = require('../config/global_config');
+const globalConfig = require('../config/global-config');
 
 module.exports = async (query, param) => {
     let conn = await mysql.createConnection(globalConfig.mysql);

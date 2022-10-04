@@ -5,6 +5,7 @@
  */
 const insertTbUser = require("./querystore/insert-tb-user");
 const insertTbUserAppl = require("./querystore/insert-tb-user-appl");
+const selectTbUser = require("./querystore/select-tb-user");
 const selectTbUserAppl = require("./querystore/select-tb-user-appl");
 const selectTestTable = require("./querystore/select-test-table");  // 여기에 진짜 쿼리문이 들어간다.
 const updateTbUserAppl = require("./querystore/update-tb-user-appl");
@@ -19,6 +20,9 @@ module.exports = {
         updateTbUserAppl : (param) => updateTbUserAppl(param),
         selectTbUserAppl : (param) => selectTbUserAppl(param),
         insertTbUser : (param) => insertTbUser(param),
+    },
+    session : {
+        selectTbUser : (param) => selectTbUser(param),
     }
 
 }
