@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Noto Sans KR";
-  src: url("./font/NotoSansKR-Bold.otf");
+  src: url("../font/NotoSansKR-Bold.otf");
 }
 
 @font-face {
   font-family: "Noto Serif KR";
-  src: url("./font/NotoSerifKR-Medium.otf");
+  src: url("../font/NotoSerifKR-Medium.otf");
 }
 
 .Intro {
