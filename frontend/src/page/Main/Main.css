@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Noto Sans KR";
+    src: url("../font/NotoSansKR-Bold.otf");
+}
+
+@font-face {
+    font-family: "Noto Serif KR";
+    src: url("../font/NotoSerifKR-Medium.otf");
+}
+
+.root {
+    flex-grow: 1;
+}
+.Navbar {
+    background-color: black;
+}
