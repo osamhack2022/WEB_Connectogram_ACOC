@@ -1,8 +1,20 @@
 import { useState } from 'react';
 import './Intro.css';
+import axios from "axios";
+import { useEffect } from "react";
 
 const Intro = () => {
     const [Login, setLogin] = useState(0);
+
+    useEffect(() => {
+        axios.post("/api/session/login", {
+            key: "198b6b314a05412512fcc4d2a2b10386e48850c6ea65c21e38ed32fb1a0d3f3a",
+            id: "admin_test",
+            password: "test",
+        }, { withCredentials: true }).then(res => {
+            console.log(res.data);
+        });
+    }, []);
 
     return (
         <div className="Intro">
