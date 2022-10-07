@@ -19,13 +19,18 @@ const apiExtensionRouter = require('./src/router/api-extension-router');
 const apiSessionRouter = require('./src/router/api-session-router');
 
 
-
+/*
 app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Origin", "*");
-    cors();
-    if(req.body.key == process.env.API_KEY || req.query.key == process.env.API_KEY) next();
+    console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress.replace(/:.*:/,""))
+    console.log(req.body);
+    if(req.body.key == process.env.API_KEY || req.query.key == process.env.API_KEY){
+        app.use(cors());
+        next();
+    }
     else res.send({err_msg : "API Key is not valid."});
 })
+*/
 
 app.use(cors(globalConfig.corsOptions));
 apiSessionRouter(app);

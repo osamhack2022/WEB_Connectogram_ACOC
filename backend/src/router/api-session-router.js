@@ -4,9 +4,10 @@ const cors = require('cors');
 
 module.exports = (app) => {
     
-    app.post("/api/session/login", async (request, response)=>{
+    app.post("/api/session/login",    async (request, response)=>{
         
         let {id, password} = request.body;
+        console.log(id, password);
         let param = {id};
         var _userInfo = await sqlMap.session.selectTbUser(param)
         if(_userInfo.length == 1){
@@ -26,12 +27,12 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/api/session/check", async (request, response)=>{
+    app.get("/api/session/check",   async (request, response)=>{
         
         response.send(request.session.userInfo);
     })
 
-    app.get("/api/session/logout", async (request, response)=>{
+    app.get("/api/session/logout",   async (request, response)=>{
         
         request.session.destroy(()=>response.send({msg : "Logged out"}));
     })
