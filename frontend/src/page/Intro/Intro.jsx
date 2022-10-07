@@ -7,9 +7,10 @@ const Intro = () => {
     const [Login, setLogin] = useState(0);
 
     useEffect(() => {
-        axios.post("/api/testdata", {
+        axios.post("/api/session/login", {
             key: process.env.REACT_APP_APIKEY,
-            org: "사이버작전대",
+            id: 'admin_test',
+            password: 'test',
         }, { withCredentials: true }).then(res => {
             console.log(res.data);
         });
