@@ -30,14 +30,33 @@
   font-family: 'Noto Serif KR', sans-serif;
 }
 
-.signin_button {
+.signin_form {
   margin-top: 36px;
   color: #ffffff;
   font-family: 'Noto Sans KR';
   font-size: 40px;
-  border: 4px solid #ffffff;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
   padding: 6px 40px 6px 40px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 5px 3px black;
+}
+
+.signin_input {
+  width: 75%;
+  height: 100%;
+  background-color : #897eee;
+}
+
+.signin_button {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 16px 100px 16px 100px;
+  font-family: 'Noto Sans KR';
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .signup_button {
