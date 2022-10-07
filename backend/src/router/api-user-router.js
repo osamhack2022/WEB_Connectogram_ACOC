@@ -1,5 +1,6 @@
 const sqlMap = require("../db/sql-map");
 const bcrypt = require("bcrypt");
+const cors = require('cors');
 /**
  * API Requests에 대한 라우터 제공
  * @author 중사 박길선
@@ -8,7 +9,7 @@ const bcrypt = require("bcrypt");
  */
 module.exports = (app) => {
     app.get("/", async (req, res) => {
-        //res.send(await sqlMap.test.selectTestTable());
+        
         res.send("Connectogram ACOC Backend Server is Opened. by K.S 20220923");
     })
 
@@ -21,6 +22,7 @@ module.exports = (app) => {
     app.get("/api/testdata", async (req, res) => {
         let { idx, grade, name, org, position } = req.query; //GET 방식으로 호출하려면 request의 query에서 필요한 param을 추출하고 구조분해할당 한다.
         let param = { idx, grade, name, org, position };
+        
         res.send(await sqlMap.test.selectTestTable(param));
     })
 
@@ -42,7 +44,7 @@ module.exports = (app) => {
     app.post("/api/testdata", async (req, res) => {
         let { idx, grade, name, org, position } = req.body; //POST에서 호출하려면 request의 body에서 필요한 param을 추출하고 구조분해할당 한다.
         let param = { idx, grade, name, org, position };
-
+        
         res.send(await sqlMap.test.selectTestTable(param));
     })
 
@@ -59,12 +61,14 @@ module.exports = (app) => {
      * @since 2022.09.27
      */
     app.post("/api/user/register", async (req, res) => {
+        
         try {
             let { user_id, password, user_name, permission, client_ip, email, phone } = req.body;
 
             bcrypt.genSalt(10);
             password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
             let param = { user_id, password, permission, user_name, client_ip, email, phone };
+            
             res.send(await sqlMap.user.insertTbUserAppl(param));
         }
         catch (e) { res.send({err_msg : "Something wrong."}); }
@@ -79,6 +83,7 @@ module.exports = (app) => {
     app.get("/api/user/viewUserApprovalList", async (req, res) => {
         let { approval } = req.query;
         let param = { approval };
+        
         res.send(await sqlMap.user.selectTbUserAppl(param));
     })
 
@@ -90,6 +95,7 @@ module.exports = (app) => {
      */
     app.get("/api/user/userApproval", async (req, res) => {
         let { idx, approval } = req.query;
+        
         let param = { idx, approval };
         var updateResult = await sqlMap.user.updateTbUserAppl({ approval: approval, idx: idx })
         if (updateResult.err_msg == undefined) {

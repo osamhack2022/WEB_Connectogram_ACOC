@@ -1,10 +1,11 @@
 const sqlMap = require("../db/sql-map");
 const bcrypt = require("bcrypt");
-
+const cors = require('cors');
 
 module.exports = (app) => {
-
+    
     app.post("/api/session/login", async (request, response)=>{
+        
         let {id, password} = request.body;
         let param = {id};
         var _userInfo = await sqlMap.session.selectTbUser(param)
@@ -26,10 +27,12 @@ module.exports = (app) => {
     })
 
     app.get("/api/session/check", async (request, response)=>{
+        
         response.send(request.session.userInfo);
     })
 
     app.get("/api/session/logout", async (request, response)=>{
+        
         request.session.destroy(()=>response.send({msg : "Logged out"}));
     })
 }
