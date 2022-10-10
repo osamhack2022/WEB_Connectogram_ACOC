@@ -1,9 +1,9 @@
 import './Main.css';
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import Dashboard from '../Dashboard/Dashboard';
 
 const Main = () => {
-
     return (
         <div className='root' style={{ flexGrow: 1 }}>
             <AppBar position="static" style={{ alignItems: 'center', backgroundColor: '#000000' }}>
@@ -40,7 +40,7 @@ const Main = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Outlet />
+            <Dashboard />
         </div>
     );
 }
