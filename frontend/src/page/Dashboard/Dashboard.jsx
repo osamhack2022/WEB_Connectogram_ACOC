@@ -33,7 +33,7 @@ const Dashboard = () => {
         }
     };
     return (
-        <div style={{backgroundColor: 'grey', height: '100%'}}>
+        <div style={{ backgroundColor: 'grey', height: '87vh' }}>
             <div style={{height: '80%', }}>
                 <Graph
                     graph={graph}
