@@ -6,6 +6,7 @@ import Toast from '../../components/Toast/Toast';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 
 const Intro = () => {
@@ -15,27 +16,19 @@ const Intro = () => {
     const [ID, setID] = useState("");
     const [PW, setPW] = useState("");
 
+    const navigate = useNavigate();
+
     const handleToast = (msg) => {
         setToastStatus(true);
         setToastMsg(msg);
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (ToastStatus) {
             setTimeout(() => setToastStatus(false), 1000);
         }
     }, [ToastStatus]);
-
-    useEffect(() => {
-        axios.get("/api/session/check", {
-            key: process.env.REACT_APP_APIKEY,
-        }, { withCredentials: true }).then(res => {
-            console.log(res.data);
-            if (typeof res.data == 'object') console.log("로그인 성공");
-            else console.log("로그인 안돼있음");
-        });
-    }, []);
-
+    */
     const excuteLogin = () => {
         axios.post("/api/session/login", {
             key: process.env.REACT_APP_APIKEY,
@@ -44,7 +37,12 @@ const Intro = () => {
         }, { withCredentials: true }).then(res => {
             console.log(res.data);
             if ("err_msg" in res.data) handleToast(res.data['err_msg']);
-            else handleToast("로그인 성공");
+            else {
+                sessionStorage.setItem("Auth", true);
+                //handleToast("로그인 성공");
+                //navigate("/");
+                window.location.replace("/");
+            }
         });
     };
 

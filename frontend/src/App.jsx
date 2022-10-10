@@ -1,24 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ReactMain from './React-main';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import AuthRoutes from './components/AuthRoutes/AuthRoutes';
 import TestKspark from './page/TestKspark/TestKspark';
 import Intro from './page/Intro/Intro';
 import Main from './page/Main/Main';
+import { useEffect, useState } from 'react';
 
-function App() {
-  let isAuthorized = sessionStorage.getItem("isAuthorized");
+const App = () => {
+  const isAuth = sessionStorage.getItem("Auth");
 
   return (
     <BrowserRouter>
       <Routes>
-        
-        <Route path="/" element={<Main />}>
-          <Route path="/army" element={<Main />} />
-        </Route>
-        
-        <Route path="/intro" element={<Intro />} />
-
+        <Route 
+          path="/"
+          element={
+            <AuthRoutes auth={!isAuth} component={<Intro />} redirect="/dashboard" />
+          }
+        />
+        <Route 
+          path="/dashboard"
+          element={
+            <AuthRoutes auth={isAuth} component={<Main />} redirect="/" />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
