@@ -3,10 +3,12 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Dashboard from '../Dashboard/Dashboard';
 import axios from "axios";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Main = () => {
     const navigate = useNavigate();
+
+    const [UserName, setUserName] = useState("");
 
     useEffect(() => {
         sessionCheck();
@@ -16,12 +18,14 @@ const Main = () => {
         axios.get("/api/session/check", {
             key: process.env.REACT_APP_APIKEY,
         }, { withCredentials: true }).then(res => {
-            console.log(res.data);
-            console.log(typeof res.data);
             if (res.data === "") {
                 alert("로그인해주세요.");
                 window.location.replace("/");
+                return;
             }
+            console.log(res.data);
+            console.log(res.data['user_name']);
+            setUserName(res.data['user_name']);
         });
     };
 
@@ -52,10 +56,16 @@ const Main = () => {
                         <Typography variant="h4" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Noto Serif KR' }}>
                             Connectogram
                         </Typography>
-                        <div style={{ width: '15%', position: 'absolute', right: '0%', marginRight: '48px' }}>
-                            <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                                <div>사용자 정보</div>
-                                <div onClick={() => userLogout()}>로그아웃</div>
+                        <div style={{ width: '20%', position: 'absolute', right: '0%', marginRight: '48px' }}>
+                            <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+                                    <img style={{height: '5vh'}} alt="iPhone_01" src="img/army.png" />
+                                    <div style={{marginLeft: '8px', display: 'flex', flexDirection: 'column'}}>
+                                        <span>육군 사이버작전센터</span>
+                                        <span>{UserName}</span>
+                                    </div>
+                                </div>
+                                <div style={{marginLeft: '32px'}} onClick={() => userLogout()}>로그아웃</div>
                             </div>
                         </div>
                     </Toolbar>
@@ -77,7 +87,7 @@ const Main = () => {
                     </Toolbar>
                 </AppBar>
             </div>
-            <Dashboard />
+            {UserName !== "" && <Dashboard />}
         </div>
     );
 }

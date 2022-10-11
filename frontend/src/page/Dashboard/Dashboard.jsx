@@ -1,5 +1,6 @@
 import React from "react";
 import Graph from "react-graph-vis";
+import ApexCharts from 'react-apexcharts';
 
 const Dashboard = () => {
     const graph = {
@@ -32,8 +33,93 @@ const Dashboard = () => {
           var { nodes, edges } = event;
         }
     };
+
+    const treemap_data = [{
+        data: [
+            { x: 'New Delhi', y: 218 },
+            { x: 'Kolkata', y: 149 },
+            {
+                x: 'Mumbai',
+                y: 184
+            },
+            {
+                x: 'Ahmedabad',
+                y: 55
+            },
+            {
+                x: 'Bangaluru',
+                y: 84
+            },
+            {
+                x: 'Pune',
+                y: 31
+            },
+            {
+                x: 'Chennai',
+                y: 70
+            },
+            {
+                x: 'Jaipur',
+                y: 30
+            },
+            {
+                x: 'Surat',
+                y: 44
+            },
+            {
+                x: 'Hyderabad',
+                y: 68
+            },
+            {
+                x: 'Lucknow',
+                y: 28
+            },
+            {
+                x: 'Indore',
+                y: 19
+            },
+            {
+                x: 'Kanpur',
+                y: 29
+            }
+        ]
+    }]
+    
+
+    const treemap_options = {
+        legend: {
+            show: false
+        },
+        chart: {
+            height: 350,
+            type: 'treemap'
+        },
+        title: {
+            text: 'Basic Treemap'
+        }
+    }
+
     return (
-        <div style={{ backgroundColor: 'grey', height: '87vh' }}>
+        <div style={{ position:'relative', backgroundColor: '#fffff2', height: '87vh' }}>
+            <div style={{ position: 'absolute', top: '5%', left: '5%', zIndex: 1 }}>
+                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(182, 88, 255)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    Assets
+                </div>
+                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    mal
+                </div>
+                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    war
+                </div>
+            </div>
+            <div style={{position: 'absolute', bottom: '5%', left: '5%', zIndex: 1}}>
+                Treemap
+                <ApexCharts style={{height: '15vh'}} options={treemap_options} series={treemap_data} type="treemap" />
+            </div>
+            <div style={{backgroundColor: 'white', border: '1px solid', borderRadius: '6px', position: 'absolute', top: '5%', right: '5%', width: '220px', zIndex: 1 }}>
+                검색 필터
+                <input></input>
+            </div>
             <div style={{height: '80%', }}>
                 <Graph
                     graph={graph}
