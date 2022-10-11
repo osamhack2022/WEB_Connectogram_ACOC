@@ -1,15 +1,47 @@
 import './Main.css';
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dashboard from '../Dashboard/Dashboard';
+import axios from "axios";
+import { useEffect } from 'react';
 
 const Main = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        sessionCheck();
+    }, []);
+
+    const sessionCheck = () => {
+        axios.get("/api/session/check", {
+            key: process.env.REACT_APP_APIKEY,
+        }, { withCredentials: true }).then(res => {
+            console.log(res.data);
+            console.log(typeof res.data);
+            if (res.data === "") {
+                alert("로그인해주세요.");
+                window.location.replace("/");
+            }
+        });
+    };
+
+    const userLogout = () => {
+        axios.get("/api/session/logout", {
+            key: process.env.REACT_APP_APIKEY,
+        }, { withCredentials: true }).then(res => {
+            console.log(res.data);
+            console.log(typeof res.data);
+            alert("로그아웃 되었습니다.");
+            window.location.replace("/");
+        });
+    };
+
     return (
         <div className='root'>
             <div style={{ height: '13vh' }}>
                 <AppBar position="static" style={{ alignItems: 'center', backgroundColor: '#000000' }}>
-                    <Toolbar style={{width: '95%'}}>
-                        <div style={{ display: 'flex', flexDirection: 'row', left: '0%' }}>
+                    <Toolbar style={{width: '100%', padding: 0}}>
+                        <div style={{ display: 'flex', flexDirection: 'row', position: 'absolute', left: '0%', marginLeft: '48px' }}>
                             <div style={{ marginRight: '8px', fontFamily: 'Noto Sans KR' }}>전체</div>
                             <div style={{ marginRight: '8px', fontFamily: 'Noto Sans KR' }}>육군</div>
                             <div style={{ marginRight: '8px', fontFamily: 'Noto Sans KR' }}>해군</div>
@@ -20,8 +52,11 @@ const Main = () => {
                         <Typography variant="h4" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Noto Serif KR' }}>
                             Connectogram
                         </Typography>
-                        <div style={{ position: 'absolute', right: '0%', transform: 'translateX(-50%)', }}>
-                            사용자 정보
+                        <div style={{ width: '15%', position: 'absolute', right: '0%', marginRight: '48px' }}>
+                            <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                <div>사용자 정보</div>
+                                <div onClick={() => userLogout()}>로그아웃</div>
+                            </div>
                         </div>
                     </Toolbar>
                 </AppBar>

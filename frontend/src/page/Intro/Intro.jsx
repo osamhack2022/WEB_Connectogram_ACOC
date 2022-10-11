@@ -38,7 +38,6 @@ const Intro = () => {
             console.log(res.data);
             if ("err_msg" in res.data) handleToast(res.data['err_msg']);
             else {
-                sessionStorage.setItem("Auth", true);
                 //handleToast("로그인 성공");
                 //navigate("/");
                 window.location.replace("/");
