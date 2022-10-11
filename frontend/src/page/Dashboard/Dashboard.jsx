@@ -102,19 +102,24 @@ const Dashboard = () => {
     return (
         <div style={{ position:'relative', backgroundColor: '#fffff2', height: '87vh' }}>
             <div style={{ position: 'absolute', top: '5%', left: '5%', zIndex: 1 }}>
-                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(182, 88, 255)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
-                    Assets
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(182, 88, 255)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Assets</span>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>99,999</span>
                 </div>
-                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
-                    mal
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>21</span>
                 </div>
-                <div style={{width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
-                    war
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>151</span>
                 </div>
             </div>
-            <div style={{position: 'absolute', bottom: '5%', left: '5%', zIndex: 1}}>
-                Treemap
-                <ApexCharts style={{height: '15vh'}} options={treemap_options} series={treemap_data} type="treemap" />
+            <div style={{position: 'absolute', bottom: '5%', left: '5%', zIndex: 1, height: '25vh'}}>
+                <ApexCharts style={{ width: '42vw'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
+            </div>
+            <div style={{position: 'absolute', bottom: '5%', right: '5%', zIndex: 1, height: '25vh'}}>
+                <ApexCharts style={{ width: '42vw'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
             </div>
             <div style={{backgroundColor: 'white', border: '1px solid', borderRadius: '6px', position: 'absolute', top: '5%', right: '5%', width: '220px', zIndex: 1 }}>
                 검색 필터
