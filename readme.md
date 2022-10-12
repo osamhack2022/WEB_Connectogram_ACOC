@@ -21,6 +21,7 @@
     <br />
     <a href="#">View Demo(개발중)</a>
   </p>
+</div>
 
 <!-- TABLE OF CONTENTS -->
 1. [Connectogram이란?](#connectogram이란?)
