@@ -36,66 +36,31 @@ const Dashboard = () => {
 
     const treemap_data = [{
         data: [
-            { x: 'New Delhi', y: 218 },
+            { x: 'New Delhi', y: 218, fillColor: '#f77057' },
+            { x: 'Mumbai', y: 184, fillColor: '#f79c4c' },
             { x: 'Kolkata', y: 149 },
-            {
-                x: 'Mumbai',
-                y: 184
-            },
-            {
-                x: 'Ahmedabad',
-                y: 55
-            },
-            {
-                x: 'Bangaluru',
-                y: 84
-            },
-            {
-                x: 'Pune',
-                y: 31
-            },
-            {
-                x: 'Chennai',
-                y: 70
-            },
-            {
-                x: 'Jaipur',
-                y: 30
-            },
-            {
-                x: 'Surat',
-                y: 44
-            },
-            {
-                x: 'Hyderabad',
-                y: 68
-            },
-            {
-                x: 'Lucknow',
-                y: 28
-            },
-            {
-                x: 'Indore',
-                y: 19
-            },
-            {
-                x: 'Kanpur',
-                y: 29
-            }
+            { x: 'Bangaluru', y: 84 },
+            { x: 'Chennai', y: 70 },
+            { x: 'Hyderabad', y: 68 },
+            { x: 'Ahmedabad', y: 55 },
+            { x: 'Surat', y: 44 },
+            { x: 'Pune', y: 31 },
+            { x: 'Jaipur', y: 30 },
         ]
     }]
     
 
     const treemap_options = {
+        colors: ['#f77057'],
         legend: {
             show: false
         },
         chart: {
-            height: 350,
             type: 'treemap',
             toolbar: {
                 show: false,
-            }
+            },
+
         },
         title: {
             text: undefined,
@@ -126,12 +91,12 @@ const Dashboard = () => {
                 </div>
             </div>
             <div style={{position: 'absolute', bottom: '2%', left: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px'}}>
-                <div style={{marginBottom: '-10px'}}>접속량 상위</div>
+                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>접속량 상위</div>
                 <ApexCharts style={{ width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
             </div>
-            <div style={{position: 'absolute', bottom: '2%', right: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px', display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
-                <div style={{marginBottom: '-10px'}}>잦은 악성 행위 탐지</div>
-                <ApexCharts style={{ width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
+            <div style={{position: 'absolute', bottom: '2%', right: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px'}}>
+                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>잦은 악성 행위 탐지</div>
+                <ApexCharts style={{width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
             </div>
             <div style={{backgroundColor: 'white', border: '1px solid', borderRadius: '6px', position: 'absolute', top: '5%', right: '5%', width: '220px', zIndex: 1 }}>
                 검색 필터
