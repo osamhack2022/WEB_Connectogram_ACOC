@@ -4,11 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from '../Dashboard/Dashboard';
 import axios from "axios";
 import { useEffect, useState } from 'react';
+import AssetManagement from '../AssetManagement/AssetManagement';
+import ConnectoMap from '../ConnetcoMap/ConnectoMap';
+import LogAndReport from '../LogAndReport/LogAndReport';
 
 const Main = () => {
     const navigate = useNavigate();
 
+    const [Menu, setMenu] = useState(0);
+
     const [UserName, setUserName] = useState("");
+    const [Permission,  setPermission] = useState("");
 
     useEffect(() => {
         sessionCheck();
@@ -72,22 +78,22 @@ const Main = () => {
                 </AppBar>
                 <AppBar position="static" style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff', height: '50px' }}>
                     <Toolbar style={{width: '60%', display: 'flex', justifyContent: 'space-around',}}>
-                        <Typography component='div' style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(0)} style={{color: '#000000', fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
                             DASHBOARD
                         </Typography>
-                        <Typography component='div' style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(1)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
                             ASSET MANAGEMENT
                         </Typography>
-                        <Typography component='div' style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(2)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
                             CONNECTO-MAP
                         </Typography>
-                        <Typography component='div' style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(3)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
                             LOG & REPORT
                         </Typography>
                     </Toolbar>
                 </AppBar>
             </div>
-            {UserName !== "" && <Dashboard />}
+            {UserName !== "" && ( Menu === 0 ? <Dashboard /> : (Menu === 1 ? <AssetManagement /> : (Menu === 2 ? <ConnectoMap /> : <LogAndReport />)) ) }
         </div>
     );
 }

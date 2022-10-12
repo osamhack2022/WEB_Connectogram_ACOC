@@ -100,7 +100,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div style={{ position:'relative', backgroundColor: '#fffff2', height: '87vh' }}>
+        <div style={{ position:'relative', backgroundColor: '#fffff2', height: '85vh' }}>
             <div style={{ position: 'absolute', top: '5%', left: '5%', zIndex: 1 }}>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(182, 88, 255)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                     <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Assets</span>
@@ -123,9 +123,9 @@ const Dashboard = () => {
             </div>
             <div style={{backgroundColor: 'white', border: '1px solid', borderRadius: '6px', position: 'absolute', top: '5%', right: '5%', width: '220px', zIndex: 1 }}>
                 검색 필터
-                <input></input>
+                <input placeholder="IP" />
             </div>
-            <div style={{height: '80%', }}>
+            <div style={{height: '80%', zIndex: 1, }}>
                 <Graph
                     graph={graph}
                     options={options}
