@@ -17,6 +17,7 @@ app.use(sessionConfig);
 const apiUserRouter = require('./src/router/api-user-router');
 const apiExtensionRouter = require('./src/router/api-extension-router');
 const apiSessionRouter = require('./src/router/api-session-router');
+const apiAnalyzeRouter = require('./src/router/api-analyze-router');
 
 
 /*
@@ -36,6 +37,7 @@ app.use(cors(globalConfig.corsOptions));
 apiSessionRouter(app);
 apiUserRouter(app);
 apiExtensionRouter(app);
+apiAnalyzeRouter(app);
 
 app.listen(globalConfig.port, ()=>{
     console.log(`Server Is Opened Port ${globalConfig.port}`);
