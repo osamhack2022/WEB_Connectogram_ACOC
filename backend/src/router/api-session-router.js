@@ -47,4 +47,9 @@ module.exports = (app) => {
         let rtn = await sqlMap.session.deleteSession({session_id});
         request.session.destroy(()=>response.send({msg : "Logged out"}));
     })
+
+    app.get("/api/session/ipaddr", (request, response)=>{
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        response.send({"ipaddr" : remoteIp});
+    })
 }
