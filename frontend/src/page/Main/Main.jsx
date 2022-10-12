@@ -65,11 +65,11 @@ const Main = () => {
                                 <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
                                     <img style={{height: '5vh'}} alt="iPhone_01" src="img/army.png" />
                                     <div style={{marginLeft: '8px', display: 'flex', flexDirection: 'column'}}>
-                                        <span>육군 사이버작전센터</span>
-                                        <span>{UserName}</span>
+                                        <span style={{fontFamily: 'Noto Sans KR', fontSize: '13px'}}>육군 사이버작전센터</span>
+                                        <span style={{fontFamily: 'Noto Sans KR', }}>{UserName}님</span>
                                     </div>
                                 </div>
-                                <div style={{marginLeft: '32px'}} onClick={() => userLogout()}>로그아웃</div>
+                                <div style={{marginLeft: '48px', fontFamily: 'Noto Sans KR'}} onClick={() => userLogout()}>로그아웃</div>
                             </div>
                         </div>
                     </Toolbar>

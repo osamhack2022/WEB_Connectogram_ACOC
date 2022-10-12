@@ -5,7 +5,7 @@ import ApexCharts from 'react-apexcharts';
 const Dashboard = () => {
     const graph = {
         nodes: [
-            { id: 1, label: "Node 1", title: "node 1 tootip text" },
+            { id: 1, label: "Root", title: "클라이언트" },
             { id: 2, label: "Node 2", title: "node 2 tootip text" },
             { id: 3, label: "Node 3", title: "node 3 tootip text" },
             { id: 4, label: "Node 4", title: "node 4 tootip text" },
@@ -14,14 +14,20 @@ const Dashboard = () => {
         edges: [
             { from: 1, to: 2 },
             { from: 1, to: 3 },
-            { from: 2, to: 4 },
-            { from: 2, to: 5 }
+            { from: 1, to: 4 },
+            { from: 1, to: 5 }
         ]
     };
 
     const options = {
         layout: {
-          hierarchical: true,
+          hierarchical: false,
+        },
+        nodes: {
+            shape: 'circle',
+            font: {
+                face: 'Noto Sans KR',
+            }
         },
         edges: {
           color: "#000000"
@@ -90,11 +96,11 @@ const Dashboard = () => {
                     <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>151</span>
                 </div>
             </div>
-            <div style={{position: 'absolute', bottom: '2%', left: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px'}}>
+            <div style={{position: 'absolute', bottom: '2%', left: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px', backgroundColor: 'transparent'}}>
                 <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>접속량 상위</div>
                 <ApexCharts style={{ width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
             </div>
-            <div style={{position: 'absolute', bottom: '2%', right: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px'}}>
+            <div style={{position: 'absolute', bottom: '2%', right: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px', backgroundColor: 'transparent'}}>
                 <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>잦은 악성 행위 탐지</div>
                 <ApexCharts style={{width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
             </div>
