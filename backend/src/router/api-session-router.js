@@ -38,12 +38,13 @@ module.exports = (app) => {
             response.json(JSON.parse(sessionData[0].data));
         }
         else{
-            response.send({"err_msg" : "You Did Not Login"
-        });}
+            response.send({"err_msg" : "You Did Not Login"});
+        }
     })
 
     app.get("/api/session/logout",   async (request, response)=>{
-        
+        let {session_id} = request.query;
+        let rtn = await sqlMap.session.deleteSession({session_id});
         request.session.destroy(()=>response.send({msg : "Logged out"}));
     })
 }

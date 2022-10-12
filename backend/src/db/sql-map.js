@@ -3,6 +3,7 @@
  * @author 중사 박길선
  * @since 2022.09.23
  */
+const deleteSession = require("./querystore/delete-session");
 const insertTbUser = require("./querystore/insert-tb-user");
 const insertTbUserAppl = require("./querystore/insert-tb-user-appl");
 const selectSession = require("./querystore/select-session");
@@ -25,6 +26,7 @@ module.exports = {
     session : {
         selectTbUser : (param) => selectTbUser(param),
         selectSession : (param) => selectSession(param),
+        deleteSession : (param) => deleteSession(param)
     }
 
 }
