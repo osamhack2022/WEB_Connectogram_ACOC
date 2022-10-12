@@ -5,7 +5,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -63,7 +62,7 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 ## 프로젝트 시작하기
 
 개발 환경 조성을 위해 다음과 같은 사전 작업이 필요합니다.
-1. Repository Clone
+ 1. Repository Clone
    ```sh
    git clone https://github.com/osamhack2022/WEB_Connectogram_ACOC.git
    ```
