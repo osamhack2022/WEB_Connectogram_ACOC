@@ -37,6 +37,8 @@ const Intro = () => {
             console.log(res.data);
             if ("err_msg" in res.data) handleToast(res.data['err_msg']);
             else {
+                console.log(res.data.session_id);
+                sessionStorage.setItem("session_id", res.data.session_id);
                 //handleToast("로그인 성공");
                 //navigate("/");
                 window.location.replace("/");

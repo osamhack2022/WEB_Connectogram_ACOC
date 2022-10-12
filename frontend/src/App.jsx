@@ -11,10 +11,17 @@ import axios from "axios";
 const App = () => {
   const [isAuth, setisAuth] = useState(false);
   useEffect(() => {
-    axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
-    }, { withCredentials: true }).then(res => {
-        if (res.data !== "") setisAuth(true);
-    });
+    console.log(sessionStorage.getItem('session_id'));
+    if (sessionStorage.getItem("session_id") === null) setisAuth(false);
+    else {
+      axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
+        params: { session_id: sessionStorage.getItem('session_id') }
+      }, { withCredentials: true }).then(res => {
+          console.log(res.data);
+          if ("err_msg" in res.data) setisAuth(false);
+          else setisAuth(true);
+      });
+    }
   }, []);
 
   return (

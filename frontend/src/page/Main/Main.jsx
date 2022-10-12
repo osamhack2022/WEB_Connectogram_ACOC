@@ -21,21 +21,28 @@ const Main = () => {
     }, []);
 
     const sessionCheck = () => {
+        if (sessionStorage.getItem('session_id') === null) {
+            alert('로그인해주세요.');
+            window.location.replace('/');
+            return;
+        }
         axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
+            params: { session_id: sessionStorage.getItem('session_id') }
         }, { withCredentials: true }).then(res => {
-            if (res.data === "") {
+            if ("err_msg" in res.data) {
                 alert("로그인해주세요.");
                 window.location.replace("/");
                 return;
             }
             console.log(res.data);
-            console.log(res.data['user_name']);
-            setUserName(res.data['user_name']);
+            console.log(res.data.userInfo.user_name);
+            setUserName(res.data.userInfo.user_name);
         });
     };
 
     const userLogout = () => {
         axios.get(process.env.REACT_APP_BACK_API + "/api/session/logout", {
+            params: { session_id: sessionStorage.getItem('session_id') }
         }, { withCredentials: true }).then(res => {
             console.log(res.data);
             console.log(typeof res.data);
