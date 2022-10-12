@@ -16,7 +16,11 @@ module.exports = (app) => {
             if(bcrypt.compareSync(password, hashedPassword)){
                 delete userInfo.password;
                 request.session.userInfo = userInfo;
-                response.send(userInfo);
+                let sessionInfo = {
+                    ...request.session,
+                    session_id : request.sessionID
+                }
+                response.send(sessionInfo);
             }
             else{
                 response.send({"err_msg" : "Password Incorrect"});
@@ -28,8 +32,14 @@ module.exports = (app) => {
     })
 
     app.get("/api/session/check",   async (request, response)=>{
-        
-        response.send(request.session.userInfo);
+        let {session_id} = request.query;
+        let sessionData = await sqlMap.session.selectSession({session_id});
+        if(sessionData.length > 0) {
+            response.json(JSON.parse(sessionData[0].data));
+        }
+        else{
+            response.send({"err_msg" : "You Did Not Login"
+        });}
     })
 
     app.get("/api/session/logout",   async (request, response)=>{

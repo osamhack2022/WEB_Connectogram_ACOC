@@ -5,6 +5,7 @@
  */
 const insertTbUser = require("./querystore/insert-tb-user");
 const insertTbUserAppl = require("./querystore/insert-tb-user-appl");
+const selectSession = require("./querystore/select-session");
 const selectTbUser = require("./querystore/select-tb-user");
 const selectTbUserAppl = require("./querystore/select-tb-user-appl");
 const selectTestTable = require("./querystore/select-test-table");  // 여기에 진짜 쿼리문이 들어간다.
@@ -23,6 +24,7 @@ module.exports = {
     },
     session : {
         selectTbUser : (param) => selectTbUser(param),
+        selectSession : (param) => selectSession(param),
     }
 
 }
