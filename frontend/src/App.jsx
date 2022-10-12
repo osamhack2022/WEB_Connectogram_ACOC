@@ -11,8 +11,7 @@ import axios from "axios";
 const App = () => {
   const [isAuth, setisAuth] = useState(false);
   useEffect(() => {
-    axios.get("/api/session/check", {
-        key: process.env.REACT_APP_APIKEY,
+    axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
     }, { withCredentials: true }).then(res => {
         if (res.data !== "") setisAuth(true);
     });

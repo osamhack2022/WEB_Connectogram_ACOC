@@ -30,8 +30,7 @@ const Intro = () => {
     }, [ToastStatus]);
     */
     const excuteLogin = () => {
-        axios.post("/api/session/login", {
-            key: process.env.REACT_APP_APIKEY,
+        axios.post(process.env.REACT_APP_BACK_API + "/api/session/login", {
             id: ID,
             password: PW,
         }, { withCredentials: true }).then(res => {

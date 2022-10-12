@@ -21,8 +21,7 @@ const Main = () => {
     }, []);
 
     const sessionCheck = () => {
-        axios.get("/api/session/check", {
-            key: process.env.REACT_APP_APIKEY,
+        axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
         }, { withCredentials: true }).then(res => {
             if (res.data === "") {
                 alert("로그인해주세요.");
@@ -36,8 +35,7 @@ const Main = () => {
     };
 
     const userLogout = () => {
-        axios.get("/api/session/logout", {
-            key: process.env.REACT_APP_APIKEY,
+        axios.get(process.env.REACT_APP_BACK_API + "/api/session/logout", {
         }, { withCredentials: true }).then(res => {
             console.log(res.data);
             console.log(typeof res.data);
@@ -59,7 +57,7 @@ const Main = () => {
                             <div style={{ marginRight: '8px', fontFamily: 'Noto Sans KR' }}>해병대</div>
                             <div style={{fontFamily: 'Noto Sans KR'}}>국직</div>
                         </div>
-                        <Typography variant="h4" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Noto Serif KR' }}>
+                        <Typography variant="div" style={{ fontSize: '28px', position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Noto Serif KR', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             Connectogram
                         </Typography>
                         <div style={{ width: '20%', position: 'absolute', right: '0%', marginRight: '48px' }}>
@@ -78,16 +76,16 @@ const Main = () => {
                 </AppBar>
                 <AppBar position="static" style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff', height: '50px' }}>
                     <Toolbar style={{width: '60%', display: 'flex', justifyContent: 'space-around',}}>
-                        <Typography component='div' onClick={() => setMenu(0)} style={{color: '#000000', fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
+                        <Typography component='div' onClick={() => setMenu(0)} style={{color: (Menu === 0 ? '#787878' : '#000000'), fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
                             DASHBOARD
                         </Typography>
-                        <Typography component='div' onClick={() => setMenu(1)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(1)} style={{color: (Menu === 1 ? '#787878' : '#000000'), fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
                             ASSET MANAGEMENT
                         </Typography>
-                        <Typography component='div' onClick={() => setMenu(2)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(2)} style={{color: (Menu === 2 ? '#787878' : '#000000'), fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
                             CONNECTO-MAP
                         </Typography>
-                        <Typography component='div' onClick={() => setMenu(3)} style={{color: '#000000', fontFamily: 'Noto Sans KR'}}>
+                        <Typography component='div' onClick={() => setMenu(3)} style={{color: (Menu === 3 ? '#787878' : '#000000'), fontFamily: 'Noto Sans KR', userSelect: 'none'}}>
                             LOG & REPORT
                         </Typography>
                     </Toolbar>
