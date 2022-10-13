@@ -1,9 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Graph from "react-graph-vis";
 import ApexCharts from 'react-apexcharts';
 import axios from "axios";
 
 const Dashboard = () => {
+    const [GraphData, setGraphData] = useState({ nodes: [], edges: [], });
+
+    const AddNode = ( id, label ) => {
+        const temp = { ...GraphData };
+        temp.nodes.push({ id: id, label: label });
+        setGraphData(temp);
+    };
+
+    const RemoveNode = ( id ) => {
+        const temp = { ...GraphData };
+        const idx = temp.nodes.findIndex((item) => {return item.id === id});
+        if (idx > -1) temp.nodes.splice(idx, 1);
+        setGraphData(temp);
+    };
+
+    const AddEdge = ( from, to ) => {
+        const temp = { ...GraphData };
+        temp.edges.push({ from: from, to: to });
+        setGraphData(temp);
+    };
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_BACK_API + "/api/analyze/viewPacketData", {
@@ -22,6 +42,14 @@ const Dashboard = () => {
 
             console.log(Connection);
         });
+
+        AddNode(1, 'root');
+        AddNode(2, 'root2');
+        AddNode(3, 'root3');
+        AddEdge(1, 3);
+        AddNode(4, 'root4');
+        RemoveNode(3);
+        AddNode(3, 'root4');
     }, []);
 
     const graph = {
@@ -136,7 +164,7 @@ const Dashboard = () => {
             </div>
             <div style={{height: '80%', zIndex: 1, }}>
                 <Graph
-                    graph={graph}
+                    graph={GraphData}
                     options={options}
                     events={events}
                     getNetwork={network => {
