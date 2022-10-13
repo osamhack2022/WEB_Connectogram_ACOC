@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Graph from "react-graph-vis";
 import ApexCharts from 'react-apexcharts';
+import axios from "axios";
 
 const Dashboard = () => {
+
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_BACK_API + "/api/analyze/viewPacketData", {
+            params: {}
+        }, { withCredentials: true }).then(res => {
+            if ("err_msg" in res.data) {
+                console.log('Error');
+                return;
+            }
+            let Connection = new Set();
+
+            res.data.forEach((el, i) => {
+                if (el.source > el.destination) Connection.add(el.destination + "-" + el.source);
+                else Connection.add(el.source + "-" + el.destination);
+            })
+
+            console.log(Connection);
+        });
+    }, []);
+
     const graph = {
         nodes: [
             { id: 1, label: "Root", title: "클라이언트" },
@@ -30,7 +51,12 @@ const Dashboard = () => {
             }
         },
         edges: {
-          color: "#000000"
+          color: "#000000",
+          arrows: {
+            to:     {enabled: false},
+            middle: {enabled: false},
+            from:   {enabled: false}
+          },
         },
     };
     
