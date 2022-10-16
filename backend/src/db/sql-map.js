@@ -8,6 +8,7 @@ const insertTbConnectionData = require("./querystore/insert-tb-connection-data")
 const insertTbUser = require("./querystore/insert-tb-user");
 const insertTbUserAppl = require("./querystore/insert-tb-user-appl");
 const selectSession = require("./querystore/select-session");
+const selectTbBlockListIp = require("./querystore/select-tb-block-list-ip");
 const selectTbConnectionData = require("./querystore/select-tb-connection-data");
 const selectTbPacketLogs = require("./querystore/select-tb-packet-logs");
 const selectTbUser = require("./querystore/select-tb-user");
@@ -35,6 +36,7 @@ module.exports = {
         selectTbPacketLogs : (param) => selectTbPacketLogs(param),
         insertTbConnectionData : (param) => insertTbConnectionData(param),
         selectTbConnectionData : (param) => selectTbConnectionData(param),
+        selectTbBlockListIp : (param) => selectTbBlockListIp(param),
     }
 
 }
