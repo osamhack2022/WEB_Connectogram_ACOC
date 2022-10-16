@@ -9,7 +9,7 @@ const sqlMap = require('../db/sql-map');
 
 module.exports = (app)=>{
     
-    app.get("/api/analyze/viewPacketData", async (request, response)=>{
+    app.get("/api/analyze/packet-data", async (request, response)=>{
         let rtn = await sqlMap.analyze.selectTbPacketLogs({});
         response.send(rtn);
     })
