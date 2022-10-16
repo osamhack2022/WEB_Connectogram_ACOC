@@ -23,7 +23,7 @@ module.exports = (app)=>{
             time,
             connection : JSON.stringify(connection)
         })
-        response.send("ok");
+        response.send({msg : `Complate make connection data from ${public_ip}`});
     })
 
     app.get("/api/analyze/connection-data", async (request, response)=>{
