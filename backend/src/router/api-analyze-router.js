@@ -15,10 +15,9 @@ module.exports = (app)=>{
     })
 
     app.post("/api/analyze/make-connection-data", async (request, response)=>{
-        let {public_ip, time, connection} = request.body;
-        console.log(public_ip, time, JSON.stringify(connection));
-
+        let {private_ip, public_ip, time, connection} = request.body;
         sqlMap.analyze.insertTbConnectionData({
+            private_ip,
             public_ip,
             time,
             connection : JSON.stringify(connection)
