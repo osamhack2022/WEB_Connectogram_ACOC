@@ -14,11 +14,12 @@
      try{
          let query = `
             select 
-                public_ip, time, connection
+                private_ip, public_ip, time, connection
             from tb_connection_data
             where 1=1 `;
          //let {ip, start, end, conn} = request.query;
         if(param.ip != undefined) query += ` and public_ip=?`
+        if(param.privateip != undefined) query += ` and private_ip=?`
         if(param.start != undefined && param.end != undefined){
             query += ` and time between ? and ?`
         }

@@ -13,6 +13,7 @@
      try{
          let query = `insert into tb_connection_data`;
          let inputValues = []
+         if (param.private_ip != undefined) inputValues.push("private_ip");
          if (param.public_ip != undefined) inputValues.push("public_ip");
          if (param.time != undefined) inputValues.push("time");
          if (param.connection != undefined) inputValues.push("connection");
