@@ -1,11 +1,13 @@
 const sqlMap = require("../db/sql-map");
 const bcrypt = require("bcrypt");
-
+const cors = require('cors');
 
 module.exports = (app) => {
-
-    app.post("/api/session/login", async (request, response)=>{
+    
+    app.post("/api/session/login",    async (request, response)=>{
+        
         let {id, password} = request.body;
+        console.log(id, password);
         let param = {id};
         var _userInfo = await sqlMap.session.selectTbUser(param)
         if(_userInfo.length == 1){
@@ -14,7 +16,11 @@ module.exports = (app) => {
             if(bcrypt.compareSync(password, hashedPassword)){
                 delete userInfo.password;
                 request.session.userInfo = userInfo;
-                response.send(userInfo);
+                let sessionInfo = {
+                    ...request.session,
+                    session_id : request.sessionID
+                }
+                response.send(sessionInfo);
             }
             else{
                 response.send({"err_msg" : "Password Incorrect"});
@@ -25,11 +31,25 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/api/session/check", async (request, response)=>{
-        response.send(request.session.userInfo);
+    app.get("/api/session/check",   async (request, response)=>{
+        let {session_id} = request.query;
+        let sessionData = await sqlMap.session.selectSession({session_id});
+        if(sessionData.length > 0) {
+            response.json(JSON.parse(sessionData[0].data));
+        }
+        else{
+            response.send({"err_msg" : "You Did Not Login"});
+        }
     })
 
-    app.get("/api/session/logout", async (request, response)=>{
+    app.get("/api/session/logout",   async (request, response)=>{
+        let {session_id} = request.query;
+        let rtn = await sqlMap.session.deleteSession({session_id});
         request.session.destroy(()=>response.send({msg : "Logged out"}));
+    })
+
+    app.get("/api/session/ipaddr", (request, response)=>{
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        response.send({"ipaddr" : remoteIp});
     })
 }

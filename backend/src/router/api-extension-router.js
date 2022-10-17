@@ -4,7 +4,10 @@
  * @since 2022.10.03
  * @param {*} app 
  */
+const cors = require('cors');
+
 module.exports = (app)=>{
+    
     app.post("/api/extension/pushPerformance", (request, response)=>{
         let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
         let date = new Date().toJSON()

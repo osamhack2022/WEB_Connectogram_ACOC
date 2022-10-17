@@ -3,8 +3,14 @@
  * @author 중사 박길선
  * @since 2022.09.23
  */
+const deleteSession = require("./querystore/delete-session");
+const insertTbConnectionData = require("./querystore/insert-tb-connection-data");
 const insertTbUser = require("./querystore/insert-tb-user");
 const insertTbUserAppl = require("./querystore/insert-tb-user-appl");
+const selectSession = require("./querystore/select-session");
+const selectTbBlockListIp = require("./querystore/select-tb-block-list-ip");
+const selectTbConnectionData = require("./querystore/select-tb-connection-data");
+const selectTbPacketLogs = require("./querystore/select-tb-packet-logs");
 const selectTbUser = require("./querystore/select-tb-user");
 const selectTbUserAppl = require("./querystore/select-tb-user-appl");
 const selectTestTable = require("./querystore/select-test-table");  // 여기에 진짜 쿼리문이 들어간다.
@@ -23,6 +29,14 @@ module.exports = {
     },
     session : {
         selectTbUser : (param) => selectTbUser(param),
+        selectSession : (param) => selectSession(param),
+        deleteSession : (param) => deleteSession(param)
+    },
+    analyze : {
+        selectTbPacketLogs : (param) => selectTbPacketLogs(param),
+        insertTbConnectionData : (param) => insertTbConnectionData(param),
+        selectTbConnectionData : (param) => selectTbConnectionData(param),
+        selectTbBlockListIp : (param) => selectTbBlockListIp(param),
     }
 
 }
