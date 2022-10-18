@@ -1,7 +1,7 @@
 <html>
 
 <head>
-   <!-- <script src="block_list.js"></script> -->
+   <script src="block_list.js"></script>
 </head>
 
 <body>
@@ -36,19 +36,36 @@
             return [beg, end];
         }
 
-        /*
-        var csv = '';
+        
+        var csv = 'CIDR,IP_START,IP_END,LONG_START,LONG_END\n';
         block_list.forEach(item => {
-            if(item.search("/") < 0){
-                item += "/32";
+            if(item.data.search("/") < 0){
+                item.data += "/32";
             }
-            var parsed = parseCIDR(item)
+            var parsed = parseCIDR(item.data)
             
-            csv += `"${item}", "${parsed[0]}", "${parsed[1]}", "${iptoLong(parsed[0])}", "${iptoLong(parsed[1])}"`
+            csv += `${item.data},${item.source},${parsed[0]},${parsed[1]},${iptoLong(parsed[0])},${iptoLong(parsed[1])}`
             csv += "\n";
         })
-        console.log(csv);
-*/
+        function downloadCSV(csv, filename) {
+		  var csvFile;
+		  var downloadLink;
+
+		  //한글 처리를 해주기 위해 BOM 추가하기
+		  const BOM = "\uFEFF";
+		  csv = BOM + csv;
+
+		  csvFile = new Blob([csv], { type: "text/csv" });
+		  downloadLink = document.createElement("a");
+		  downloadLink.download = filename;
+		  downloadLink.href = window.URL.createObjectURL(csvFile);
+		  downloadLink.style.display = "none";
+		  document.body.appendChild(downloadLink);
+		  downloadLink.click();
+		}
+		
+		downloadCSV(csv, "block_list.csv");
+
     </script>
 </body>
 

@@ -22,7 +22,7 @@ module.exports = (app)=>{
             time,
             connection : JSON.stringify(connection)
         })
-        response.send({msg : `Complate make connection data from ${public_ip}`});
+        response.send({msg : `Complete make connection data from ${public_ip}`});
     })
 
     app.get("/api/analyze/connection-data", async (request, response)=>{
@@ -45,22 +45,28 @@ module.exports = (app)=>{
 
     app.get("/api/analyze/blocklistip", async (request, response)=>{
         let {ip} = request.query;
-        let iptoLong = function toInt(ip) {
-            var ipl = 0;
-            ip.split('.').forEach(function (octet) {
-                ipl <<= 8;
-                ipl += parseInt(octet);
-            });
-            return (ipl >>> 0);
-        };
-        
-        rtn = await sqlMap.analyze.selectTbBlockListIp({ip : iptoLong(ip)});
-        console.log(rtn);
-        if(rtn.length > 0){
-            response.send({result : true, block : rtn})
+        console.log(ip);
+        if(ip != undefined && ip != ''){
+            let iptoLong = function toInt(ip) {
+                var ipl = 0;
+                ip.split('.').forEach(function (octet) {
+                    ipl <<= 8;
+                    ipl += parseInt(octet);
+                });
+                return (ipl >>> 0);
+            };
+            
+            rtn = await sqlMap.analyze.selectTbBlockListIp({ip : iptoLong(ip)});
+            console.log(rtn);
+            if(rtn.length > 0){
+                response.send({result : true, block : rtn})
+            }
+            else{
+                response.send({result : false})
+            }
         }
         else{
-            response.send({result : false})
+            response.send({msg : `You Need IP`})
         }
     })
 }
