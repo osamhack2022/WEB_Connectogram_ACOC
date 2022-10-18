@@ -19,7 +19,7 @@
   <p align="center">
     軍 사이버 보안의 미래
     <br />
-    <a href="#">View Demo(개발중)</a>
+    <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a>
   </p>
 </div>
 
