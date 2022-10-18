@@ -33,7 +33,7 @@
          and connection like '%${param.conn}%'`;
 
          if(param.lastest != undefined && param.lastest >= '0'){
-            query += ` order by time desc limit ${param.lastest}`
+            query += ` order by time desc limit ?`
          }
 
          let { queryStr, paramArr } = queryBuilder(query, param);
@@ -41,7 +41,7 @@
          return await executeQuery(queryStr, paramArr);
      }
      catch(e){
-        //console.log(e);
+        console.log(e);
          return {err_msg : "Something Wrong."}
      }
  }

@@ -34,7 +34,7 @@ module.exports = (app)=>{
             end = `${end.substr(0,4)}-${end.substr(4,2)}-${end.substr(6,2)} ${end.substr(8,2)}:${end.substr(10,2)}:${end.substr(12,2)}`
         }
         catch(e){}
-        let rtn = await sqlMap.analyze.selectTbConnectionData({ip, privateip, start, end, conn, lastest});
+        let rtn = await sqlMap.analyze.selectTbConnectionData({ip, privateip, start, end, conn, lastest : parseInt(lastest)});
         if(rtn.length > 0){
             rtn.forEach((item,idx)=>{
                 rtn[idx].connection = JSON.parse(item.connection);
