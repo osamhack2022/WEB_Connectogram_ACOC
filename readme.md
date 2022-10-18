@@ -1,3 +1,4 @@
+
 <a name="readme-top"></a>
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -26,7 +27,7 @@
 1. [Connectogram이란?](#connectogram이란?)
 	1-1.  [Built With](#built-with)
 3. [프로젝트 시작하기](#프로젝트-시작하기)
-4. [용례](#용례)
+4. [기능](#기능)
 5. [Roadmap](#roadmap)
 6. [License](#license)
 7. [Contact: Team ACOC](#contact--team-acoc)
@@ -41,8 +42,6 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 軍 네트워크를 사용하는 모든 자산의 통신 형태를 분석, 잠재적인 위협과 개선점을 찾아낼 수 있도록 합니다. 본 시스템의 이용자는, 특정 사이버 자산의 통신 기록과 각종 행위를 시각화한 자료를 제공받으며 이를 통해 더욱 빈틈없는 사이버 보안을 구축할 수 있습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
  [![React][React.js]][React-url]
@@ -88,11 +87,24 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## 용례
+## 기능
 
-- 軍 사이버 통신을 한 눈에 볼 수 있는 메인 대시보드
-- 특정 자산의 통신을 조사하기 위한 검색 기능
-- Connectogram 시스템과 로그 수신 정보를 확인하기 위한 자산 관리 페이지
+* 軍 사이버 통신 상태를 한 눈에 점검할 수 있는 메인 대시보드
+	* 현재 접속 중인 장비 수
+	* 서버에 등록된 육군 자산 수
+	* 유해 및 경고 로그 수
+	* 접속자 수 상위 20개 체계 목록
+	* 통신 프로토콜 그래프
+
+<img src="https://godbell.kr/content/images/2022/10/Screenshot_20221018-151500_Chrome.jpg">
+
+* 유해 통신 로그 관제
+	* 통신 IP 평판조회 및 유해 여부 판단
+	* 통신 로그를 기록하여 분석에 사용
+	* 장비 정보와 연결 정보를 조회
+
+<img src="https://godbell.kr/content/images/2022/10/0cc5ad22-fdf1-4cd6-8380-8368bab480e1.png">
+
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -109,7 +121,7 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 - [ ] 로그 수집 프로그램 개발
 - [ ] 로그 수신 기능 개발
 - [ ] 메인 대시보드 개발
-	- [ ] 대시보드 템플릿 구성
+	- [x] 대시보드 템플릿 구성
 	- [ ] 로그 기반 값 표시
 	- [ ] Node 검색 기능
 - [ ] 자산 관리 대시보드 개발
@@ -127,9 +139,9 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 
 <!-- CONTACT -->
 ## Contact: Team ACOC
-
-ACOC 팀장 
+팀장 
 - 김종하 - 12191579@inha.edu
+
 팀원
 - 박길선
 - 신현규
