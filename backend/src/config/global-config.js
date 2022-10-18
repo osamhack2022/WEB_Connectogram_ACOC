@@ -14,7 +14,7 @@ const globalConfig = {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        connectionLimit: 20,
+        connectionLimit: 2000,
         //waitForConnections: false,
         keepAliveInitialDelay: 1000 * 60 * 60,  //1시간마다 만료된 세션 체크
         enableKeepAlive: true,     // 만료된 세션을 삭제하기 위한 옵션, 

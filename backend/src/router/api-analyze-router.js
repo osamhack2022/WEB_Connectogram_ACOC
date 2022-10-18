@@ -26,7 +26,7 @@ module.exports = (app)=>{
     })
 
     app.get("/api/analyze/connection-data", async (request, response)=>{
-        let {ip, privateip, start, end, conn} = request.query;
+        let {ip, privateip, start, end, conn, lastest} = request.query;
         try{
             start = `${start.substr(0,4)}-${start.substr(4,2)}-${start.substr(6,2)} ${start.substr(8,2)}:${start.substr(10,2)}:${start.substr(12,2)}`
         } catch(e){}
@@ -34,7 +34,7 @@ module.exports = (app)=>{
             end = `${end.substr(0,4)}-${end.substr(4,2)}-${end.substr(6,2)} ${end.substr(8,2)}:${end.substr(10,2)}:${end.substr(12,2)}`
         }
         catch(e){}
-        let rtn = await sqlMap.analyze.selectTbConnectionData({ip, privateip, start, end, conn});
+        let rtn = await sqlMap.analyze.selectTbConnectionData({ip, privateip, start, end, conn, lastest});
         if(rtn.length > 0){
             rtn.forEach((item,idx)=>{
                 rtn[idx].connection = JSON.parse(item.connection);

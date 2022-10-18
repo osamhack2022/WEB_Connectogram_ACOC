@@ -12,5 +12,6 @@ const globalConfig = require('../config/global-config');
 module.exports = async (query, param) => {
     let conn = await mysql.createConnection(globalConfig.mysql);
     let [res] = await conn.query(query, param)
+    conn.close();
     return res;
 }
