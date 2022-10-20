@@ -8,9 +8,13 @@
     src: url("../font/NotoSerifKR-Medium.otf");
 }
 
-.root {
-    flex-grow: 1;
+::-webkit-scrollbar {
+    display: none;
 }
+
+.root {
+}
+
 .Navbar {
     background-color: black;
 }

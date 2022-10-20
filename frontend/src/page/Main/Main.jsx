@@ -52,7 +52,7 @@ const Main = () => {
     };
 
     return (
-        <div className='root'>
+        <div className='root' style={{ height: '100%' }}>
             <div style={{ height: '13vh' }}>
                 <AppBar position="static" style={{ alignItems: 'center', backgroundColor: '#000000' }}>
                     <Toolbar style={{width: '100%', padding: 0}}>

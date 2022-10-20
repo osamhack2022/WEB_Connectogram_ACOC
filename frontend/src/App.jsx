@@ -12,7 +12,7 @@ const App = () => {
   const [isAuth, setisAuth] = useState(false);
   useEffect(() => {
     console.log(sessionStorage.getItem('session_id'));
-    if (sessionStorage.getItem("session_id") === null) setisAuth(false);
+    if (sessionStorage.getItem("session_id") === null) setisAuth(false);  // 로그인 안될 때만 수정.
     else {
       axios.get(process.env.REACT_APP_BACK_API + "/api/session/check", {
         params: { session_id: sessionStorage.getItem('session_id') }
