@@ -16,6 +16,18 @@ module.exports = (app)=>{
 
     app.post("/api/analyze/make-connection-data", async (request, response)=>{
         let {private_ip, public_ip, time, connection} = request.body;
+
+        if(connection.length > 0){
+            connection.forEach(async (item, idx)=>{
+                let ip = item.foreign.match(/\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/).toString()
+                let isMalicious = await sqlMap.analyze.selectTbBlockListIp({ip});
+                if(isMalicious.length > 0)  connection[idx].is_malicious = true;
+                else connection[idx].is_malicious = false;
+            })
+
+        }
+
+
         sqlMap.analyze.insertTbConnectionData({
             private_ip,
             public_ip,
@@ -41,6 +53,10 @@ module.exports = (app)=>{
             })
         }
         response.send(rtn);
+    })
+
+    app.get("/api/analyze/client-list", async (request, response)=>{
+        return await sqlMap.analyze.selectDistinctTbConnectionData({});
     })
 
     app.get("/api/analyze/blocklistip", async (request, response)=>{

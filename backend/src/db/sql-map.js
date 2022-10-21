@@ -37,6 +37,7 @@ module.exports = {
         insertTbConnectionData : (param) => insertTbConnectionData(param),
         selectTbConnectionData : (param) => selectTbConnectionData(param),
         selectTbBlockListIp : (param) => selectTbBlockListIp(param),
+        selectDistinctTbConnectionData : (param) => selectDistinctTbConnectionData(param)
     }
 
 }
