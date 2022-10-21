@@ -7,6 +7,7 @@ import Intro from './page/Intro/Intro';
 import Main from './page/Main/Main';
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import Overview from './page/Overview/Overview';
 
 const App = () => {
   const [isAuth, setisAuth] = useState(false);
@@ -30,15 +31,16 @@ const App = () => {
         <Route 
           path="/"
           element={
-            <AuthRoutes auth={!isAuth} component={<Intro />} redirect="/dashboard" />
+            <AuthRoutes auth={!isAuth} component={<Intro />} redirect="/overview" />
           }
         />
         <Route 
-          path="/dashboard"
+          path="/overview"
           element={
-            <AuthRoutes auth={isAuth} component={<Main />} redirect="/" />
+            <AuthRoutes auth={isAuth} component={<Overview />} redirect="/" />
           }
         />
+        <Route path="/dashboard" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );
