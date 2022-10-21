@@ -17,7 +17,7 @@ module.exports = (app) => {
     app.post("/api/analyze/make-connection-data", async (request, response) => {
         let { private_ip, public_ip, time, connection } = request.body;
         if (connection.length > 0) {
-            console.log(connection);
+            
             let cnt = 0;
             let getConnection = async (connection)=>{
                 let res = [];
@@ -46,7 +46,7 @@ module.exports = (app) => {
                 connection[idx].malicious = malicious[idx];
             }
 
-            console.log(connection);
+            
             
             sqlMap.analyze.insertTbConnectionData({
                 private_ip,

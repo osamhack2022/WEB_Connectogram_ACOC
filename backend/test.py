@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     while 1:
         data = make_connection_data(IP_PRIVATE, IP_PUBLIC)
-        URL = 'http://localhost:8810/api/analyze/make-connection-data'
+        URL = 'http://146.56.100.135:8810/api/analyze/make-connection-data'
         #print(data)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         res = requests.post(URL, data=json.dumps(data), headers=headers)
