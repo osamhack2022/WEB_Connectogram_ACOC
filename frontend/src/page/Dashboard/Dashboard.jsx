@@ -22,6 +22,11 @@ Cytoscape.use(cola);
 const Dashboard = () => {
     const cy = useRef(null);
 
+    const PORTDATA = {
+        "443": "HTTPS",
+        "80": "HTTP",
+    }
+
     const { state } = useLocation();
     const { LowData } = state;
 
@@ -160,12 +165,12 @@ const Dashboard = () => {
                     <div style={{ border: '1px solid black', overflow: 'auto' }}>
                         <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '32px', gridAutoFlow: 'row' }}>
                             {LowData[0].connection.map((item, i) => (
-                                <div style={{border: '1px solid black', backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                                <div style={{ backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[1]}</div>
-                                    <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>HTTP</div>
+                                    <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[1] in PORTDATA ? PORTDATA[item.foreign.split(":")[1]] : "TCP"}</div>
                                     <div style={{width: '18%', textAlign: 'center', fontSize: '10px'}}>{item.pname}</div>
                                 </div>
                             ))}
@@ -232,7 +237,9 @@ const Dashboard = () => {
                             }
                         ]}
                     />
-                    <div style={{ backgroundColor: 'black', height: '32px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px'}}></div>
+                    <div style={{ color: 'white', fontFamily: 'Noto Sans KR', fontSize: '12px', backgroundColor: 'black', height: '32px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: '24px'}}>
+                        {StandardTime.split('.')[0]} 기준
+                    </div>
                 </div>
             </div>
         </div>

@@ -4,8 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Dashboard from '../Dashboard/Dashboard';
 import axios from "axios";
 import { useEffect, useState } from 'react';
-import AssetManagement from '../AssetManagement/AssetManagement';
-import ConnectoMap from '../ConnetcoMap/ConnectoMap';
 import LogAndReport from '../LogAndReport/LogAndReport';
 import Overview from '../Overview/Overview';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
