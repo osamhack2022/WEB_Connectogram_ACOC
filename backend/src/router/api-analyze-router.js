@@ -56,7 +56,7 @@ module.exports = (app)=>{
     })
 
     app.get("/api/analyze/client-list", async (request, response)=>{
-        return await sqlMap.analyze.selectDistinctTbConnectionData({});
+        response.send(await sqlMap.analyze.selectDistinctTbConnectionData({}));
     })
 
     app.get("/api/analyze/blocklistip", async (request, response)=>{
