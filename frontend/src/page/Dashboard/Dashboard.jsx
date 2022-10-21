@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import CytoscapeComponent from 'react-cytoscapejs';
 import Cytoscape from "cytoscape";
 import cola from 'cytoscape-cola';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 //Cytoscape.use(COSEBilkent);
@@ -16,14 +17,29 @@ const Dashboard = () => {
     const setCytoscape = useCallback((ref) => {
             cy.current = ref;
         }, [cy], );
-
+    
+    const NowClients = useRef([]);
     const NowElements = useRef([]);
     const FirstFlag = useRef(true);
+
+    // 트리맵 변수.
+    const [ConnectionIPData, setConnectionIPData] = useState([{
+        data: []
+    }]);
+    const [ProtocolData, setProtocolData] = useState([{
+        data: []
+    }]);
+
+    const PORTDATA = {
+        80: "HTTP",
+        443: "HTTPS",
+        22: "SSH",
+    };
 
     const [StandardTime, setStandardTime] = useState("");
 
     // 새로고침 주기 (초)
-    const interval = 16;
+    const interval = 17;
     const [NowTime, setNowTime] = useState(new Date().getTime() + interval * 1000);
     const [TimeLeft, setTimeLeft] = useState(interval);
 
@@ -40,24 +56,20 @@ const Dashboard = () => {
             console.log(ConnectionData);
             
             // 만약 현재 데이터에 클라이언트 노드가 없다면, 클라이언트 노드 추가
-            if (!(NowElements.current.includes(ConnectionData.public_ip))) {
+            if (!(NowClients.current.includes(ConnectionData.public_ip))) {
                 cy.current.add({
                     group: 'nodes', 
-                    data: { id: ConnectionData.public_ip, label: 'CLIENT' }, 
+                    data: { id: ConnectionData.public_ip, label: ConnectionData.public_ip + '\n(' + ConnectionData.private_ip + ')', type: 'CLIENT' }, 
                     grabbable: false, 
                     style: { } 
                 });
-                NowElements.current.push(ConnectionData.public_ip);
+                NowClients.current.push(ConnectionData.public_ip);
             }
             console.log(NowElements.current);
 
             // 이전 데이터에서 없어진 연결들 확인하기.
             let NewElements = [];
             for (let i = 0; i < NowElements.current.length; i++) {
-                if (NowElements.current[i] === ConnectionData.public_ip) {
-                    NewElements.push(ConnectionData.public_ip);
-                    continue;
-                }
                 let flag = 1;
                 for (let j = 0; j < ConnectionData.connection.length; j++) {
                     if (NowElements.current[i] === ConnectionData.connection[j].foreign) flag = 0;
@@ -111,9 +123,46 @@ const Dashboard = () => {
             // 업데이트 시간 설정.
             setStandardTime(ConnectionData.time);
 
+            // 연결된 노드들에 대해 연결 IP, 프로토콜 세기.
+            let ConnectionIPDataTemp = [{
+                data: []
+            }];
+            let ProtocolDataTemp = [{
+                data: []
+            }];
+            for (let i = 0; i < NowElements.current.length; i++) {
+                const foreignIP = NowElements.current[i].split(':')[0];
+                let IPflag = 0;
+                for (let j = 0; j < ConnectionIPDataTemp[0].data.length; j++) {
+                    if (ConnectionIPDataTemp[0].data[j].x === foreignIP) {
+                        IPflag = 1;
+                        ConnectionIPDataTemp[0].data[j].y += 1;
+                    }
+                }
+                if (!IPflag) {
+                    ConnectionIPDataTemp[0].data.push({ x: foreignIP, y: 1 });
+                }
+
+                const foreignPort = NowElements.current[i].split(':')[1];
+                let Protocol = "";
+                if (foreignPort in PORTDATA) Protocol = PORTDATA[foreignPort];
+                else Protocol = "TCP";
+                let Protocolflag = 0;
+                for (let j = 0; j < ProtocolDataTemp[0].data.length; j++) {
+                    if (ProtocolDataTemp[0].data[j].x === Protocol) {
+                        Protocolflag = 1;
+                        ProtocolDataTemp[0].data[j].y += 1;
+                    }
+                }
+                if (!Protocolflag) {
+                    ProtocolDataTemp[0].data.push({ x: Protocol, y: 1 });
+                }
+            }
+            setConnectionIPData(ConnectionIPDataTemp);
+            setProtocolData(ProtocolDataTemp);
+
             // 연결된 노드들에 대해 유해성 검사.
             for (let i = 0; i < NowElements.current.length; i++) {
-                if (NowElements.current[i] === ConnectionData.public_ip) continue;
                 const foreignIP = NowElements.current[i].split(':')[0];
                 axios.get(process.env.REACT_APP_BACK_API + "/api/analyze/blocklistip", {
                     params: { ip: foreignIP }
@@ -162,20 +211,6 @@ const Dashboard = () => {
         }
     }, [TimeLeft]);
 
-    const treemap_data = [{
-        data: [
-            { x: 'New Delhi', y: 218, fillColor: '#f77057' },
-            { x: 'Mumbai', y: 184, fillColor: '#f79c4c' },
-            { x: 'Kolkata', y: 149 },
-            { x: 'Bangaluru', y: 84 },
-            { x: 'Chennai', y: 70 },
-            { x: 'Hyderabad', y: 68 },
-            { x: 'Ahmedabad', y: 55 },
-            { x: 'Surat', y: 44 },
-            { x: 'Pune', y: 31 },
-            { x: 'Jaipur', y: 30 },
-        ]
-    }]
     
     const treemap_options = {
         colors: ['#f77057'],
@@ -206,7 +241,7 @@ const Dashboard = () => {
             <div style={{ position: 'absolute', top: '5%', left: '2%', zIndex: 1 }}>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(182, 88, 255)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                     <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Connections</span>
-                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{NowElements.current.length - 1}</span>
+                    <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{NowElements.current.length}</span>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '18vw', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                     <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
@@ -217,21 +252,24 @@ const Dashboard = () => {
                     <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>151</span>
                 </div>
             </div>
-            <div style={{position: 'absolute', bottom: '2%', left: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px', backgroundColor: 'transparent'}}>
-                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>
+            <div style={{position: 'absolute', bottom: '2%', left: '2%', zIndex: 1, height: '25vh', width: '40vw', margin: '8px', backgroundColor: 'transparent'}}>
+                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>
                     접속량 상위
                 </div>
-                <ApexCharts style={{ width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
+                <ApexCharts style={{ width: '100%'}} options={treemap_options} series={ConnectionIPData} type="treemap" height={'100%'} />
             </div>
             <div style={{position: 'absolute', bottom: '2%', right: '2%', zIndex: 1, height: '25vh', width: '42vw', margin: '8px', backgroundColor: 'transparent'}}>
-                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', marginRight: '20px', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>
-                    잦은 악성 행위 탐지
+                <div style={{fontSize: '15px', fontFamily: 'Noto Sans KR', color: '#ffffff', height: '4vh', marginBottom: '-20px', backgroundColor: '#760000', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>
+                    연결된 프로토콜 종류 상위
                 </div>
-                <ApexCharts style={{ width: '100%'}} options={treemap_options} series={treemap_data} type="treemap" height={'100%'} />
+                <ApexCharts style={{ width: '100%'}} options={treemap_options} series={ProtocolData} type="treemap" height={'100%'} />
             </div>
-            <div style={{position: 'absolute', top: '5%', right: '5%', textAlign: 'end'}}>
-                <div>{StandardTime} 기준</div>
-                <div>{dayjs(TimeLeft).format("ss")}초 후 새로고침</div>
+            <div style={{position: 'absolute', top: '5%', right: '5%', textAlign: 'end', display: 'flex', alignItems: 'end', flexDirection: 'column', fontSize: 14, fontFamily: 'Noto Sans KR'}}>
+                <div>{StandardTime.split('.')[0]} 기준</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <span style={{ marginRight: '6px' }}><span style={{ color: 'blue', }}>{dayjs(TimeLeft).format("ss")}</span>초 후</span>
+                    <RefreshIcon fontSize='small' />
+                </div>
             </div>
             <div style={{backgroundColor: 'white', border: '1px solid', borderRadius: '6px', position: 'absolute', top: '35%', right: '5%', width: '220px', zIndex: 1 }}>
                 검색 필터
@@ -247,7 +285,7 @@ const Dashboard = () => {
                     style={ { width: '100%', height: '100%' } }
                     stylesheet={[
                         {
-                            selector: "node[label = 'CLIENT']",
+                            selector: "node[type = 'CLIENT']",
                             style: {
                               height: 60,
                               width: 60,
@@ -265,7 +303,7 @@ const Dashboard = () => {
                             }
                         },
                         {
-                            selector: "node[label != 'CLIENT']",
+                            selector: "node[type != 'CLIENT']",
                             style: {
                               height: 30,
                               width: 30,
