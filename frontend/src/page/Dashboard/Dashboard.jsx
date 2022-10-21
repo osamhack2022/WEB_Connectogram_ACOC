@@ -26,6 +26,8 @@ const Dashboard = () => {
     const { LowData } = state;
 
     const [ConnectionsCnt, setConnectionsCnt] = useState(0);
+    const [MaliciousCnt, setMaliciousCnt] = useState(0);
+    const [WarningsCnt, setWarningsCnt] = useState(0);
 
     const setCytoscape = useCallback((ref) => {
             cy.current = ref;
@@ -52,7 +54,10 @@ const Dashboard = () => {
        
         // 연결되지 않은 노드 연결하기.
         let Nodes = [];
+        let MaliCnt = 0;
         for (let i = 0; i < ConnectionData.connection.length; i++) {
+            // 악성 노드 개수 세기.
+            if (ConnectionData.connection[i].malicious) MaliCnt++;
             if (!(Nodes.includes(ConnectionData.connection[i].foreign))) {
                 cy.current.add({ 
                     group: 'nodes', 
@@ -67,6 +72,7 @@ const Dashboard = () => {
                 Nodes.push(ConnectionData.connection[i].foreign);
             }
         }
+        setMaliciousCnt(MaliCnt);
         setConnectionsCnt(Nodes.length);
 
         cy.current.layout({ name: 'cola', fit: true }).run();
@@ -132,51 +138,37 @@ const Dashboard = () => {
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>21</span>
+                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{MaliciousCnt}</span>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>151</span>
+                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{WarningsCnt}</span>
                     </div>
                 </div>
-                <div style={{ width: '98%', height: '100%', display: 'flex', flexDirection: 'column'}}>
-                    <div style={{backgroundColor: 'black', height: '48px', borderTopLeftRadius: '8px', borderTopRightRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
+                <div style={{ width: '98%', height: '78%', display: 'flex', flexDirection: 'column'}}>
+                    <div style={{backgroundColor: 'black', height: '56px', borderTopLeftRadius: '8px', borderTopRightRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
                         <span style={{paddingLeft: '16px', fontSize: 18}}>로그</span>
                     </div>
-                    <div style={{ height: '510px', border: '1px solid black', overflow: 'auto' }}>
-                        <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '30px', gridAutoFlow: 'row' }}>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '48px', backgroundColor: 'yellow'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
-                            <div style={{ height: '16px'}}>list</div>
+                    <div style={{backgroundColor: 'black', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                        <div style={{width: '25%', textAlign: 'center', fontSize: '9px'}}>출발지 IP</div>
+                        <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>출발지 PORT</div>
+                        <div style={{width: '25%', textAlign: 'center', fontSize: '9px'}}>목적지 IP</div>
+                        <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>목적지 PORT</div>
+                        <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>프로토콜</div>
+                        <div style={{width: '18%', textAlign: 'center', fontSize: '9px'}}>프로세스</div>
+                    </div>
+                    <div style={{ border: '1px solid black', overflow: 'auto' }}>
+                        <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '32px', gridAutoFlow: 'row' }}>
+                            {LowData[0].connection.map((item, i) => (
+                                <div style={{border: '1px solid black', backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                                    <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
+                                    <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
+                                    <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
+                                    <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[1]}</div>
+                                    <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>HTTP</div>
+                                    <div style={{width: '18%', textAlign: 'center', fontSize: '10px'}}>{item.pname}</div>
+                                </div>
+                            ))}
                         </div>
                     </div>    
                     <div style={{ backgroundColor: 'black', height: '32px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px'}}></div>
