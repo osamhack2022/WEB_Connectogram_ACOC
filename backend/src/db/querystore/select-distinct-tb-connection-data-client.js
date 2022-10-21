@@ -17,6 +17,7 @@
                 distinct private_ip, public_ip
             from tb_connection_data
             where 1=1 `;
+            let { queryStr, paramArr } = queryBuilder(query, param);
          return await executeQuery(queryStr, paramArr);
      }
      catch(e){
