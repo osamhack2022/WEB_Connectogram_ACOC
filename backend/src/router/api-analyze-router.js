@@ -84,7 +84,6 @@ module.exports = (app) => {
 
     app.get("/api/analyze/blocklistip", async (request, response) => {
         let { ip } = request.query;
-        console.log(ip);
         if (ip != undefined && ip != '') {
             let iptoLong = function toInt(ip) {
                 var ipl = 0;
@@ -96,7 +95,6 @@ module.exports = (app) => {
             };
 
             rtn = await sqlMap.analyze.selectTbBlockListIp({ ip: iptoLong(ip) });
-            console.log(rtn);
             if (rtn.length > 0) {
                 response.send({ result: true, block: rtn })
             }
