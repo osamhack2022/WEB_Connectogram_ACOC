@@ -18,13 +18,13 @@ module.exports = (app)=>{
         let {private_ip, public_ip, time, connection} = request.body;
 
         if(connection.length > 0){
+            console.log(connection);
             connection.forEach(async (item, idx)=>{
                 let ip = item.foreign.match(/\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/).toString()
                 let isMalicious = await sqlMap.analyze.selectTbBlockListIp({ip});
                 if(isMalicious.length > 0)  connection[idx].is_malicious = true;
                 else connection[idx].is_malicious = false;
             })
-
         }
 
 
