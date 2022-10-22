@@ -7,9 +7,14 @@ import { useEffect, useState } from 'react';
 import LogAndReport from '../LogAndReport/LogAndReport';
 import Overview from '../Overview/Overview';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useLocation } from "react-router-dom";
+
 
 const Main = () => {
     const navigate = useNavigate();
+
+    const { state } = useLocation();
+    const { LowData } = state;
 
     const [Menu, setMenu] = useState(0);
 
@@ -89,7 +94,7 @@ const Main = () => {
                     </Toolbar>
                 </AppBar>
             </div>
-            {UserName !== "" && ( Menu === 0 ? <Dashboard /> :  <LogAndReport />)}
+            {UserName !== "" && ( Menu === 0 ? <Dashboard LowData={LowData} /> :  <LogAndReport LowData={LowData} />)}
         </div>
     );
 }

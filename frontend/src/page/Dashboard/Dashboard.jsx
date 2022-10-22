@@ -19,16 +19,13 @@ import TableRow from '@mui/material/TableRow';
 //Cytoscape.use(COSEBilkent);
 Cytoscape.use(cola);
 
-const Dashboard = () => {
+const Dashboard = ( props ) => {
     const cy = useRef(null);
 
     const PORTDATA = {
         "443": "HTTPS",
         "80": "HTTP",
     }
-
-    const { state } = useLocation();
-    const { LowData } = state;
 
     const [ConnectionsCnt, setConnectionsCnt] = useState(0);
     const [MaliciousCnt, setMaliciousCnt] = useState(0);
@@ -46,7 +43,7 @@ const Dashboard = () => {
     const [TimeLeft, setTimeLeft] = useState(interval);
 
     const setConnection = () => {
-        const ConnectionData = LowData[0];
+        const ConnectionData = props.LowData[0];
         console.log("CLIENTDATA", ConnectionData);
             
         // 클라이언트 노드 추가
@@ -127,7 +124,7 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        console.log("LowData", LowData);
+        console.log("LowData", props.LowData);
         setConnection();
     }, []);
 
@@ -164,8 +161,8 @@ const Dashboard = () => {
                     </div>
                     <div style={{ border: '1px solid black', overflow: 'auto' }}>
                         <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '32px', gridAutoFlow: 'row' }}>
-                            {LowData[0].connection.map((item, i) => (
-                                <div style={{ backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                            {props.LowData[0].connection.map((item, i) => (
+                                <div key={i} style={{ backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
