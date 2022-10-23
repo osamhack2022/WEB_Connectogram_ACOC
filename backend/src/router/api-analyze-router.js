@@ -34,7 +34,7 @@ module.exports = (app) => {
                         return (ipl >>> 0);
                     };
                     let bip = await sqlMap.analyze.selectTbBlockListIp({ "ip": iptoLong(ip) })
-                    if(bip.length > 0) res.push(true);
+                    if(bip.length > 0) res.push(bip);
                     res.push(false);
                 }
                 return res;
