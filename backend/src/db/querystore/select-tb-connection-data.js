@@ -37,7 +37,6 @@
          }
 
          let { queryStr, paramArr } = queryBuilder(query, param);
-         console.log(queryStr);
          return await executeQuery(queryStr, paramArr);
      }
      catch(e){

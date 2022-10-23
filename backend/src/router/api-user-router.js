@@ -68,7 +68,8 @@ module.exports = (app) => {
             bcrypt.genSalt(10);
             password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
             let param = { user_id, password, permission, user_name, client_ip, email, phone };
-            
+            let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+            console.log(`${new Date().toLocaleString()} : POST /api/user/register > User Register from ${remoteIp}`);    
             res.send(await sqlMap.user.insertTbUserAppl(param));
         }
         catch (e) { res.send({err_msg : "Something wrong."}); }
@@ -83,7 +84,8 @@ module.exports = (app) => {
     app.get("/api/user/viewUserApprovalList",   async (req, res) => {
         let { approval } = req.query;
         let param = { approval };
-        
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/user/viewUserApprovalList > from ${remoteIp}`);    
         res.send(await sqlMap.user.selectTbUserAppl(param));
     })
 
@@ -98,6 +100,8 @@ module.exports = (app) => {
         
         let param = { idx, approval };
         var updateResult = await sqlMap.user.updateTbUserAppl({ approval: approval, idx: idx })
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/user/userApproval > from ${remoteIp}`);    
         if (updateResult.err_msg == undefined) {
             if (approval == '승인') {
                 let insertResult = await sqlMap.user.insertTbUser({ idx: idx });

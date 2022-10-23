@@ -13,6 +13,8 @@ module.exports = (app) => {
 
     app.get("/api/analyze/packet-data", async (request, response) => {
         let rtn = await sqlMap.analyze.selectTbPacketLogs({});
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/analyze/packet-data > from ${remoteIp}`);  
         response.send(rtn);
     })
 
@@ -49,7 +51,9 @@ module.exports = (app) => {
             }
 
             
-            
+            let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+            console.log(`${new Date().toLocaleString()} : POST /api/analyze/make-connection-data > from ${remoteIp}`);  
+
             sqlMap.analyze.insertTbConnectionData({
                 private_ip,
                 public_ip,
@@ -77,10 +81,14 @@ module.exports = (app) => {
                 rtn[idx].connection = JSON.parse(item.connection);
             })
         }
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/analyze/connection-data > from ${remoteIp}`);  
         response.send(rtn);
     })
 
     app.get("/api/analyze/client-list", async (request, response) => {
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/analyze/client-list > from ${remoteIp}`);  
         response.send(await sqlMap.analyze.selectDistinctTbConnectionData({}));
     })
 
@@ -97,6 +105,8 @@ module.exports = (app) => {
             };
 
             rtn = await sqlMap.analyze.selectTbBlockListIp({ ip: iptoLong(ip) });
+            let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+            console.log(`${new Date().toLocaleString()} : GET /api/analyze/blocklistip > Search BlockList (${ip}) from ${remoteIp}`);  
             if (rtn.length > 0) {
                 response.send({ result: true, block: rtn })
             }
@@ -152,7 +162,8 @@ module.exports = (app) => {
                 href : keywords.eq(i).attr("href").replace(/\/search\/boardList.do/gi, "https://www.boho.or.kr/search/boardList.do"),
             })
         }
-
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/kisa > from ${remoteIp}`);  
         response.send({
             alertLevel, cyberAttact, totalNews, keywordRanking
         })

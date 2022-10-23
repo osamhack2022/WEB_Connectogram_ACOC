@@ -19,7 +19,6 @@ module.exports = async (param) => {
         
         if (param.approval == '승인' || param.approval == '반려') {
             let { queryStr, paramArr } = queryBuilder(query, param);
-            console.log(queryStr, paramArr)
             return await executeQuery(queryStr, paramArr);
         }
 
