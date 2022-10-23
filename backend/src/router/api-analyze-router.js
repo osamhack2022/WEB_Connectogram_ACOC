@@ -147,8 +147,19 @@ module.exports = (app) => {
             })
         }
         console.log(totalNews);
+
+        let keywords = $("div.keywordRanking div.inbox a");
+        let keywordRanking = [];
+        for(let i=0;i<keywords.length;i++){
+            keywordRanking.push({
+                keyword : keywords.eq(i).html().trim(),
+                href : keywords.eq(i).attr("href").replace(/\/search\/boardList.do/gi, "https://www.boho.or.kr/search/boardList.do"),
+            })
+        }
+        //console.log(keywordRanking.html().replace(/\t/gi,'').replace(/\/search\/boardList.do/gi, "https://www.boho.or.kr/search/boardList.do").trim());
+
         response.send({
-            alertLevel, cyberAttact, totalNews
+            alertLevel, cyberAttact, totalNews, keywordRanking
         })
     })
 }
