@@ -22,7 +22,7 @@ module.exports = (app) => {
                 }
                 let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
 
-                console.log(`${new Date().toLocaleString} > Logged In ${id} from ${remoteIp}`);
+                console.log(`${new Date().toLocaleString()} > Logged In ${id} from ${remoteIp}`);
                 response.send(sessionInfo);
             }
             else{
