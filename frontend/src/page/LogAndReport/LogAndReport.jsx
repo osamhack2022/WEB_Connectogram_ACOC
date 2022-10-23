@@ -121,60 +121,73 @@ const LogAndReport = ( props ) => {
                 </div>
                 <div style={{width: '50%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '100%'}}>
-                    <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 수</div>
-                    <div style={{ height: '30vh', backgroundColor: 'transparent', border: '1px solid black'}}>
-                        <ResponsiveTreeMap
-                            data={ProtocolData}
-                            identity="name"
-                            value="loc"
-                            valueFormat=" >-.2s"
-                            tile="binary"
-                            label="id"
-                            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-                            labelSkipSize={12}
-                            parentLabelSize={0}
-                            labelTextColor={{
-                                from: 'color',
-                                modifiers: [
-                                    [
-                                        'darker',
-                                        1.2
+                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 수</div>
+                        <div style={{ height: '20vh', backgroundColor: 'transparent', border: '1px solid black'}}>
+                            <ResponsiveTreeMap
+                                data={ProtocolData}
+                                identity="name"
+                                value="loc"
+                                valueFormat=" >-.2s"
+                                tile="binary"
+                                label="id"
+                                margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                                labelSkipSize={12}
+                                parentLabelSize={0}
+                                labelTextColor={{
+                                    from: 'color',
+                                    modifiers: [
+                                        [
+                                            'darker',
+                                            1.2
+                                        ]
                                     ]
-                                ]
-                            }}
-                            orientLabel={false}
-                            parentLabelTextColor={{
-                                from: 'color',
-                                modifiers: [
-                                    [
-                                        'darker',
-                                        2
+                                }}
+                                orientLabel={false}
+                                parentLabelTextColor={{
+                                    from: 'color',
+                                    modifiers: [
+                                        [
+                                            'darker',
+                                            2
+                                        ]
                                     ]
-                                ]
-                            }}
-                            colors={{ scheme: 'nivo' }}
-                            borderColor={{
-                                from: 'color',
-                                modifiers: [
-                                    [
-                                        'darker',
-                                        0.1
+                                }}
+                                colors={{ scheme: 'nivo' }}
+                                borderColor={{
+                                    from: 'color',
+                                    modifiers: [
+                                        [
+                                            'darker',
+                                            0.1
+                                        ]
                                     ]
-                                ]
-                            }}
-                        />
-                        
-                        
+                                }}
+                            />
+                            
+                            
+                        </div>
                     </div>
+                    <div style={{ width: '100%', height: '54vh', display: 'flex', flexDirection: 'row'}}>
+                        <div style={{width: '50%'}}>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 수</div>
+                            <div style={{height: '50vh', backgroundColor: 'blue', border: '0.5px solid black'}}>
+
+                            </div>
+                        </div>
+                        <div style={{width: '50%'}}>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 수</div>
+                            <div style={{height: '50vh', backgroundColor: 'yellow', border: '0.5px solid black'}}>
+
+                            </div>
+                        </div>
                     </div>
-                    <div style={{ width: '100%', height: '44vh', backgroundColor: 'yellow', border: '1px solid black'}}></div>
                 </div>
                 <div style={{paddingRight: '32px', paddingLeft: '32px', width: '25%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '25vw', height: '39vh', border: '1px solid black', justifyContent: 'center', position: 'relative'}}>
                         <div style={{ height: '32px', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>국가별 연결 수</div>
                         { !PieFlag ? <div style={{fontFamily: 'Noto Sans KR', fontSize: 18, position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%)'}}>로딩 중...</div> : <ResponsivePie
                             data={CountryData}   
-                            margin={{ top: 20, right: 20, bottom: 50, left: 20 }}
+                            margin={{ top: 20, right: 15, bottom: 50, left: 15 }}
                             innerRadius={0.5}
                             padAngle={0.7}
                             cornerRadius={3}
@@ -193,7 +206,11 @@ const LogAndReport = ( props ) => {
                             enableArcLinkLabels={false}
                         /> }
                     </div>
-                    <div style={{ width: '25vw', height: '39vh', backgroundColor: 'green', border: '1px solid black'}}></div>
+                    <div style={{ width: '25vw', height: '39vh'}}>
+                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>주요 대외기관 동향</div>
+                        <div style={{ height: '35vh', backgroundColor: 'green', border: '1px solid black' }}>
+                        </div>   
+                    </div>
                 </div>
             </div>
         </div>

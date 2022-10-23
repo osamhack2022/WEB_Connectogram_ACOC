@@ -79,8 +79,10 @@ const Card = ( props ) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={goDetail}
-        >
-            <DesktopWindowsTwoToneIcon sx={{ fontSize: 100, color: isHover ? HoverTextColor : TextColor }} />
+        >   
+            <div style={{}}>
+                <DesktopWindowsTwoToneIcon sx={{ fontSize: 90, color: isHover ? HoverTextColor : TextColor }} />
+            </div>
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
                 <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>{props.item.public_ip}</span>
                 <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '12px'}}>({props.item.private_ip})</span>
