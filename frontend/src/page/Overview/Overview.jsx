@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Card from "./Card";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Switch from '@mui/material/Switch';
+import './Overview.css';
 
 
 const Overview = () => {
@@ -101,7 +102,14 @@ const Overview = () => {
 
     const handleAutoRefresh = () => {
         setisAutoRefresh(!isAutoRefresh);
-    }
+    };
+
+    const handleRefresh = () => {
+        setisLoading(true); 
+        getClientList();
+        setTimeLeft(interval);
+        setNowTime(new Date().getTime() + interval * 1000);
+    };
 
     useEffect(() => {
         if (isAutoRefresh) {
@@ -149,9 +157,9 @@ const Overview = () => {
                         <span>자동 새로고침</span>
                         <Switch checked={isAutoRefresh} onChange={handleAutoRefresh} />
                     </div>
-                    <div style={{ display: isAutoRefresh ? 'flex' : 'none', justifyContent: 'end', alignItems: 'center', marginRight: '90px', position: 'absolute', right: '0%', fontFamily: 'Noto Sans KR'}}>
-                        <span style={{ marginRight: '6px' }}><span style={{ color: 'blue', }}>{dayjs(TimeLeft).format("ss")}</span>초 후</span>
-                        <RefreshIcon fontSize='small' />
+                    <div style={{ display:'flex', justifyContent: 'end', alignItems: 'center', marginRight: '90px', position: 'absolute', right: '0%', fontFamily: 'Noto Sans KR'}}>
+                        <span style={{ display: isAutoRefresh ? 'flex' : 'none', marginRight: '6px' }}><span style={{ color: 'blue', }}>{dayjs(TimeLeft).format("ss")}</span>초 후</span>
+                        <RefreshIcon onClick={handleRefresh} fontSize='large' style={{animation: isLoading ? 'rotate_image 1s linear infinite' : 'none', transformOrigin:'50% 50%'}} />
                     </div>
                 </div>
                 { isLoading ? <div>로딩 중...</div> : 

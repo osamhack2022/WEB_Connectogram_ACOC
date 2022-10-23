@@ -45,9 +45,11 @@ const Card = ( props ) => {
             let conData = res.data[0].connection;
             setStandardTime(res.data[0].time);
             setConnectionCnt(conData.length);
+            let MaliCnt = 0;
             for (let i = 0; i < conData.length; i++) {
-                if (conData[i].malicious) setMaliciousCnt(MaliciousCnt + 1);
+                if (conData[i].malicious !== false) MaliCnt++;
             }
+            setMaliciousCnt(MaliCnt);
             setisLoading(false);
         });
     };
