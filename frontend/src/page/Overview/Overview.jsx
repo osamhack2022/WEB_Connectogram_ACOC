@@ -8,7 +8,6 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Card from "./Card";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Switch from '@mui/material/Switch';
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import './Overview.css';
 
 
