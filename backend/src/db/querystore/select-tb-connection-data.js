@@ -32,8 +32,11 @@
         if(param.conn != undefined) query += `
          and connection like '%${param.conn}%'`;
 
+         if(param.lastest != undefined && param.lastest >= '0'){
+            query += ` order by time desc limit ?`
+         }
+
          let { queryStr, paramArr } = queryBuilder(query, param);
-         console.log(queryStr);
          return await executeQuery(queryStr, paramArr);
      }
      catch(e){

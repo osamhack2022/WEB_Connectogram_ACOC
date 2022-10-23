@@ -19,7 +19,6 @@
             where 1=1 `;
          //let {ip, start, end, conn} = request.query;
         if(param.ip != undefined) query += ` and ? BETWEEN long_start AND long_end`
-        
          let { queryStr, paramArr } = queryBuilder(query, param);
          return await executeQuery(queryStr, paramArr);
      }

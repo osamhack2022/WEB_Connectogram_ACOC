@@ -20,6 +20,8 @@ module.exports = (app) => {
                     ...request.session,
                     session_id : request.sessionID
                 }
+                let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+                console.log(`${new Date().toLocaleString()} : POST /api/session/login > Logged In ${id} from ${remoteIp}`);
                 response.send(sessionInfo);
             }
             else{
@@ -34,6 +36,8 @@ module.exports = (app) => {
     app.get("/api/session/check",   async (request, response)=>{
         let {session_id} = request.query;
         let sessionData = await sqlMap.session.selectSession({session_id});
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/session/check > Session Check from ${remoteIp}`);
         if(sessionData.length > 0) {
             response.json(JSON.parse(sessionData[0].data));
         }
@@ -45,11 +49,14 @@ module.exports = (app) => {
     app.get("/api/session/logout",   async (request, response)=>{
         let {session_id} = request.query;
         let rtn = await sqlMap.session.deleteSession({session_id});
+        let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/session/logout > Logout ${session_id} from ${remoteIp}`);
         request.session.destroy(()=>response.send({msg : "Logged out"}));
     })
 
     app.get("/api/session/ipaddr", (request, response)=>{
         let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
+        console.log(`${new Date().toLocaleString()} : GET /api/session/ipaddr > Ip Check from ${remoteIp}`);
         response.send({"ipaddr" : remoteIp});
     })
 }

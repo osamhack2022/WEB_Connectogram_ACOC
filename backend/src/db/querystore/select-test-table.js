@@ -19,7 +19,6 @@ module.exports = async (param) => {
         if (param.position != undefined) query += ` and position=? `
 
         let { queryStr, paramArr } = queryBuilder(query, param);
-        console.log(queryStr, paramArr);
         return await executeQuery(queryStr, paramArr);
     }
     catch (e) {
