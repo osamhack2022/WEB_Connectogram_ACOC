@@ -61,6 +61,10 @@ const Intro = () => {
     }
   };
 
+  const gotoRegister = (e) => {
+    navigate("/register");
+  };
+
   return (
     <div className="Intro">
       <div className="subtitle">軍 사이버 보안의 미래</div>
@@ -102,7 +106,9 @@ const Intro = () => {
       <div className="signin_button" onClick={() => excuteLogin()}>
         LOGIN
       </div>
-      <div className="signup_button">계정 신청</div>
+      <button className="signup_button" onClick={() => gotoRegister()}>
+        계정 신청
+      </button>
       {ToastStatus && <Toast msg={ToastMsg} />}
     </div>
   );

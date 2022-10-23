@@ -50,6 +50,12 @@ const App = () => {
           }
         />
         <Route
+          path="/register"
+          element={
+            <AuthRoutes auth={!isAuth} component={<Register />} redirect="/" />
+          }
+        />
+        <Route
           path="/overview"
           element={
             <AuthRoutes auth={isAuth} component={<Overview />} redirect="/" />

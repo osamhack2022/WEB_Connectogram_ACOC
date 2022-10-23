@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [ToastStatus, setToastStatus] = useState(false);
   const [ToastMsg, setToastMsg] = useState("");
 
@@ -27,6 +28,10 @@ const Register = () => {
   const handleToast = (msg) => {
     setToastStatus(true);
     setToastMsg(msg);
+  };
+
+  const gotoLogin = (e) => {
+    navigate("/");
   };
 
   /*useEffect(() => {
@@ -63,35 +68,31 @@ const Register = () => {
                         if (PHONE.length == 0)
                           handleToast("연락처를 입력하십시오.");
                         else {
-                          handleToast("회원가입이 완료되었습니다.");
-                          setNEXT(true);
+                          axios
+                            .post(
+                              process.env.REACT_APP_BACK_API +
+                                "/api/user/register",
+                              {
+                                user_id: ID,
+                                password: PW,
+                                user_name: NAME,
+                                email: EMAIL,
+                                phone: PHONE,
+                              },
+                              { withCredentials: true }
+                            )
+                            .then((res) => {
+                              if ("err_msg" in res.data)
+                                handleToast(res.data["err_msg"]);
+                              else {
+                                handleToast("회원가입이 완료되었습니다.");
+                              }
+                            });
                         }
                       }
                     }
                   }
                 }
-                // window.location.replace("/");
-                /*
-              axios
-                .post(
-                  process.env.REACT_APP_BACK_API + "/api/user/register",
-                  {
-                    user_id: ID,
-                    password: PW,
-                    user_name: NAME,
-                    email: EMAIL,
-                    phone: PHONE,
-                  },
-                  { withCredentials: true }
-                )
-                .then((res) => {
-                  if ("err_msg" in res.data) handleToast(res.data["err_msg"]);
-                  else {
-                    handleToast("회원가입이 완료되었습니다.");
-                    window.location.replace("/");
-                  }
-                });
-                */
               }
             }
           }
@@ -105,10 +106,7 @@ const Register = () => {
       <div className="title">Connectogram</div>
       {NEXT ? (
         <div>
-          <button
-            className="signup_button"
-            onClick={() => window.location.replace("/")}
-          >
+          <button className="signup_button" onClick={() => gotoLogin()}>
             LOGIN
           </button>
         </div>
@@ -213,10 +211,7 @@ const Register = () => {
             </button>
           </div>
           <div>
-            <button
-              className="login_button"
-              onClick={() => window.location.replace("/")}
-            >
+            <button className="login_button" onClick={() => gotoLogin()}>
               LOGIN
             </button>
           </div>
