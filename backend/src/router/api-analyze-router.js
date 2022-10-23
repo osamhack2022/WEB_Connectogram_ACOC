@@ -6,6 +6,8 @@
  */
 const cors = require('cors');
 const sqlMap = require('../db/sql-map');
+const axios = require("axios");
+const cheerio= require("cheerio");
 
 module.exports = (app) => {
 
@@ -105,5 +107,48 @@ module.exports = (app) => {
         else {
             response.send({ msg: `You Need IP` })
         }
+    })
+
+    app.get("/api/kisa", async (request, response)=>{
+        let data = await axios.get("https://www.boho.or.kr/main.do");
+        var $ = cheerio.load(data.data);
+        let alertLevel = {
+            todayDate: $("div.inWrap span.todayDate").text(),
+            state: $("div.inWrap span.state").text()
+        }
+        console.log(alertLevel);
+
+        let todayCyberAttactTh = $("table.todayCyberAttactTable tbody th");
+        let todayCyberAttactTodayNum = $("table.todayCyberAttactTable tbody td span.todayNum");
+        let todayCyberAttactBulUpDown = $("table.todayCyberAttactTable tbody td span[class^=bul]");
+
+        let cyberAttact = []
+        for (let i = 0; i < todayCyberAttactTh.length; i++) {
+            cyberAttact.push(
+                {
+                    title: todayCyberAttactTh.children().eq(i).text().trim(),
+                    data: parseInt(todayCyberAttactTodayNum.eq(i).text()),
+                    updown: todayCyberAttactBulUpDown.eq(i).text()
+                })
+        }
+        console.log(cyberAttact);
+
+
+        let totalNewsUl = $("div#totalNewsPC ul.totalNewsUl li");
+        let totalNews = [];
+        for (let i = 0; i < totalNewsUl.length; i++) {
+            let type = totalNewsUl.eq(i).children().eq(0).text().trim();
+            let title = totalNewsUl.eq(i).children().eq(1).text().trim();
+            let href = "https://www.boho.or.kr" + totalNewsUl.eq(i).children().eq(1).attr("href").trim();
+            let date = totalNewsUl.eq(i).children().eq(2).text().trim();
+
+            totalNews.push({
+                type, title, href, date
+            })
+        }
+        console.log(totalNews);
+        response.send({
+            alertLevel, cyberAttact, totalNews
+        })
     })
 }
