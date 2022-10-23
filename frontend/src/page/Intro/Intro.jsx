@@ -51,9 +51,19 @@ const Intro = () => {
       });
   };
 
+  const handleOnClick = () => {
+    excuteLogin();
+  };
+
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleOnClick();
+    }
+  };
+
   return (
     <div className="Intro">
-      <div className="subtitle">군 사이버 보안의 미래</div>
+      <div className="subtitle">軍 사이버 보안의 미래</div>
       <div className="title">Connectogram</div>
       <div className="signin_form">
         <div className="signin_icon">
@@ -67,7 +77,9 @@ const Intro = () => {
             <input
               className="signin_input_com"
               onChange={(e) => setID(e.target.value)}
+              onKeyPress={handleOnKeyPress}
               placeholder="USER ID"
+              style={{ fontFamily: "Noto Sans KR", outline: "none" }}
             />
           </div>
         </div>
@@ -79,20 +91,18 @@ const Intro = () => {
             <input
               className="signin_input_com"
               onChange={(e) => setPW(e.target.value)}
+              onKeyPress={handleOnKeyPress}
               placeholder="PASSWORD"
+              type={"password"}
+              style={{ fontFamily: "Noto Sans KR", outline: "none" }}
             />
           </div>
         </div>
       </div>
-      <button className="signin_button" onClick={() => excuteLogin()}>
+      <div className="signin_button" onClick={() => excuteLogin()}>
         LOGIN
-      </button>
-      <button
-        className="signup_button"
-        onClick={() => window.location.replace("/register")}
-      >
-        계정 신청
-      </button>
+      </div>
+      <div className="signup_button">계정 신청</div>
       {ToastStatus && <Toast msg={ToastMsg} />}
     </div>
   );
