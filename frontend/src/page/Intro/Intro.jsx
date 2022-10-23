@@ -46,9 +46,20 @@ const Intro = () => {
         });
     };
 
+    const handleOnClick = () => {
+        excuteLogin();
+    };
+      
+      
+    const handleOnKeyPress = e => {
+        if (e.key === 'Enter') {
+          handleOnClick();
+        }
+    };
+
     return (
         <div className="Intro">
-            <div className="subtitle">군 사이버 보안의 미래</div>
+            <div className="subtitle">軍 사이버 보안의 미래</div>
             <div className="title">Connectogram</div>
             <div className="signin_form">
                 <div className="signin_icon">
@@ -59,7 +70,7 @@ const Intro = () => {
                         <PersonIcon fontSize='medium' />
                     </div>
                     <div className="signin_inputbox">
-                        <input className="signin_input_com" onChange={(e) => setID(e.target.value)} placeholder="USER ID" />
+                        <input className="signin_input_com" onChange={(e) => setID(e.target.value)} onKeyPress={handleOnKeyPress} placeholder="USER ID" style={{fontFamily: "Noto Sans KR", outline: 'none'}} />
                     </div>
                 </div>
                 <div className="signin_input">
@@ -67,7 +78,7 @@ const Intro = () => {
                         <LockIcon fontSize='medium' />
                     </div>
                     <div className="signin_inputbox">
-                        <input className="signin_input_com" onChange={(e) => setPW(e.target.value)} placeholder="PASSWORD" />
+                        <input className="signin_input_com" onChange={(e) => setPW(e.target.value)} onKeyPress={handleOnKeyPress} placeholder="PASSWORD" type={'password'} style={{fontFamily: "Noto Sans KR", outline: 'none'}} />
                     </div>
                 </div>
             </div>
