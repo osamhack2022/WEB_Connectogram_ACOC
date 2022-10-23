@@ -82,7 +82,7 @@ module.exports = (app) => {
             })
         }
         let remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress.replace(/:.*:/,"");
-        console.log(`${new Date().toLocaleString()} : GET /api/analyze/connection-data > from ${remoteIp}`);  
+        console.log(`${new Date().toLocaleString()} : GET /api/analyze/connection-data > Connection-data (${ip}) from ${remoteIp}`);  
         response.send(rtn);
     })
 
