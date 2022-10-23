@@ -116,8 +116,7 @@ module.exports = (app) => {
             todayDate: $("div.inWrap span.todayDate").text(),
             state: $("div.inWrap span.state").text()
         }
-        console.log(alertLevel);
-
+ 
         let todayCyberAttactTh = $("table.todayCyberAttactTable tbody th");
         let todayCyberAttactTodayNum = $("table.todayCyberAttactTable tbody td span.todayNum");
         let todayCyberAttactBulUpDown = $("table.todayCyberAttactTable tbody td span[class^=bul]");
@@ -131,9 +130,7 @@ module.exports = (app) => {
                     updown: todayCyberAttactBulUpDown.eq(i).text()
                 })
         }
-        console.log(cyberAttact);
-
-
+ 
         let totalNewsUl = $("div#totalNewsPC ul.totalNewsUl li");
         let totalNews = [];
         for (let i = 0; i < totalNewsUl.length; i++) {
@@ -146,8 +143,7 @@ module.exports = (app) => {
                 type, title, href, date
             })
         }
-        console.log(totalNews);
-
+ 
         let keywords = $("div.keywordRanking div.inbox a");
         let keywordRanking = [];
         for(let i=0;i<keywords.length;i++){
@@ -156,7 +152,6 @@ module.exports = (app) => {
                 href : keywords.eq(i).attr("href").replace(/\/search\/boardList.do/gi, "https://www.boho.or.kr/search/boardList.do"),
             })
         }
-        //console.log(keywordRanking.html().replace(/\t/gi,'').replace(/\/search\/boardList.do/gi, "https://www.boho.or.kr/search/boardList.do").trim());
 
         response.send({
             alertLevel, cyberAttact, totalNews, keywordRanking
