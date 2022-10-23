@@ -173,7 +173,7 @@ const Dashboard = ( props ) => {
                         <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>프로토콜</div>
                         <div style={{width: '18%', textAlign: 'center', fontSize: '9px'}}>프로세스</div>
                     </div>
-                    <div style={{ border: '1px solid black', overflow: 'auto' }}>
+                    <div style={{ height: '100%', border: '1px solid black', overflow: 'auto' }}>
                         <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '32px', gridAutoFlow: 'row' }}>
                             {props.LowData[0].connection.map((item, i) => (
                                 <div key={i} style={{ backgroundColor: item.malicious === false ? 'green' : (item.malicious.length >= 3 ? 'rgb(255, 92, 82)' : 'rgb(255, 171, 46)'), height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
