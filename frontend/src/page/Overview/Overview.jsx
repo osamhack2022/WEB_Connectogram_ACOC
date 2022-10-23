@@ -7,17 +7,19 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Card from "./Card";
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import Switch from '@mui/material/Switch';
 
 
 const Overview = () => {
     // 새로고침 주기 (초)
-    const interval = 301;
+    const interval = 16;
     const [NowTime, setNowTime] = useState(new Date().getTime() + interval * 1000);
     const [TimeLeft, setTimeLeft] = useState(interval);
 
     const [isLoading, setisLoading] = useState(true);
     const [Clients, setClients] = useState([]);
 
+    const [isAutoRefresh, setisAutoRefresh] = useState(false);
     
     const [UserName, setUserName] = useState("");
 
@@ -67,6 +69,7 @@ const Overview = () => {
 
     useEffect(() => {
         //console.log(ClientsData.current);
+        if (!isAutoRefresh) return;
         let TimerId = setTimeout(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
@@ -89,13 +92,24 @@ const Overview = () => {
     };
 
     useEffect(() => {
-        if (TimeLeft < 0) {  
+        if (isAutoRefresh && TimeLeft < 0) {  
             setisLoading(true); 
             getClientList(); 
             setTimer();
         }
     }, [TimeLeft]);
 
+    const handleAutoRefresh = () => {
+        setisAutoRefresh(!isAutoRefresh);
+    }
+
+    useEffect(() => {
+        if (isAutoRefresh) {
+            setTimeLeft(interval);
+            setNowTime(new Date().getTime() + interval * 1000);
+        }
+        console.log(isAutoRefresh);
+    }, [isAutoRefresh]);
 
     return (
         <div>
@@ -126,13 +140,21 @@ const Overview = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-            { isLoading ? 
-            <div>로딩 중...</div> : 
             <div>
-                <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', marginRight: '50px'}}>
-                    <span style={{ marginRight: '6px' }}><span style={{ color: 'blue', }}>{dayjs(TimeLeft).format("mm:ss")}</span>초 후</span>
-                    <RefreshIcon fontSize='small' />
+                <div style={{width: '100%', height: '8vh', backgroundColor: 'transparent', display: 'flex', alignItems: 'end' }}> 
+                    <div style={{backgroundColor: 'transparent', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Noto Sans KR', display: 'flex', fontSize: 32, alignItems: 'center', justifyContent: 'center' }}>현재 등록된 자산들</div>         
                 </div>
+                <div style={{width: '100%', height: '5vh', backgroundColor: 'transparent'}}>
+                    <div style={{position: 'absolute', left: '0%', marginLeft: '90px', fontFamily: 'Noto Sans KR'}}>
+                        <span>자동 새로고침</span>
+                        <Switch checked={isAutoRefresh} onChange={handleAutoRefresh} />
+                    </div>
+                    <div style={{ display: isAutoRefresh ? 'flex' : 'none', justifyContent: 'end', alignItems: 'center', marginRight: '90px', position: 'absolute', right: '0%', fontFamily: 'Noto Sans KR'}}>
+                        <span style={{ marginRight: '6px' }}><span style={{ color: 'blue', }}>{dayjs(TimeLeft).format("ss")}</span>초 후</span>
+                        <RefreshIcon fontSize='small' />
+                    </div>
+                </div>
+                { isLoading ? <div>로딩 중...</div> : 
                 <div style={{paddingRight: '50px', paddingLeft: '50px', gridTemplateRows: "1fr ", gridTemplateColumns: "1fr 1fr 1fr 1fr", zIndex: 1, backgroundColor: '#ffffff', display: 'grid' }}>
                     {Clients.map((item, key) => (
                         <Card key={key} item={item} />
@@ -140,8 +162,8 @@ const Overview = () => {
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '25vh', backgroundColor: 'gray', margin: '8px', borderRadius: '8px', border: '3px', borderColor: 'gray'}}>
                         <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
                     </div>
-                </div>
-            </div> }
+                </div> }
+            </div>
         </div>
     );
 }
