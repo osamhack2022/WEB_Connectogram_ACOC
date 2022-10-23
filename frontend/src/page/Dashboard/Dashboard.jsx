@@ -56,10 +56,14 @@ const Dashboard = ( props ) => {
        
         // 연결되지 않은 노드 연결하기.
         let Nodes = [];
-        let MaliCnt = 0;
+        let MaliciousCnt = 0;
+        let WarningsCnt = 0;
         for (let i = 0; i < ConnectionData.connection.length; i++) {
             // 악성 노드 개수 세기.
-            if (ConnectionData.connection[i].malicious) MaliCnt++;
+            if (ConnectionData.connection[i].malicious !== false) {
+                if (ConnectionData.connection[i].malicious.length >= 3) MaliciousCnt++;
+                else WarningsCnt++;
+            }
             if (!(Nodes.includes(ConnectionData.connection[i].foreign))) {
                 cy.current.add({ 
                     group: 'nodes', 
@@ -72,9 +76,19 @@ const Dashboard = ( props ) => {
                     data: { source: ConnectionData.connection[i].foreign, target: ConnectionData.public_ip } 
                 });
                 Nodes.push(ConnectionData.connection[i].foreign);
+                // 악성 노드 색 바꾸기.
+                if (ConnectionData.connection[i].malicious !== false) {
+                    if (ConnectionData.connection[i].malicious.length >= 3) {
+                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'red'});
+                    }
+                    else {
+                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'yellow'});
+                    }
+                }
             }
         }
-        setMaliciousCnt(MaliCnt);
+        setMaliciousCnt(MaliciousCnt);
+        setWarningsCnt(WarningsCnt);
         setConnectionsCnt(Nodes.length);
 
         cy.current.layout({ name: 'cola', fit: true }).run();
@@ -162,7 +176,7 @@ const Dashboard = ( props ) => {
                     <div style={{ border: '1px solid black', overflow: 'auto' }}>
                         <div style={{display: 'grid', gridTemplateRows: "1fr", gridTemplateColumns: "1fr", gridAutoRows: '32px', gridAutoFlow: 'row' }}>
                             {props.LowData[0].connection.map((item, i) => (
-                                <div key={i} style={{ backgroundColor: item.malicious ? 'red' : 'green', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                                <div key={i} style={{ backgroundColor: item.malicious === false ? 'green' : (item.malicious.length >= 3 ? 'rgb(255, 92, 82)' : 'rgb(255, 171, 46)'), height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
                                     <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
