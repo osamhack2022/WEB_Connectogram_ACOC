@@ -7,6 +7,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -179,7 +181,7 @@ const Register = () => {
             </div>
             <div className="register_input">
               <div className="register_input_icon">
-                <LockIcon fontSize="medium" />
+                <EmailIcon fontSize="medium" />
               </div>
               <div className="register_inputbox">
                 <input
@@ -191,7 +193,7 @@ const Register = () => {
             </div>
             <div className="register_input">
               <div className="register_input_icon">
-                <PersonIcon fontSize="medium" />
+                <PhoneAndroidIcon fontSize="medium" />
               </div>
               <div className="register_inputbox">
                 <input
