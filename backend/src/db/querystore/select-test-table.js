@@ -10,14 +10,18 @@ const executeQuery = require("../execute-query");
 const queryBuilder = require("../query-builder")
 
 module.exports = async (param) => {
-    let query = `select * from test_table where 1=1 `;
-    if(param.idx != undefined) query += ` and idx=? `
-    if(param.name != undefined) query += ` and name=? `
-    if(param.grade != undefined) query += ` and grade=? `
-    if(param.org != undefined) query += ` and org=? `
-    if(param.position != undefined) query += ` and position=? `
+    try {
+        let query = `select * from test_table where 1=1 `;
+        if (param.idx != undefined) query += ` and idx=? `
+        if (param.name != undefined) query += ` and name=? `
+        if (param.grade != undefined) query += ` and grade=? `
+        if (param.org != undefined) query += ` and org=? `
+        if (param.position != undefined) query += ` and position=? `
 
-    let {queryStr, paramArr} = queryBuilder(query, param);
-    console.log(queryStr, paramArr);
-    return await executeQuery(queryStr, paramArr);
+        let { queryStr, paramArr } = queryBuilder(query, param);
+        return await executeQuery(queryStr, paramArr);
+    }
+    catch (e) {
+        return { err_msg: "Something Wrong." }
+    }
 }

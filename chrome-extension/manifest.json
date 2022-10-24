@@ -1,0 +1,22 @@
+{
+    "name": "Chrome Extension for Connectogram",
+    "description": "by. Connectogram ACOC",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "bookmarks",
+        "webRequest"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["*://*/*"],
+            "js": ["contentScript.js"]
+        }
+    ]
+
+  }
