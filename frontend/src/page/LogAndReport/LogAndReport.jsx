@@ -18,6 +18,11 @@ const LogAndReport = ( props ) => {
     const [ProtocolData, setProtocolData] = useState({children: []});
     const ProtocolDataRef = useRef({children: []});
 
+    const [InternetAlert, setInternetAlert] = useState("");
+    const [InternetAlertDate, setInternetAlertDate] = useState("");
+
+    const [TodayKeywords, setTodayKeywords] = useState("로딩 중...");
+
     const PORTDATA = {
         "80": "HTTP",
         "443": "HTTPS",
@@ -53,6 +58,25 @@ const LogAndReport = ( props ) => {
         setProtocolData(ProtocolDataRef.current);
 
         console.log("LOGANDREPORT", CountryDataRef.current);
+
+        axios.get(process.env.REACT_APP_BACK_API + "/api/kisa",
+        { withCredentials: true }).then((res) => {
+            if ("err_msg" in res.data) return;
+            console.log(res.data);
+
+            setInternetAlert(res.data.alertLevel.state);
+            setInternetAlertDate(res.data.alertLevel.todayDate);
+
+            let Keywords = "";
+            for (let i = 0; i < res.data.keywordRanking.length; i++) {
+                if (i == res.data.keywordRanking.length - 1) {
+                    Keywords += res.data.keywordRanking[i].keyword.replace("<strong>", "").replace("</strong>", "");
+                } else {
+                    Keywords += res.data.keywordRanking[i].keyword.replace("<strong>", "").replace("</strong>", "") + ", ";
+                }
+            }
+            setTodayKeywords(Keywords);
+        });
     }, []);
 
     const setTimer = () => {
@@ -215,15 +239,15 @@ const LogAndReport = ( props ) => {
                                     <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '12px'}}>
                                         <div style={{width: '60%', height: '4vh', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                                             <span style={{ fontFamily: 'Noto Sans KR', fontSize: '12px'}}>인터넷침해사고 경보단계</span>
-                                            <span style={{ fontFamily: 'Noto Sans KR', fontSize: '12px'}}>{} 기준</span>
+                                            <span style={{ fontFamily: 'Noto Sans KR', fontSize: '12px'}}>{InternetAlertDate} 기준</span>
                                         </div>
-                                        <div style={{width: 0, height: 0, border: '10px solid transparent', borderRight: '10px solid rgb(255, 171, 46)' }}></div>
-                                        <div style={{ width: '20%', height: '4vh', backgroundColor:'rgb(255, 171, 46)', textAlign: 'center', lineHeight: '4vh', fontFamily: 'Noto Sans KR'}}>주의</div>
+                                        <div style={{width: 0, height: 0, border: '10px solid transparent', borderRight: InternetAlert == '주의' ? '10px solid rgb(255, 171, 46)' : InternetAlert == "정상" || InternetAlert == "관심" ? '10px solid rgb(0, 140, 82)' : '10px solid rgb(255, 92, 82)'  }}></div>
+                                        <div style={{ width: '20%', height: '4vh', backgroundColor: InternetAlert == '주의' ? 'rgb(255, 171, 46)' : InternetAlert == "정상" || InternetAlert == "관심" ? 'rgb(0, 140, 82)' : 'rgb(255, 92, 82)', textAlign: 'center', lineHeight: '4vh', fontFamily: 'Noto Sans KR'}}>{InternetAlert}</div>
                                     </div>
                                     <div style={{ width: '100%', height: '11vh', display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: "Noto Sans KR", borderTop: '1px solid black', paddingTop: '12px'}}>
                                         <div style={{ width: '85%', justifyContent: 'center', textDecoration: 'underline'}}>오늘의 주요 키워드</div>
                                         <div style={{ fontSize: '11px', width: '85%', height: '9.8vh', overflow: 'hidden', wordWrap: 'break-word', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', textOverflow: 'ellipsis'}}>
-                                            vCenter Server , VMware , ESXi , iOS , Apple , Android , 안드로이드 , Apache Commons Text , Oracle , E-Business Suite , Zoom , Dimension , Commerce , Acrobat , ColdFusion
+                                            {TodayKeywords}    
                                         </div>
                                     </div>
                                 </div>
@@ -232,21 +256,21 @@ const LogAndReport = ( props ) => {
                                         <span style={{textDecoration: 'underline'}}>오늘의 사이버 위협</span> <span style={{fontSize: '8px'}}>(2022.10.24)</span></div>
                                     <div style={{width: '93%'}}>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff22', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
+                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
                                             <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>50(개)</div>
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
                                             </div>
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff22', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
+                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
                                             <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>50(개)</div>
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
                                             </div>
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff22', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
+                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
                                             <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>50(개)</div>
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
