@@ -37,6 +37,9 @@ const LogAndReport = ( props ) => {
 
     const [IPsCnt, setIPsCnt] = useState([]);
     const [ProcessesCnt, setProcessesCnt] = useState([]);
+    
+    const [MaliciousCnt, setMaliciousCnt] = useState(0);
+    const [WarningsCnt, setWarningsCnt] = useState(0);
 
     const PORTDATA = {
         "80": "HTTP",
@@ -51,9 +54,19 @@ const LogAndReport = ( props ) => {
         });
     };
 
-    useEffect(() => {
+    useEffect(() => {      
+        let MaliciousCnt = 0;
+        let WarningsCnt = 0;
+
         CountryDataRef.current = [];
         for (let i = 0; i < props.LowData[0].connection.length; i++) {
+            
+            // 악성 노드 개수 세기.
+            if (props.LowData[0].connection[i].malicious !== false) {
+                if (props.LowData[0].connection[i].malicious.length >= 3) MaliciousCnt++;
+                else WarningsCnt++;
+            }
+
             getIPCountry(props.LowData[0].connection[i].foreign.split(":")[0]);
             
             let PORT = props.LowData[0].connection[i].foreign.split(":")[1];
@@ -70,6 +83,9 @@ const LogAndReport = ( props ) => {
             }
             if (!flag) ProtocolDataRef.current.children.push({name: PROTOCOL, loc: 1});
         }
+        setMaliciousCnt(MaliciousCnt);
+        setWarningsCnt(WarningsCnt);
+
         setProtocolData(ProtocolDataRef.current);
 
         console.log("LOGANDREPORT", CountryDataRef.current);
@@ -85,25 +101,35 @@ const LogAndReport = ( props ) => {
                 for (let j = 0; j < ConData.length; j++) {
                     let ForeignIP = ConData[j].foreign.split(":")[0];
                     let flag = 0;
+                    let isBlock = 0;
+                    if (ConData[j].malicious !== false) isBlock = 1;
                     for (let k = 0; k < IPsTemp.length; k++) {
                         if (IPsTemp[k].IP === ForeignIP) {
                             flag = 1;
-                            IPsTemp[k].data++;
+                            if (isBlock) IPsTemp[k].block++;
+                            else IPsTemp[k].data++;
                             break;
                         }
                     }
-                    if (!flag) IPsTemp.push({ IP: ForeignIP, data: 1 });
+                    if (!flag) {
+                        if (isBlock) IPsTemp.push({ IP: ForeignIP, data: 0, block: 1 });
+                        else IPsTemp.push({ IP: ForeignIP, data: 1, block: 0 });
+                    }
 
                     let ProcessName = ConData[j].pname;
                     flag = 0;
                     for (let k = 0; k < ProcessesTemp.length; k++) {
                         if (ProcessesTemp[k].Name === ProcessName) {
                             flag = 1;
-                            ProcessesTemp[k].data++;
+                            if (isBlock) ProcessesTemp[k].block++;
+                            else ProcessesTemp[k].data++;
                             break;
                         }
                     }
-                    if (!flag) ProcessesTemp.push({ Name: ProcessName, data: 1 });
+                    if (!flag) {
+                        if (isBlock) ProcessesTemp.push({ Name: ProcessName, data: 0, block: 1 });
+                        else ProcessesTemp.push({ Name: ProcessName, data: 1, block: 0 });
+                    }
                 }
             }
             IPsTemp = IPsTemp.sort((a, b) => {
@@ -203,11 +229,11 @@ const LogAndReport = ( props ) => {
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>0</span>
+                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{MaliciousCnt}</span>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>0</span>
+                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{WarningsCnt}</span>
                     </div>
                 </div>
                 <div style={{width: '50%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -265,7 +291,7 @@ const LogAndReport = ( props ) => {
                                 <ResponsiveBar
                                     data={IPsCnt}
                                     indexBy="IP"
-                                    keys={['data']}
+                                    keys={['data', 'block']}
                                     margin={{ top: 5, right: 50, bottom: 5, left: 100 }}
                                     layout="horizontal"
                                     axisLeft={{
@@ -275,6 +301,7 @@ const LogAndReport = ( props ) => {
                                         legendPosition: 'left',
                                     }}
                                     axisBottom={null}
+                                    enableLabel={false}
                                 />
                             </div>
                         </div>
@@ -284,7 +311,7 @@ const LogAndReport = ( props ) => {
                                 <ResponsiveBar
                                     data={ProcessesCnt}
                                     indexBy="Name"
-                                    keys={['data']}
+                                    keys={['data', 'block']}
                                     margin={{ top: 5, right: 50, bottom: 5, left: 170 }}
                                     layout="horizontal"
                                     axisLeft={{
@@ -294,6 +321,7 @@ const LogAndReport = ( props ) => {
                                         legendPosition: 'left',
                                     }}
                                     axisBottom={null}
+                                    enableLabel={false}
                                 />
                             </div>
                         </div>
