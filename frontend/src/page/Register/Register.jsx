@@ -28,8 +28,11 @@ const Register = () => {
   const passwordsMatch = PW === CONFIRM;
 
   const handleToast = (msg) => {
-    setToastStatus(true);
     setToastMsg(msg);
+    setToastStatus(true);
+    setTimeout(() => {
+      setToastStatus(false);
+    }, 1000);
   };
 
   const gotoLogin = (e) => {

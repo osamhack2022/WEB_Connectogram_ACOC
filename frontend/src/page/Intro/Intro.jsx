@@ -18,8 +18,11 @@ const Intro = () => {
   const navigate = useNavigate();
 
   const handleToast = (msg) => {
-    setToastStatus(true);
     setToastMsg(msg);
+    setToastStatus(true);
+    setTimeout(() => {
+      setToastStatus(false);
+    }, 1000);
   };
 
   /*useEffect(() => {
