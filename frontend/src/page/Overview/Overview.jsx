@@ -162,12 +162,12 @@ const Overview = () => {
                         <RefreshIcon onClick={handleRefresh} fontSize='large' style={{animation: isLoading ? 'rotate_image 1s linear infinite' : 'none', transformOrigin:'50% 50%'}} />
                     </div>
                 </div>
-                { isLoading ? <div>로딩 중...</div> : 
-                <div style={{paddingRight: '50px', paddingLeft: '50px', gridTemplateRows: "1fr ", gridTemplateColumns: "1fr 1fr 1fr 1fr", zIndex: 1, backgroundColor: '#ffffff', display: 'grid' }}>
+                { isLoading ? <div style={{height: '78vh', width: '100%', backgroundColor: 'transparent', textAlign: 'center', fontFamily: 'Noto Sans KR', fontSize: 40, paddingTop: 56}}>로딩 중...</div> : 
+                <div style={{height: '78vh', backgroundColor: 'transparent', paddingRight: '80px', paddingLeft: '80px', gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr", zIndex: 1, display: 'grid', gridAutoFlow: 'row', gridAutoRows: '9vw' }}>
                     {Clients.map((item, key) => (
                         <Card key={key} item={item} />
                     ))}
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '25vh', backgroundColor: 'gray', margin: '8px', borderRadius: '8px', border: '3px', borderColor: 'gray'}}>
+                    <div style={{height: '8vw', width: '8vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: 'gray', margin: '8px', borderRadius: '8px', border: '3px', borderColor: 'gray'}}>
                         <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
                     </div>
                 </div> }

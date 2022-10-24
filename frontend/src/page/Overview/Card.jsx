@@ -6,14 +6,15 @@ DesktopWindowsTwoToneIcon from '@mui/icons-material/DesktopWindowsTwoTone';
 const Card = ( props ) => {
     const navigate = useNavigate();
 
-    const [TextColor, setTextColor] = useState("#ffffff");
-    const [BackColor, setBackColor] = useState('rgb(0, 120, 0)');
-    const [HoverTextColor, setHoverTextColor] = useState("rgb(0, 120, 0)");
-    const [HoverBackColor, setHoverBackColor] = useState('#ffffff');
+    const [TextColor, setTextColor] = useState("gray");
+    const [BackColor, setBackColor] = useState('#ffffff');
+    const [HoverTextColor, setHoverTextColor] = useState("#ffffff");
+    const [HoverBackColor, setHoverBackColor] = useState('gray');
     
     const LowData = useRef(null);
     const [ConnectionCnt, setConnectionCnt] = useState(0);
     const [MaliciousCnt, setMaliciousCnt] = useState(0);
+    const [WarningsCnt, setWarningsCnt] = useState(0);
     const [StandardTime, setStandardTime] = useState("");
     const [isLoading, setisLoading] = useState(true);
 
@@ -28,12 +29,18 @@ const Card = ( props ) => {
      };
 
     useEffect(() => {
-        if (MaliciousCnt > 10) {
-            setBackColor('rgb(255, 92, 82)');
-            setHoverTextColor('rgb(255, 92, 82)');
-        } else if (MaliciousCnt > 5) {
-            setBackColor('rgb(255, 171, 46)');
-            setHoverTextColor('rgb(255, 171, 46)');
+        if (isLoading === true) return;
+        if (MaliciousCnt >= 1) {
+            setTextColor('rgb(255, 92, 82)');
+            setHoverBackColor('rgb(255, 92, 82)');
+        } else {
+            if (WarningsCnt >= 1) {
+                setTextColor('rgb(255, 171, 46)');
+                setHoverBackColor('rgb(255, 171, 46)');
+            } else {
+                setTextColor('rgb(0, 120, 0)');
+                setHoverBackColor('rgb(0, 120, 0)');
+            }
         }
     }, [isLoading]);
 
@@ -46,10 +53,15 @@ const Card = ( props ) => {
             setStandardTime(res.data[0].time);
             setConnectionCnt(conData.length);
             let MaliCnt = 0;
+            let WarnCnt = 0;
             for (let i = 0; i < conData.length; i++) {
-                if (conData[i].malicious !== false) MaliCnt++;
+                if (conData[i].malicious !== false) {
+                    if (conData[i].malicious.length >= 3) MaliCnt++;
+                    else WarnCnt++;
+                }
             }
             setMaliciousCnt(MaliCnt);
+            setWarningsCnt(WarnCnt);
             setisLoading(false);
         });
     };
@@ -63,18 +75,17 @@ const Card = ( props ) => {
     }
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', paddingLeft: '32px', paddingRight: '32px', height: '25vh', backgroundColor: isHover ? HoverBackColor : BackColor, margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '8vw', width: '8vw', backgroundColor: isHover ? HoverBackColor : BackColor, margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={goDetail}
-        >
-            <DesktopWindowsTwoToneIcon sx={{ fontSize: 120, color: isHover ? HoverTextColor : TextColor }} />
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>공인 IP : {props.item.public_ip}</span>
-                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>사설 IP : {props.item.private_ip}</span>
-                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>현재 연결 수 : {isLoading ? "로딩 중..." : ConnectionCnt}</span>
-                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>현재 악성 연결 수 : {isLoading ? "로딩 중..." : MaliciousCnt}</span>
-                {isLoading ? null : <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>{StandardTime.split(".")[0]} 기준</span>}
+        >   
+            <div style={{}}>
+                <DesktopWindowsTwoToneIcon sx={{ fontSize: 90, color: isHover ? HoverTextColor : TextColor }} />
+            </div>
+            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
+                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '16px'}}>{props.item.public_ip}</span>
+                <span style={{color: isHover ? HoverTextColor : TextColor, fontFamily: 'Noto Sans KR', fontSize: '12px'}}>({props.item.private_ip})</span>
             </div>  
         </div>
     );
