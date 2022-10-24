@@ -266,7 +266,7 @@ const LogAndReport = ( props ) => {
                                     </div>
                                     <div style={{ width: '100%', height: '11vh', display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: "Noto Sans KR", borderTop: '1px solid black', paddingTop: '12px'}}>
                                         <div style={{ width: '85%', justifyContent: 'center', textDecoration: 'underline'}}>오늘의 주요 키워드</div>
-                                        <div style={{ fontSize: '11px', width: '85%', height: '9.8vh', overflow: 'hidden', wordWrap: 'break-word', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', textOverflow: 'ellipsis'}}>
+                                        <div style={{ fontSize: '11px', width: '85%', height: '9.8vh', overflow: 'hidden', wordWrap: 'break-word', display: '-webkit-box', WebkitLineClamp: 5, WebkitBoxOrient: 'vertical', textOverflow: 'ellipsis'}}>
                                             {TodayKeywords}    
                                         </div>
                                     </div>
