@@ -4,6 +4,7 @@ import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveTreeMap } from '@nivo/treemap';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { ResponsiveBar } from '@nivo/bar'
 
 
 const LogAndReport = ( props ) => {
@@ -33,6 +34,9 @@ const LogAndReport = ( props ) => {
     const [Threat3Status, setThreat3Status] = useState("상승");
 
     const [NewsData, setNewsData] = useState([]);
+
+    const [IPsCnt, setIPsCnt] = useState([]);
+    const [ProcessesCnt, setProcessesCnt] = useState([]);
 
     const PORTDATA = {
         "80": "HTTP",
@@ -69,6 +73,48 @@ const LogAndReport = ( props ) => {
         setProtocolData(ProtocolDataRef.current);
 
         console.log("LOGANDREPORT", CountryDataRef.current);
+
+        let IPsTemp = [];
+        let ProcessesTemp = [];
+        axios.get(process.env.REACT_APP_BACK_API + "/api/analyze/connection-data", {
+            params: { ip: props.LowData[0].public_ip, lastest: '50' }
+        }, { withCredentials: true }).then((res) => {
+            console.log(res.data);
+            for (let i = 0; i < res.data.length; i++) {
+                let ConData = res.data[i].connection;
+                for (let j = 0; j < ConData.length; j++) {
+                    let ForeignIP = ConData[j].foreign.split(":")[0];
+                    let flag = 0;
+                    for (let k = 0; k < IPsTemp.length; k++) {
+                        if (IPsTemp[k].IP === ForeignIP) {
+                            flag = 1;
+                            IPsTemp[k].data++;
+                            break;
+                        }
+                    }
+                    if (!flag) IPsTemp.push({ IP: ForeignIP, data: 1 });
+
+                    let ProcessName = ConData[j].pname;
+                    flag = 0;
+                    for (let k = 0; k < ProcessesTemp.length; k++) {
+                        if (ProcessesTemp[k].Name === ProcessName) {
+                            flag = 1;
+                            ProcessesTemp[k].data++;
+                            break;
+                        }
+                    }
+                    if (!flag) ProcessesTemp.push({ Name: ProcessName, data: 1 });
+                }
+            }
+            IPsTemp = IPsTemp.sort((a, b) => {
+                return a.data - b.data;
+            })
+            ProcessesTemp = ProcessesTemp.sort((a, b) => {
+                return a.data - b.data;
+            })
+            setIPsCnt(IPsTemp);
+            setProcessesCnt(ProcessesTemp);
+        });
 
         axios.get(process.env.REACT_APP_BACK_API + "/api/kisa",
         { withCredentials: true }).then((res) => {
@@ -215,14 +261,40 @@ const LogAndReport = ( props ) => {
                     <div style={{ width: '100%', height: '54vh', display: 'flex', flexDirection: 'row'}}>
                         <div style={{width: '50%'}}>
                             <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 수</div>
-                            <div style={{height: '50vh', backgroundColor: 'blue', border: '0.5px solid black'}}>
-
+                            <div style={{height: '50vh', border: '0.5px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <ResponsiveBar
+                                    data={IPsCnt}
+                                    indexBy="IP"
+                                    keys={['data']}
+                                    margin={{ top: 5, right: 50, bottom: 5, left: 100 }}
+                                    layout="horizontal"
+                                    axisLeft={{
+                                        tickSize: 0,
+                                        tickPadding: 10,
+                                        tickRotation: 0,
+                                        legendPosition: 'left',
+                                    }}
+                                    axisBottom={null}
+                                />
                             </div>
                         </div>
                         <div style={{width: '50%'}}>
                             <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 수</div>
-                            <div style={{height: '50vh', backgroundColor: 'yellow', border: '0.5px solid black'}}>
-
+                            <div style={{height: '50vh', border: '0.5px solid black'}}>
+                                <ResponsiveBar
+                                    data={ProcessesCnt}
+                                    indexBy="Name"
+                                    keys={['data']}
+                                    margin={{ top: 5, right: 50, bottom: 5, left: 170 }}
+                                    layout="horizontal"
+                                    axisLeft={{
+                                        tickSize: 0,
+                                        tickPadding: 30,
+                                        tickRotation: 0,
+                                        legendPosition: 'left',
+                                    }}
+                                    axisBottom={null}
+                                />
                             </div>
                         </div>
                     </div>
@@ -308,7 +380,7 @@ const LogAndReport = ( props ) => {
                             <div style={{width: '100%', height: '25vh', borderTop: '1px solid black', fontFamily: 'Noto Sans KR'}}>
                                 <div style={{textDecoration: 'underline', marginTop: '12px', marginLeft: '12px', fontSize: '18px'}}>최신 자료</div>
                                 { NewsData !== [] && NewsData.map((el, i) => (
-                                    <a href={el.href} style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                    <a key={i} href={el.href} style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                         <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
                                             {el.title}
                                         </div>
