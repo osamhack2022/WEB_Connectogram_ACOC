@@ -3,6 +3,7 @@ import axios from "axios";
 import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveTreeMap } from '@nivo/treemap';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 
 const LogAndReport = ( props ) => {
@@ -22,6 +23,16 @@ const LogAndReport = ( props ) => {
     const [InternetAlertDate, setInternetAlertDate] = useState("");
 
     const [TodayKeywords, setTodayKeywords] = useState("로딩 중...");
+
+    const [ThreatDate, setThreatDate] = useState("");
+    const [Threat1Cnt, setThreat1Cnt] = useState(0);
+    const [Threat1Status, setThreat1Status] = useState("상승");
+    const [Threat2Cnt, setThreat2Cnt] = useState(0);
+    const [Threat2Status, setThreat2Status] = useState("상승");
+    const [Threat3Cnt, setThreat3Cnt] = useState(0);
+    const [Threat3Status, setThreat3Status] = useState("상승");
+
+    const [NewsData, setNewsData] = useState([]);
 
     const PORTDATA = {
         "80": "HTTP",
@@ -76,6 +87,15 @@ const LogAndReport = ( props ) => {
                 }
             }
             setTodayKeywords(Keywords);
+
+            setThreat1Cnt(res.data.cyberAttact[0].data);
+            setThreat1Status(res.data.cyberAttact[0].updown);
+            setThreat2Cnt(res.data.cyberAttact[1].data);
+            setThreat2Status(res.data.cyberAttact[1].updown);
+            setThreat3Cnt(res.data.cyberAttact[2].data);
+            setThreat3Status(res.data.cyberAttact[2].updown);
+
+            setNewsData(res.data.totalNews.splice(0, 5));
         });
     }, []);
 
@@ -253,64 +273,48 @@ const LogAndReport = ( props ) => {
                                 </div>
                                 <div style={{ width: '50%', height: '20vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderLeft: '1px solid black'}}>
                                     <div style={{ width: '100%', textAlign: 'start', paddingBottom: '16px', paddingLeft: '16px', fontFamily: 'Noto Sans KR'}}>
-                                        <span style={{textDecoration: 'underline'}}>오늘의 사이버 위협</span> <span style={{fontSize: '8px'}}>(2022.10.24)</span></div>
+                                        <span style={{textDecoration: 'underline'}}>오늘의 사이버 위협</span></div>
                                     <div style={{width: '93%'}}>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
-                                            <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>50(개)</div>
+                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                                <div>{Threat1Cnt} (개)</div>
+                                                { Threat1Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
+                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
                                             </div>
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
-                                            <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>50(개)</div>
+                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                                <div>{Threat2Cnt} (개)</div>
+                                                { Threat2Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
+                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
                                             </div>
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '74%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
-                                            <div style={{ width: '26%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>50(개)</div>
+                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                                <div>{Threat3Cnt} (개)</div>
+                                                { Threat3Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
+                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
                                             </div>
                                         </div> 
                                     </div>                              
                                 </div>
                             </div>
                             <div style={{width: '100%', height: '25vh', borderTop: '1px solid black', fontFamily: 'Noto Sans KR'}}>
-                                <div style={{textDecoration: 'underline', marginTop: '12px', marginLeft: '12px'}}>최신 자료</div>
-                                <div style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                        카카오 서비스 장애 이슈를 악용한 사이버 공격에 대한 주의 권고
-                                    </div>
-                                    <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>2022.10.21</div>
-                                </div>
-                                <div style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                        카카오 서비스 장애 이슈를 악용한 사이버 공격에 대한 주의 권고
-                                    </div>
-                                    <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>2022.10.21</div>
-                                </div>
-                                <div style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                        카카오 서비스 장애 이슈를 악용한 사이버 공격에 대한 주의 권고
-                                    </div>
-                                    <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>2022.10.21</div>
-                                </div>
-                                <div style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                        카카오 서비스 장애 이슈를 악용한 사이버 공격에 대한 주의 권고
-                                    </div>
-                                    <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>2022.10.21</div>
-                                </div>
-                                <div style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                        카카오 서비스 장애 이슈를 악용한 사이버 공격에 대한 주의 권고
-                                    </div>
-                                    <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>2022.10.21</div>
-                                </div>
+                                <div style={{textDecoration: 'underline', marginTop: '12px', marginLeft: '12px', fontSize: '18px'}}>최신 자료</div>
+                                { NewsData !== [] && NewsData.map((el, i) => (
+                                    <a href={el.href} style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                        <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
+                                            {el.title}
+                                        </div>
+                                        <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>{el.date}</div>
+                                    </a>
+                                )) }
                             </div>
                         </div> 
                     </div>
