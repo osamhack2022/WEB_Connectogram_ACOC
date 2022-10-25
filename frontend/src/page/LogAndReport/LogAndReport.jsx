@@ -377,7 +377,7 @@ const LogAndReport = ( props ) => {
                                     <div style={{width: '93%'}}>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
                                             <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '11px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>{Threat1Cnt} (개)</div>
                                                 { Threat1Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
@@ -386,7 +386,7 @@ const LogAndReport = ( props ) => {
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
                                             <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '11px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>{Threat2Cnt} (개)</div>
                                                 { Threat2Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
@@ -395,7 +395,7 @@ const LogAndReport = ( props ) => {
                                         </div>
                                         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
                                             <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
+                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '11px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
                                                 <div>{Threat3Cnt} (개)</div>
                                                 { Threat3Status == "상승" ? 
                                                 <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />

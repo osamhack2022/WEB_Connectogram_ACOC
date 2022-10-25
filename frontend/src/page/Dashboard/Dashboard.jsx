@@ -43,6 +43,7 @@ const Dashboard = ( props ) => {
     const [TimeLeft, setTimeLeft] = useState(interval);
 
     const [isFocus, setisFocus] = useState(false);
+    const [FocusInfo, setFocusInfo] = useState(null);
 
     const setConnection = () => {
         const ConnectionData = props.LowData[0];
@@ -93,7 +94,7 @@ const Dashboard = ( props ) => {
         setWarningsCnt(WarningsCnt);
         setConnectionsCnt(Nodes.length);
 
-        cy.current.layout({ name: 'cola', fit: true }).run();
+        cy.current.layout({ name: 'cola', fit: true, animate: false }).run();
 
         // 엣지 애니메이션 설정.
         let loopAnimation = eles => {
@@ -152,8 +153,9 @@ const Dashboard = ( props ) => {
 
     const FocusEdge = ( item ) => {
         if (isFocus) {
-            cy.current.layout({ name: 'cola', fit: true }).run();
+            cy.current.layout({ name: 'cola', fit: true, animate: false }).run();
         } else {
+            setFocusInfo(item);
             cy.current.fit(cy.current.elements('node[id = "' + item.foreign + '"]'), 250);
         }
         console.log(item);
@@ -206,64 +208,81 @@ const Dashboard = ( props ) => {
                     <div style={{ backgroundColor: 'black', height: '32px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px'}}></div>
                 </div>
             </div>
-            <div style={{ width: '50%', backgroundColor: 'transparent', padding: '32px' }}>
+            <div style={{ width: '50%', backgroundColor: 'transparent', padding: '32px', marginTop: '8px' }}>
                 <div style={{ height: '100%', display: 'flex', flexDirection: 'column'}}>
                     <div style={{ width: '50vw', backgroundColor: 'black', height: '48px', borderTopLeftRadius: '8px', borderTopRightRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
                         <span style={{paddingLeft: '16px', fontSize: 18}}>Connecto Map</span>
                     </div>
-                    <CytoscapeComponent
-                        elements={[]}
-                        cy={setCytoscape}
-                        layout={{
-                            name: "cola"
-                        }} 
-                        style={ { height: '100%', border: '1px solid black' } }
-                        stylesheet={[
-                            {
-                                selector: "node[type = 'CLIENT']",
-                                style: {
-                                height: 60,
-                                width: 60,
-                                label: "data(label)",
-                                "text-valign": 'bottom',
-                                "text-outline-color": 'gray',
-                                "text-outline-width": 1,
-                                "text-margin-y": 4,
-                                "font-size": 12,
-                                "font-family": 'Noto Sans KR',
-                                "text-wrap": "wrap",
-                                "text-max-width": 50,
-                                shape: 'round-rectangle',
-                                "background-color": 'red',
+                    <div style={{height: '72vh', position: 'relative'}}>
+                        <CytoscapeComponent
+                            elements={[]}
+                            cy={setCytoscape}
+                            layout={{
+                                name: "cola",
+                                animate: false,
+                            }} 
+                            style={ { height: '100%', border: '1px solid black' } }
+                            stylesheet={[
+                                {
+                                    selector: "node[type = 'CLIENT']",
+                                    style: {
+                                    height: 60,
+                                    width: 60,
+                                    label: "data(label)",
+                                    "text-valign": 'bottom',
+                                    "text-outline-color": 'gray',
+                                    "text-outline-width": 1,
+                                    "text-margin-y": 4,
+                                    "font-size": 12,
+                                    "font-family": 'Noto Sans KR',
+                                    "text-wrap": "wrap",
+                                    "text-max-width": 50,
+                                    shape: 'round-rectangle',
+                                    "background-color": 'rgb(0, 140, 82)',
+                                    }
+                                },
+                                {
+                                    selector: "node[type != 'CLIENT']",
+                                    style: {
+                                    height: 30,
+                                    width: 30,
+                                    label: "data(label)",
+                                    "text-valign": 'bottom',
+                                    "text-margin-y": 4,
+                                    "font-size": 7,
+                                    "font-family": 'Noto Sans KR',
+                                    "text-wrap": "wrap",
+                                    "text-max-width": 50,
+                                    }
+                                },
+                                {
+                                    selector: "edge",
+                                    style: {
+                                        width: 1,
+                                        "line-color": 'gray',
+                                        "target-arrow-shape": "triangle",
+                                        "target-arrow-color": "#9dbaea",
+                                        "line-style": "dashed",
+                                        "line-dash-pattern": [8, 4],
+                                    }
                                 }
-                            },
-                            {
-                                selector: "node[type != 'CLIENT']",
-                                style: {
-                                height: 30,
-                                width: 30,
-                                label: "data(label)",
-                                "text-valign": 'bottom',
-                                "text-margin-y": 4,
-                                "font-size": 7,
-                                "font-family": 'Noto Sans KR',
-                                "text-wrap": "wrap",
-                                "text-max-width": 50,
-                                }
-                            },
-                            {
-                                selector: "edge",
-                                style: {
-                                    width: 1,
-                                    "line-color": 'gray',
-                                    "target-arrow-shape": "triangle",
-                                    "target-arrow-color": "#9dbaea",
-                                    "line-style": "dashed",
-                                    "line-dash-pattern": [8, 4],
-                                }
-                            }
-                        ]}
-                    />
+                            ]}
+                        />
+                        { isFocus && FocusInfo !== null ? 
+                        <div style={{ backgroundColor: 'white', position: 'absolute', zIndex: 0, bottom: '3%', right: '3%', width: '15vw', height: '30vh', border: '1px solid black', borderRadius: '8px' }}>
+                            외부 연결 정보
+                            <div>외부 IP : {FocusInfo.foreign.split(":")[0]}</div>
+                            <div>포트번호 : {FocusInfo.foreign.split(":")[1]}</div>
+                            <div>프로세스 : {FocusInfo.pname}</div>
+                            { FocusInfo.malicious !== false && <div>악성 연결 판단 근거</div> }
+                            { FocusInfo.malicious !== false ? 
+                            FocusInfo.malicious.map((el, i) => (
+                                <div>{i + 1}. {el.SOURCE}</div>
+                            ))
+                            : null }
+                        </div>
+                        : null }
+                    </div>
                     <div style={{ color: 'white', fontFamily: 'Noto Sans KR', fontSize: '12px', backgroundColor: 'black', height: '32px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: '24px'}}>
                         {StandardTime.split('.')[0]} 기준
                     </div>
