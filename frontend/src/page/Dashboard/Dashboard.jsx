@@ -286,7 +286,7 @@ const Dashboard = ( props ) => {
                                 { FocusInfo.malicious !== false && <div>악성 연결 판단 근거</div> }
                                 { FocusInfo.malicious !== false ? 
                                 FocusInfo.malicious.map((el, i) => (
-                                    <div>{i + 1}. {el.SOURCE}</div>
+                                    <div style={{fontSize: '8px'}}>{i + 1}. {el.SOURCE}</div>
                                 ))
                                 : null }
                             </div>
