@@ -218,7 +218,7 @@ const Overview = () => {
                   bgcolor: grey[50],
                 }}
               >
-                <img src="img/roka.jpg" alt="육군" width={30} height={30}></img>
+                <img src="img/roka.png" alt="육군" width={30} height={30}></img>
               </Avatar>
               <Avatar sx={{ bgcolor: grey[50] }}>
                 <img src="img/rokn.png" alt="해군" width={30} height={30}></img>
