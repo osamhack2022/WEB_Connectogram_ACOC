@@ -7,13 +7,7 @@ import Cytoscape from "cytoscape";
 import cola from 'cytoscape-cola';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useLocation } from "react-router-dom";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 //Cytoscape.use(COSEBilkent);
@@ -181,9 +175,10 @@ const Dashboard = ( props ) => {
                         <span style={{paddingLeft: '16px', fontSize: 18}}>로그</span>
                     </div>
                     <div style={{backgroundColor: 'black', height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
-                        <div style={{width: '25%', textAlign: 'center', fontSize: '9px'}}>출발지 IP</div>
+                        <div style={{width: '5%', textAlign: 'center', fontSize: '9px'}}>로그 번호</div>
+                        <div style={{width: '22.5%', textAlign: 'center', fontSize: '9px'}}>출발지 IP</div>
                         <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>출발지 PORT</div>
-                        <div style={{width: '25%', textAlign: 'center', fontSize: '9px'}}>목적지 IP</div>
+                        <div style={{width: '22.5%', textAlign: 'center', fontSize: '9px'}}>목적지 IP</div>
                         <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>목적지 PORT</div>
                         <div style={{width: '10%', textAlign: 'center', fontSize: '9px'}}>프로토콜</div>
                         <div style={{width: '18%', textAlign: 'center', fontSize: '9px'}}>프로세스</div>
@@ -195,9 +190,10 @@ const Dashboard = ( props ) => {
                                     onClick={() => FocusEdge(item)} 
                                     key={i} 
                                     style={{ backgroundColor: item.malicious === false ? 'green' : (item.malicious.length >= 3 ? 'rgb(255, 92, 82)' : 'rgb(255, 171, 46)'), height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
-                                    <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
+                                    <div style={{width: '5%', textAlign: 'center', fontSize: '12px'}}>{i + 1}</div>
+                                    <div style={{width: '22.5%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
-                                    <div style={{width: '25%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
+                                    <div style={{width: '22.5%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[1]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.foreign.split(":")[1] in PORTDATA ? PORTDATA[item.foreign.split(":")[1]] : "TCP"}</div>
                                     <div style={{width: '18%', textAlign: 'center', fontSize: '10px'}}>{item.pname}</div>
@@ -238,7 +234,9 @@ const Dashboard = ( props ) => {
                                     "text-wrap": "wrap",
                                     "text-max-width": 50,
                                     shape: 'round-rectangle',
-                                    "background-color": 'rgb(0, 140, 82)',
+                                    "background-color": 'whitegray',
+                                    'background-image': require('./client.png'),
+                                    "background-fit": "cover cover",
                                     }
                                 },
                                 {
@@ -252,6 +250,11 @@ const Dashboard = ( props ) => {
                                     "font-size": 7,
                                     "font-family": 'Noto Sans KR',
                                     "text-wrap": "wrap",
+                                    shape: 'round-rectangle',
+                                    'background-image': require('./desktop.png'),
+                                    "background-color": 'rgb(0, 140, 82)',
+                                    "background-width": '80%',
+                                    "background-height": '80%',
                                     "text-max-width": 50,
                                     }
                                 },
@@ -269,17 +272,24 @@ const Dashboard = ( props ) => {
                             ]}
                         />
                         { isFocus && FocusInfo !== null ? 
-                        <div style={{ backgroundColor: 'white', position: 'absolute', zIndex: 0, bottom: '3%', right: '3%', width: '15vw', height: '30vh', border: '1px solid black', borderRadius: '8px' }}>
-                            외부 연결 정보
-                            <div>외부 IP : {FocusInfo.foreign.split(":")[0]}</div>
-                            <div>포트번호 : {FocusInfo.foreign.split(":")[1]}</div>
-                            <div>프로세스 : {FocusInfo.pname}</div>
-                            { FocusInfo.malicious !== false && <div>악성 연결 판단 근거</div> }
-                            { FocusInfo.malicious !== false ? 
-                            FocusInfo.malicious.map((el, i) => (
-                                <div>{i + 1}. {el.SOURCE}</div>
-                            ))
-                            : null }
+                        <div style={{ backgroundColor: 'white', position: 'absolute', zIndex: 0, bottom: '3%', right: '3%', width: '15vw', height: '30vh', border: '0.5px solid gray', borderRadius: '4px', fontFamily: 'Noto Sans KR' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingRight: '18px', paddingTop: '18px', paddingLeft: '18px'}}>
+                                <div>연결 상세 정보</div>
+                                <div onClick={FocusEdge}>
+                                    <CancelIcon />
+                                </div>
+                            </div>
+                            <div style={{ paddingLeft: '24px', paddingTop: '8px'}}>
+                                <div>외부 IP : {FocusInfo.foreign.split(":")[0]}</div>
+                                <div>포트번호 : {FocusInfo.foreign.split(":")[1]}</div>
+                                <div>프로세스 : {FocusInfo.pname}</div>
+                                { FocusInfo.malicious !== false && <div>악성 연결 판단 근거</div> }
+                                { FocusInfo.malicious !== false ? 
+                                FocusInfo.malicious.map((el, i) => (
+                                    <div>{i + 1}. {el.SOURCE}</div>
+                                ))
+                                : null }
+                            </div>
                         </div>
                         : null }
                     </div>

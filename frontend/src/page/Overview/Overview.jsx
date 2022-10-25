@@ -253,7 +253,7 @@ const Overview = () => {
                 <div style={{width: '25vw', display: 'flex', alignItems: 'center'}}>
                     <div style={{ width: '25vw'}}>
                         <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>주요 대외기관 동향</div>
-                        <div style={{ height: '87vh', backgroundColor: 'transparent', border: '1px solid black' }}>
+                        <div style={{ height: '89vh', backgroundColor: 'transparent', border: '1px solid black', borderBottomWidth: '0px', borderRightWidth: '0px' }}>
                             <div style={{height: '20vh', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent'}}>
                                 <div style={{width: '50%', display: 'flex', flexDirection: 'column'}}>
                                     <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '12px'}}>
