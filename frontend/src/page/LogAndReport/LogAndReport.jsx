@@ -4,7 +4,10 @@ import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveTreeMap } from '@nivo/treemap';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { ResponsiveBar } from '@nivo/bar'
+import { ResponsiveBar } from '@nivo/bar';
+import { ResponsiveChoropleth } from '@nivo/geo';
+import WorldCountires from './world_countries.json';
+import { ResponsiveRadialBar } from '@nivo/radial-bar';
 
 
 const LogAndReport = ( props ) => {
@@ -41,6 +44,14 @@ const LogAndReport = ( props ) => {
     const [MaliciousCnt, setMaliciousCnt] = useState(0);
     const [WarningsCnt, setWarningsCnt] = useState(0);
 
+    const [ChoroplethData, setChoroplethData] = useState([]);
+    const [MaxGeoData, setMaxGeoData] = useState(0);
+
+    const [MalIP, setMalIP] = useState(null);
+    const [MalProcess, setMalProcess] = useState(null);
+
+    const [ClientPercent, setClientPercent] = useState(100);
+
     const PORTDATA = {
         "80": "HTTP",
         "443": "HTTPS",
@@ -49,7 +60,7 @@ const LogAndReport = ( props ) => {
     const getIPCountry = async ( IP ) => {
         await axios.get("https://ip2c.org/" + IP)
         .then((res) => {
-            const CountryName = res.data.split(";")[3];
+            const CountryName = res.data.split(";")[2];
             CountryDataRef.current.push(CountryName);
         });
     };
@@ -59,13 +70,23 @@ const LogAndReport = ( props ) => {
         let WarningsCnt = 0;
 
         CountryDataRef.current = [];
+        let MalIPTemp = [];
+        let MalProcessTemp = [];
+        let MalPercent = 100;
         for (let i = 0; i < props.LowData[0].connection.length; i++) {
             
             // 악성 노드 개수 세기.
             if (props.LowData[0].connection[i].malicious !== false) {
-                if (props.LowData[0].connection[i].malicious.length >= 3) MaliciousCnt++;
+                if (props.LowData[0].connection[i].malicious.length >= 3) {
+                    MaliciousCnt++;
+                }
                 else WarningsCnt++;
+                MalPercent -= props.LowData[0].connection[i].malicious.length * 3;
+                MalIPTemp.push(props.LowData[0].connection[i].foreign.split(":")[0]);
+                if (!MalProcessTemp.includes(props.LowData[0].connection[i].pname)) MalProcessTemp.push(props.LowData[0].connection[i].pname);
             }
+            if (MalPercent <= 0) setClientPercent(7);
+            else setClientPercent(MalPercent);
 
             getIPCountry(props.LowData[0].connection[i].foreign.split(":")[0]);
             
@@ -83,6 +104,9 @@ const LogAndReport = ( props ) => {
             }
             if (!flag) ProtocolDataRef.current.children.push({name: PROTOCOL, loc: 1});
         }
+        setMalIP(MalIPTemp);
+        setMalProcess(MalProcessTemp);
+
         setMaliciousCnt(MaliciousCnt);
         setWarningsCnt(WarningsCnt);
 
@@ -188,14 +212,17 @@ const LogAndReport = ( props ) => {
         if (CountryDataRef.current.length === props.LowData[0].connection.length && !PieFlag) {
             let Temp = [];
             let Chk = [];
+            let Maxx = 0;
             for (let i = 0; i < CountryDataRef.current.length; i++) {
                 if (Chk.includes(CountryDataRef.current[i]) === false) {
                     Chk.push(CountryDataRef.current[i]);
                     let Cnt = CountryDataRef.current.filter(element => CountryDataRef.current[i] === element).length;
+                    if (Cnt > Maxx) Maxx = Cnt;
                     Temp.push({ id: CountryDataRef.current[i], value: Cnt });
                 }
             }
-            setCountryData(Temp);
+            setChoroplethData(Temp);
+            setMaxGeoData(Maxx);
             setPieFlag(1);
         }
         
@@ -221,7 +248,7 @@ const LogAndReport = ( props ) => {
                 <span style={{ fontSize: 32}}>Client #1 위협 분석 보고서</span>
                 <span style={{ paddingLeft: 16}}>{props.LowData[0].time.split('.')[0]} 기준</span>
                 </div>
-            <div style={{ display: 'flex', flexDirection: 'row'}}>
+            <div style={{ display: 'flex', flexDirection: 'row', paddingRight: 60}}>
                 <div style={{display: 'flex', flexDirection: 'column', width: '25%', justifyContent: 'center', alignItems: 'center'}}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(0, 140, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Connections</span>
@@ -238,13 +265,103 @@ const LogAndReport = ( props ) => {
                 </div>
                 <div style={{width: '50%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '100%'}}>
-                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 수</div>
-                        <div style={{ height: '20vh', backgroundColor: 'transparent', border: '1px solid black'}}>
+                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>국가별 위험</div>
+                        <div style={{ height: '30vh', backgroundColor: 'transparent', border: '1px solid black', position: 'relative'}}>
+                            { !PieFlag ? <div style={{fontFamily: 'Noto Sans KR', fontSize: 18, position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%)'}}>로딩 중...</div> : 
+                            <ResponsiveChoropleth
+                                data={ChoroplethData}
+                                features={WorldCountires.features}
+                                margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+                                colors="nivo"
+                                domain={[ 0, MaxGeoData ]}
+                                unknownColor="#666666"
+                                label="properties.name"
+                                valueFormat="0.0s"
+                                projectionScale={100}
+                                projectionTranslation={[ 0.47, 0.7 ]}
+                                projectionRotation={[ 200, 0, 0 ]}
+                                graticuleLineColor="#dddddd"
+                                borderWidth={0.5}
+                                borderColor="#152538"
+                                legends={[
+                                    {
+                                        anchor: 'bottom-right',
+                                        direction: 'column',
+                                        justify: false,
+                                        translateX: -25,
+                                        translateY: -30,
+                                        itemsSpacing: 0,
+                                        itemWidth: 94,
+                                        itemHeight: 18,
+                                        itemDirection: 'left-to-right',
+                                        itemTextColor: '#444444',
+                                        itemOpacity: 0.85,
+                                        symbolSize: 18,
+                                        effects: [
+                                            {
+                                                on: 'hover',
+                                                style: {
+                                                    itemTextColor: '#000000',
+                                                    itemOpacity: 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]}
+                            /> }
+                        </div>
+                    </div>
+                    <div style={{ width: '100%', height: '44vh', display: 'flex', flexDirection: 'row'}}>
+                        <div style={{width: '50%'}}>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 현황</div>
+                            <div style={{height: '40vh', border: '0.25px solid black', borderRightWidth: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <ResponsiveBar
+                                    data={IPsCnt}
+                                    indexBy="IP"
+                                    keys={['data', 'block']}
+                                    margin={{ top: 5, right: 50, bottom: 5, left: 100 }}
+                                    layout="horizontal"
+                                    axisLeft={{
+                                        tickSize: 0,
+                                        tickPadding: 10,
+                                        tickRotation: 0,
+                                        legendPosition: 'left',
+                                    }}
+                                    axisBottom={null}
+                                    enableLabel={false}
+                                />
+                            </div>
+                        </div>
+                        <div style={{width: '50%'}}>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 현황</div>
+                            <div style={{height: '40vh', border: '0.5px solid black', borderRightWidth: '0px'}}>
+                                <ResponsiveBar
+                                    data={ProcessesCnt}
+                                    indexBy="Name"
+                                    keys={['data', 'block']}
+                                    margin={{ top: 5, right: 50, bottom: 5, left: 170 }}
+                                    layout="horizontal"
+                                    axisLeft={{
+                                        tickSize: 0,
+                                        tickPadding: 30,
+                                        tickRotation: 0,
+                                        legendPosition: 'left',
+                                    }}
+                                    axisBottom={null}
+                                    enableLabel={false}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style={{ width: '25vw', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+                    <div style={{ width: '100%',  height: '34vh', border: '1px solid black', justifyContent: 'center', position: 'relative'}}>
+                        <div style={{height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 현황</div>
+                        <div style={{height: '30vh'}}>
                             <ResponsiveTreeMap
                                 data={ProtocolData}
                                 identity="name"
                                 value="loc"
-                                valueFormat=" >-.2s"
                                 tile="binary"
                                 label="id"
                                 margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
@@ -280,141 +397,46 @@ const LogAndReport = ( props ) => {
                                     ]
                                 }}
                             />
-                            
-                            
                         </div>
                     </div>
-                    <div style={{ width: '100%', height: '54vh', display: 'flex', flexDirection: 'row'}}>
-                        <div style={{width: '50%'}}>
-                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 수</div>
-                            <div style={{height: '50vh', border: '0.5px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                <ResponsiveBar
-                                    data={IPsCnt}
-                                    indexBy="IP"
-                                    keys={['data', 'block']}
-                                    margin={{ top: 5, right: 50, bottom: 5, left: 100 }}
-                                    layout="horizontal"
-                                    axisLeft={{
-                                        tickSize: 0,
-                                        tickPadding: 10,
-                                        tickRotation: 0,
-                                        legendPosition: 'left',
-                                    }}
-                                    axisBottom={null}
-                                    enableLabel={false}
+                    <div style={{ width: '100%', height: '44vh'}}>
+                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>현재 클라이언트의 위험도</div>
+                        <div style={{ height: '40vh', backgroundColor: 'transparent', border: '1px solid black' }}>
+                            <div style={{height: '25vh', paddingTop: '12px'}}>
+                                <ResponsiveRadialBar
+                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: 'white'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
+                                    startAngle={-90}
+                                    endAngle={90}
+                                    padding={0.1}
+                                    radialAxisStart={null}
+                                    circularAxisOuter={null}
+                                    enableRadialGrid={false}
+                                    enableCircularGrid={false}
+                                    cornerRadius={2}
+                                    isInteractive={false}
+                                    colors={(dat) => dat.data.color}
+                                    margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
                                 />
                             </div>
-                        </div>
-                        <div style={{width: '50%'}}>
-                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 수</div>
-                            <div style={{height: '50vh', border: '0.5px solid black'}}>
-                                <ResponsiveBar
-                                    data={ProcessesCnt}
-                                    indexBy="Name"
-                                    keys={['data', 'block']}
-                                    margin={{ top: 5, right: 50, bottom: 5, left: 170 }}
-                                    layout="horizontal"
-                                    axisLeft={{
-                                        tickSize: 0,
-                                        tickPadding: 30,
-                                        tickRotation: 0,
-                                        legendPosition: 'left',
-                                    }}
-                                    axisBottom={null}
-                                    enableLabel={false}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style={{paddingRight: '32px', paddingLeft: '32px', width: '25%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                    <div style={{ width: '25vw', height: '29vh', border: '1px solid black', justifyContent: 'center', position: 'relative'}}>
-                        <div style={{ height: '32px', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>국가별 연결 수</div>
-                        { !PieFlag ? <div style={{fontFamily: 'Noto Sans KR', fontSize: 18, position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%)'}}>로딩 중...</div> : <ResponsivePie
-                            data={CountryData}   
-                            margin={{ top: 20, right: 15, bottom: 50, left: 15 }}
-                            innerRadius={0.5}
-                            padAngle={0.7}
-                            cornerRadius={3}
-                            activeOuterRadiusOffset={8}
-                            borderWidth={1}
-                            borderColor={{
-                                from: 'color',
-                                modifiers: [
-                                    [
-                                        'darker',
-                                        0.2
-                                    ]
-                                ]
-                            }}
-                            arcLabel="id"
-                            enableArcLinkLabels={false}
-                        /> }
-                    </div>
-                    <div style={{ width: '25vw', height: '49vh'}}>
-                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>주요 대외기관 동향</div>
-                        <div style={{ height: '45vh', backgroundColor: 'transparent', border: '1px solid black' }}>
-                            <div style={{height: '20vh', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent'}}>
-                                <div style={{width: '50%', display: 'flex', flexDirection: 'column'}}>
-                                    <div style={{width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '12px'}}>
-                                        <div style={{width: '60%', height: '4vh', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                                            <span style={{ fontFamily: 'Noto Sans KR', fontSize: '12px'}}>인터넷침해사고 경보단계</span>
-                                            <span style={{ fontFamily: 'Noto Sans KR', fontSize: '12px'}}>{InternetAlertDate} 기준</span>
-                                        </div>
-                                        <div style={{width: 0, height: 0, border: '10px solid transparent', borderRight: InternetAlert == '주의' ? '10px solid rgb(255, 171, 46)' : InternetAlert == "정상" || InternetAlert == "관심" ? '10px solid rgb(0, 140, 82)' : '10px solid rgb(255, 92, 82)'  }}></div>
-                                        <div style={{ width: '20%', height: '4vh', backgroundColor: InternetAlert == '주의' ? 'rgb(255, 171, 46)' : InternetAlert == "정상" || InternetAlert == "관심" ? 'rgb(0, 140, 82)' : 'rgb(255, 92, 82)', textAlign: 'center', lineHeight: '4vh', fontFamily: 'Noto Sans KR'}}>{InternetAlert}</div>
-                                    </div>
-                                    <div style={{ width: '100%', height: '11vh', display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: "Noto Sans KR", borderTop: '1px solid black', paddingTop: '12px'}}>
-                                        <div style={{ width: '85%', justifyContent: 'center', textDecoration: 'underline'}}>오늘의 주요 키워드</div>
-                                        <div style={{ fontSize: '11px', width: '85%', height: '9.8vh', overflow: 'hidden', wordWrap: 'break-word', display: '-webkit-box', WebkitLineClamp: 5, WebkitBoxOrient: 'vertical', textOverflow: 'ellipsis'}}>
-                                            {TodayKeywords}    
-                                        </div>
-                                    </div>
+                            <div style={{fontFamily: 'Noto Sans KR', marginTop: '-160px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <div style={{ fontSize: '32px'}}>{ClientPercent}<span style={{fontSize: '24px'}}>%</span></div>
+                                <div style={{ marginTop: '8px'}}>현재 클라이언트의 상태는 <span style={{fontSize: '22px', color: ClientPercent > 75 ? "green" : ClientPercent > 50 ? "yellow" : "red"}}>{ClientPercent > 75 ? "양호" : ClientPercent > 50 ? "주의" : "취약"}</span> 입니다.</div>
+                                <div style={{ marginTop: '8px'}}>Client #1 분석 결과 유해하다고 생각되는 연결 {MaliciousCnt}건, <br /> 의심해봐야할 연결 {WarningsCnt}건이 발견되었습니다.</div>
+                                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                    {MalIP === null ? null : <div>주의해야 할 IP : {MalIP.length === 0 ? '없음' : MalIP[0]}{MalIP.length >= 1 && ' 등 ' + MalIP.length + '건'}</div>}
+                                    {MalProcess === null ? null : <div>주의해야 할 프로세스 : {MalProcess.length === 0 ? '없음' : MalProcess[0]}{MalProcess.length > 1 && ' 등 ' + MalProcess.length + '건'}</div>}
                                 </div>
-                                <div style={{ width: '50%', height: '20vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderLeft: '1px solid black'}}>
-                                    <div style={{ width: '100%', textAlign: 'start', paddingBottom: '16px', paddingLeft: '16px', fontFamily: 'Noto Sans KR'}}>
-                                        <span style={{textDecoration: 'underline'}}>오늘의 사이버 위협</span></div>
-                                    <div style={{width: '93%'}}>
-                                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>악성코드 발견 홈페이지</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>{Threat1Cnt} (개)</div>
-                                                { Threat1Status == "상승" ? 
-                                                <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
-                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
-                                            </div>
-                                        </div>
-                                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>신종 스미싱 악성 앱</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>{Threat2Cnt} (개)</div>
-                                                { Threat2Status == "상승" ? 
-                                                <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
-                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
-                                            </div>
-                                        </div>
-                                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
-                                            <div style={{ width: '70%', backgroundColor: '#ffff2222', textAlign: 'center', fontSize: '14px', padding: '6px'}}>피싱ㆍ파밍 차단 사이트</div>
-                                            <div style={{ width: '30%', backgroundColor: 'white', display: 'flex', flexDirection: 'row', fontSize: '12px', padding: '6px', alignItems: 'center', justifyContent: 'center'}}>
-                                                <div>{Threat3Cnt} (개)</div>
-                                                { Threat3Status == "상승" ? 
-                                                <ArrowDropUpIcon sx={{color: 'red'}} fontSize="small" />
-                                                : <ArrowDropDownIcon sx={{color: 'blue'}} fontSize="small" /> }
-                                            </div>
-                                        </div> 
-                                    </div>                              
+                                <div style={{ width: '80%', height: '24px', display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
+                                    <div style={{backgroundColor: 'red', width: '50%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white'}}>취약</div>
+                                    <div style={{backgroundColor: 'yellow', width: '25%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'black'}}>주의</div>
+                                    <div style={{backgroundColor: 'green', width: '25%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white'}}>양호</div>
                                 </div>
-                            </div>
-                            <div style={{width: '100%', height: '25vh', borderTop: '1px solid black', fontFamily: 'Noto Sans KR'}}>
-                                <div style={{textDecoration: 'underline', marginTop: '12px', marginLeft: '12px', fontSize: '18px'}}>최신 자료</div>
-                                { NewsData !== [] && NewsData.map((el, i) => (
-                                    <a key={i} href={el.href} style={{width: '100%', height: '4vh', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                        <div style={{width: '75%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingLeft: '12px', paddingRight: '32px'}}>
-                                            {el.title}
-                                        </div>
-                                        <div style={{width: '25%', fontSize: '12px', textAlign: 'center'}}>{el.date}</div>
-                                    </a>
-                                )) }
+                                <div style={{ width: '80%', position: 'relative'}}>
+                                    <div style={{position: 'absolute', left: '0%', transform: 'translateX(-50%)'}}>0%</div>
+                                    <div style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>50%</div>
+                                    <div style={{position: 'absolute', left: '75%', transform: 'translateX(-50%)'}}>75%</div>
+                                    <div style={{position: 'absolute', left: '100%', transform: 'translateX(-50%)'}}>100%</div>
+                                </div>
                             </div>
                         </div> 
                     </div>
