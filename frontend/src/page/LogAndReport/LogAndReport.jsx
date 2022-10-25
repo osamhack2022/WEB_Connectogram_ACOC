@@ -50,6 +50,8 @@ const LogAndReport = ( props ) => {
     const [MalIP, setMalIP] = useState(null);
     const [MalProcess, setMalProcess] = useState(null);
 
+    const [ClientPercent, setClientPercent] = useState(100);
+
     const PORTDATA = {
         "80": "HTTP",
         "443": "HTTPS",
@@ -70,6 +72,7 @@ const LogAndReport = ( props ) => {
         CountryDataRef.current = [];
         let MalIPTemp = [];
         let MalProcessTemp = [];
+        let MalPercent = 100;
         for (let i = 0; i < props.LowData[0].connection.length; i++) {
             
             // 악성 노드 개수 세기.
@@ -78,9 +81,12 @@ const LogAndReport = ( props ) => {
                     MaliciousCnt++;
                 }
                 else WarningsCnt++;
+                MalPercent -= props.LowData[0].connection[i].malicious.length * 3;
                 MalIPTemp.push(props.LowData[0].connection[i].foreign.split(":")[0]);
                 if (!MalProcessTemp.includes(props.LowData[0].connection[i].pname)) MalProcessTemp.push(props.LowData[0].connection[i].pname);
             }
+            if (MalPercent <= 0) setClientPercent(7);
+            else setClientPercent(MalPercent);
 
             getIPCountry(props.LowData[0].connection[i].foreign.split(":")[0]);
             
@@ -398,7 +404,7 @@ const LogAndReport = ( props ) => {
                         <div style={{ height: '40vh', backgroundColor: 'transparent', border: '1px solid black' }}>
                             <div style={{height: '25vh', paddingTop: '12px'}}>
                                 <ResponsiveRadialBar
-                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: 'white'}]}, {id: 'value', data: [{x:'x', y: 85, color: 'rgb(0, 140, 82)'}]}]}
+                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: 'white'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
                                     startAngle={-90}
                                     endAngle={90}
                                     padding={0.1}
@@ -413,9 +419,9 @@ const LogAndReport = ( props ) => {
                                 />
                             </div>
                             <div style={{fontFamily: 'Noto Sans KR', marginTop: '-160px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                <div style={{ fontSize: '32px'}}>85<span style={{fontSize: '24px'}}>%</span></div>
-                                <div style={{ marginTop: '8px'}}>현재 클라이언트의 상태는 <span style={{fontSize: '22px', color: 'green'}}>양호</span> 합니다.</div>
-                                <div style={{ marginTop: '8px'}}>Client #1 분석 결과 유해하다고 생각되는 연결 4건, <br /> 의심해봐야할 연결 4건이 발견되었습니다.</div>
+                                <div style={{ fontSize: '32px'}}>{ClientPercent}<span style={{fontSize: '24px'}}>%</span></div>
+                                <div style={{ marginTop: '8px'}}>현재 클라이언트의 상태는 <span style={{fontSize: '22px', color: ClientPercent > 75 ? "green" : ClientPercent > 50 ? "yellow" : "red"}}>{ClientPercent > 75 ? "양호" : ClientPercent > 50 ? "주의" : "취약"}</span> 입니다.</div>
+                                <div style={{ marginTop: '8px'}}>Client #1 분석 결과 유해하다고 생각되는 연결 {MaliciousCnt}건, <br /> 의심해봐야할 연결 {WarningsCnt}건이 발견되었습니다.</div>
                                 <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     {MalIP === null ? null : <div>주의해야 할 IP : {MalIP.length === 0 ? '없음' : MalIP[0]}{MalIP.length >= 1 && ' 등 ' + MalIP.length + '건'}</div>}
                                     {MalProcess === null ? null : <div>주의해야 할 프로세스 : {MalProcess.length === 0 ? '없음' : MalProcess[0]}{MalProcess.length > 1 && ' 등 ' + MalProcess.length + '건'}</div>}
