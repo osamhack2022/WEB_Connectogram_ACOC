@@ -7,8 +7,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import ColorButton2 from "../../components/ColorButton2";
+import ColorButton from "../../components/ColorButton";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -37,6 +41,12 @@ const Register = () => {
 
   const gotoLogin = (e) => {
     navigate("/");
+  };
+
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      excuteRegister();
+    }
   };
 
   /*useEffect(() => {
@@ -91,6 +101,7 @@ const Register = () => {
                                 handleToast(res.data["err_msg"]);
                               else {
                                 handleToast("회원가입이 완료되었습니다.");
+                                setNEXT(true);
                               }
                             });
                         }
@@ -109,119 +120,133 @@ const Register = () => {
     <div className="Register">
       <div className="subtitle">군 사이버 보안의 미래</div>
       <div className="title">Connectogram</div>
-      {NEXT ? (
-        <div>
-          <button className="signup_button" onClick={() => gotoLogin()}>
-            LOGIN
-          </button>
-        </div>
-      ) : (
-        <div>
-          <div className="register_form">
-            <div className="register_icon">
-              <AccountCircleIcon fontSize="inherit" />
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <PersonIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  className="register_input_com"
-                  onChange={(e) => setID(e.target.value)}
-                  placeholder="USER ID"
-                />
-              </div>
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <LockIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  type="password"
-                  className="register_input_com"
-                  onChange={(e) => setPW(e.target.value)}
-                  placeholder="PASSWORD"
-                />
-              </div>
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <LockIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  type="password"
-                  className="register_input_com"
-                  onChange={(e) => setCONFIRM(e.target.value)}
-                  placeholder="PASSWORD CONFIRM"
-                />
-              </div>
-            </div>
-            <div className="register_confirmbox">
-              {bothFieldsAreFilled ? (
-                passwordsMatch ? (
-                  <p className="green">비밀번호가 일치합니다.</p>
-                ) : (
-                  <p className="red">비밀번호가 일치하지 않습니다.</p>
-                )
-              ) : (
-                <p>비밀번호를 입력해주십시오.</p>
-              )}
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <PersonIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  className="register_input_com"
-                  onChange={(e) => setNAME(e.target.value)}
-                  placeholder="USER NAME"
-                />
-              </div>
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <EmailIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  className="register_input_com"
-                  onChange={(e) => setEMAIL(e.target.value)}
-                  placeholder="EMAIL"
-                />
-              </div>
-            </div>
-            <div className="register_input">
-              <div className="register_input_icon">
-                <PhoneAndroidIcon fontSize="medium" />
-              </div>
-              <div className="register_inputbox">
-                <input
-                  className="register_input_com"
-                  onChange={(e) => setPHONE(e.target.value)}
-                  placeholder="PHONE NUMBER"
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <button
-              className="register_button"
-              onClick={() => excuteRegister()}
-            >
-              REGISTER
-            </button>
-          </div>
-          <div>
-            <button className="login_button" onClick={() => gotoLogin()}>
+      <Grid alignItems="center">
+        {NEXT ? (
+          <div onClick={() => gotoLogin()}>
+            <ColorButton2 variant="text" size="large" color="primary">
               LOGIN
-            </button>
+            </ColorButton2>
           </div>
-        </div>
-      )}
+        ) : (
+          <div>
+            <div className="register_form">
+              <div className="register_icon">
+                <AccountCircleIcon fontSize="inherit" />
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <PersonIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    className="register_input_com"
+                    onChange={(e) => setID(e.target.value)}
+                    onKeyPress={handleOnKeyPress}
+                    placeholder="USER ID"
+                  />
+                </div>
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <LockIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    type="password"
+                    className="register_input_com"
+                    onKeyPress={handleOnKeyPress}
+                    onChange={(e) => setPW(e.target.value)}
+                    placeholder="PASSWORD"
+                  />
+                </div>
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <LockIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    type="password"
+                    className="register_input_com"
+                    onKeyPress={handleOnKeyPress}
+                    onChange={(e) => setCONFIRM(e.target.value)}
+                    placeholder="PASSWORD CONFIRM"
+                  />
+                </div>
+              </div>
+              <div className="register_confirmbox">
+                {bothFieldsAreFilled ? (
+                  passwordsMatch ? (
+                    <p className="green">비밀번호가 일치합니다.</p>
+                  ) : (
+                    <p className="red">비밀번호가 일치하지 않습니다.</p>
+                  )
+                ) : (
+                  <p>비밀번호를 입력하십시오.</p>
+                )}
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <PersonIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    className="register_input_com"
+                    onKeyPress={handleOnKeyPress}
+                    onChange={(e) => setNAME(e.target.value)}
+                    placeholder="USER NAME"
+                  />
+                </div>
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <EmailIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    className="register_input_com"
+                    onKeyPress={handleOnKeyPress}
+                    onChange={(e) => setEMAIL(e.target.value)}
+                    placeholder="EMAIL"
+                  />
+                </div>
+              </div>
+              <div className="register_input">
+                <div className="register_input_icon">
+                  <PhoneAndroidIcon fontSize="medium" />
+                </div>
+                <div className="register_inputbox">
+                  <input
+                    className="register_input_com"
+                    onKeyPress={handleOnKeyPress}
+                    onChange={(e) => setPHONE(e.target.value)}
+                    placeholder="PHONE NUMBER"
+                  />
+                </div>
+              </div>
+            </div>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Stack spacing={6} direction="row">
+                <div onClick={() => gotoLogin()}>
+                  <ColorButton variant="text" size="large" color="primary">
+                    LOGIN
+                  </ColorButton>
+                </div>
+                <div onClick={() => excuteRegister()}>
+                  <ColorButton variant="text" size="large" color="primary">
+                    Register
+                  </ColorButton>
+                </div>
+              </Stack>
+            </Grid>
+          </div>
+        )}
+      </Grid>
       {ToastStatus && <Toast msg={ToastMsg} />}
     </div>
   );

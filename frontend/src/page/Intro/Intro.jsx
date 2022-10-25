@@ -5,8 +5,11 @@ import { useEffect } from "react";
 import Toast from "../../components/Toast/Toast";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
+import Button from "@mui/material/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import ColorButton from "../../components/ColorButton";
+import Stack from "@mui/material/Stack";
 
 const Intro = () => {
   const [ToastStatus, setToastStatus] = useState(false);
@@ -54,13 +57,9 @@ const Intro = () => {
       });
   };
 
-  const handleOnClick = () => {
-    excuteLogin();
-  };
-
   const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleOnClick();
+      excuteLogin();
     }
   };
 
@@ -106,12 +105,28 @@ const Intro = () => {
           </div>
         </div>
       </div>
-      <div className="signin_button" onClick={() => excuteLogin()}>
-        LOGIN
-      </div>
-      <button className="signup_button" onClick={() => gotoRegister()}>
-        계정 신청
-      </button>
+      <Stack spacing={6} direction="row">
+        <div onClick={() => excuteLogin()}>
+          <ColorButton
+            variant="text"
+            // className="signin_button"
+            size="large"
+            color="primary"
+          >
+            LOGIN
+          </ColorButton>
+        </div>
+        <div onClick={() => gotoRegister()}>
+          <ColorButton
+            variant="text"
+            // className="signup_button"
+            size="large"
+            color="primary"
+          >
+            Register
+          </ColorButton>
+        </div>
+      </Stack>
       {ToastStatus && <Toast msg={ToastMsg} />}
     </div>
   );
