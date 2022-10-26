@@ -15,6 +15,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
 import background from "../../asset/background.png"; 
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Overview = () => {
@@ -43,6 +44,8 @@ const Overview = () => {
   const [Threat3Status, setThreat3Status] = useState("상승");
   const [NewsData, setNewsData] = useState([]);
 
+  const [Permission, setPermission] = useState("");
+
   const sessionCheck = () => {
     if (sessionStorage.getItem("session_id") === null) {
       alert("로그인해주세요.");
@@ -64,6 +67,7 @@ const Overview = () => {
           return;
         }
         setUserName(res.data.userInfo.user_name);
+        setPermission(res.data.userInfo.permission);
       });
   };
 
@@ -263,13 +267,13 @@ const Overview = () => {
           </Typography>
           <div
             style={{
-              width: "20%",
+              width: "30%",
               position: "absolute",
               right: "0%",
               marginRight: "48px",
             }}
           >
-            <div
+          <div
               style={{
                 width: "100%",
                 display: "flex",
@@ -278,7 +282,8 @@ const Overview = () => {
                 alignItems: "center",
               }}
             >
-              <div
+                { Permission == "관리자" && <Link to="/admin" style={{textDecoration: 'none', color: 'white'}}><div style={{ marginRight: '48px', fontFamily: "Noto Sans KR"}}>계정 승인</div></Link> }
+                <div
                 style={{
                   justifyContent: "center",
                   alignItems: "center",
