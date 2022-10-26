@@ -74,8 +74,7 @@ const Main = () => {
           position="static"
           style={{
             height: "auto",
-            alignItems: "center",
-            backgroundColor: "#000000",
+            alignItems: "center", backgroundColor: "#171c36", borderBottom: '1px solid #868897'
           }}
         >
           <Toolbar style={{ width: "100%", padding: 0 }}>
@@ -169,8 +168,8 @@ const Main = () => {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#ffffff",
-            height: "50px",
+            height: "49px",
+            backgroundColor: "#171c36", borderBottom: '1px solid #868897', color: 'white',
           }}
         >
           <Toolbar
@@ -184,7 +183,7 @@ const Main = () => {
               component="div"
               onClick={() => setMenu(0)}
               style={{
-                color: Menu === 0 ? "#787878" : "#000000",
+                color: Menu === 0 ? "#787878" : "#ffffff",
                 fontFamily: "Noto Sans KR",
                 userSelect: "none",
               }}
@@ -195,7 +194,7 @@ const Main = () => {
               component="div"
               onClick={() => setMenu(1)}
               style={{
-                color: Menu === 1 ? "#787878" : "#000000",
+                color: Menu === 1 ? "#787878" : "#ffffff",
                 fontFamily: "Noto Sans KR",
                 userSelect: "none",
               }}

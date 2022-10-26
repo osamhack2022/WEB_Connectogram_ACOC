@@ -8,6 +8,7 @@ import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveChoropleth } from '@nivo/geo';
 import WorldCountires from './world_countries.json';
 import { ResponsiveRadialBar } from '@nivo/radial-bar';
+import { Bars } from 'react-loading-icons';
 
 
 const LogAndReport = ( props ) => {
@@ -248,6 +249,7 @@ const LogAndReport = ( props ) => {
                 <span style={{ fontSize: 32}}>Client #1 위협 분석 보고서</span>
                 <span style={{ paddingLeft: 16}}>{props.LowData[0].time.split('.')[0]} 기준</span>
                 </div>
+            {PieFlag ? 
             <div style={{ display: 'flex', flexDirection: 'row', paddingRight: 60}}>
                 <div style={{display: 'flex', flexDirection: 'column', width: '25%', justifyContent: 'center', alignItems: 'center'}}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(0, 140, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
@@ -402,7 +404,9 @@ const LogAndReport = ( props ) => {
                     <div style={{ width: '100%', height: '44vh'}}>
                         <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>현재 클라이언트의 위험도</div>
                         <div style={{ height: '40vh', backgroundColor: 'transparent', border: '1px solid black' }}>
-                            <div style={{height: '25vh', paddingTop: '12px'}}>
+                            
+                            <div>
+                                <div style={{height: '25vh', paddingTop: '12px'}}>
                                 <ResponsiveRadialBar
                                     data={[{id: 'percent', data: [{x:'x', y: 100, color: 'white'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
                                     startAngle={-90}
@@ -438,10 +442,11 @@ const LogAndReport = ( props ) => {
                                     <div style={{position: 'absolute', left: '100%', transform: 'translateX(-50%)'}}>100%</div>
                                 </div>
                             </div>
+                            </div>
                         </div> 
                     </div>
                 </div>
-            </div>
+            </div> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingBottom: '60px'}}><Bars fill="#000000" height='3rem' /><span style={{ marginTop: '16px', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>보고서 생성 중...</span></div> }
         </div>
     );
 }

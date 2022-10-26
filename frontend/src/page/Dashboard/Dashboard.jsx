@@ -8,6 +8,7 @@ import cola from 'cytoscape-cola';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useLocation } from "react-router-dom";
 import CancelIcon from '@mui/icons-material/Cancel';
+import FitScreenIcon from '@mui/icons-material/FitScreen';
 
 
 //Cytoscape.use(COSEBilkent);
@@ -77,9 +78,11 @@ const Dashboard = ( props ) => {
                 if (ConnectionData.connection[i].malicious !== false) {
                     if (ConnectionData.connection[i].malicious.length >= 3) {
                         cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'red'});
+                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": 'red'});
                     }
                     else {
                         cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'yellow'});
+                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": 'yellow'});
                     }
                 }
             }
@@ -158,7 +161,7 @@ const Dashboard = ( props ) => {
     };
 
     return (
-        <div style={{backgroundColor: 'transparent', height: '88vh' , display: 'flex', flexDirection: 'row' }}>
+        <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'row' }}>
             <div style={{width : '50vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '32px' }}>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
@@ -206,8 +209,9 @@ const Dashboard = ( props ) => {
             </div>
             <div style={{ width: '50%', backgroundColor: 'transparent', padding: '32px', marginTop: '8px' }}>
                 <div style={{ height: '100%', display: 'flex', flexDirection: 'column'}}>
-                    <div style={{ width: '50vw', backgroundColor: 'black', height: '48px', borderTopLeftRadius: '8px', borderTopRightRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR'}}>
+                    <div style={{ width: '50vw', backgroundColor: 'black', height: '48px', borderTopLeftRadius: '8px', borderTopRightRadius: '8px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'space-between'}}>
                         <span style={{paddingLeft: '16px', fontSize: 18}}>Connecto Map</span>
+                        <FitScreenIcon sx={{ marginRight: '16px'}} onClick={() => cy.current.layout({ name: 'cola', fit: true, animate: false }).run()} />
                     </div>
                     <div style={{height: '72vh', position: 'relative'}}>
                         <CytoscapeComponent
@@ -217,7 +221,7 @@ const Dashboard = ( props ) => {
                                 name: "cola",
                                 animate: false,
                             }} 
-                            style={ { height: '100%', border: '1px solid black' } }
+                            style={ { height: '100%', border: '1px solid black', backgroundColor: '#ffffff22' } }
                             stylesheet={[
                                 {
                                     selector: "node[type = 'CLIENT']",
@@ -228,6 +232,7 @@ const Dashboard = ( props ) => {
                                     "text-valign": 'bottom',
                                     "text-outline-color": 'gray',
                                     "text-outline-width": 1,
+                                    color: 'white',
                                     "text-margin-y": 4,
                                     "font-size": 12,
                                     "font-family": 'Noto Sans KR',
@@ -250,6 +255,7 @@ const Dashboard = ( props ) => {
                                     "font-size": 7,
                                     "font-family": 'Noto Sans KR',
                                     "text-wrap": "wrap",
+                                    color: 'white',
                                     shape: 'round-rectangle',
                                     'background-image': require('./desktop.png'),
                                     "background-color": 'rgb(0, 140, 82)',
@@ -262,7 +268,7 @@ const Dashboard = ( props ) => {
                                     selector: "edge",
                                     style: {
                                         width: 1,
-                                        "line-color": 'gray',
+                                        "line-color": 'white',
                                         "target-arrow-shape": "triangle",
                                         "target-arrow-color": "#9dbaea",
                                         "line-style": "dashed",

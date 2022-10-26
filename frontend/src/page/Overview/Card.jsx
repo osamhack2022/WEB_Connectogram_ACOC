@@ -6,10 +6,10 @@ DesktopWindowsTwoToneIcon from '@mui/icons-material/DesktopWindowsTwoTone';
 const Card = ( props ) => {
     const navigate = useNavigate();
 
-    const [TextColor, setTextColor] = useState("gray");
-    const [BackColor, setBackColor] = useState('#ffffff');
-    const [HoverTextColor, setHoverTextColor] = useState("#ffffff");
-    const [HoverBackColor, setHoverBackColor] = useState('gray');
+    const [TextColor, setTextColor] = useState("#ffffff");
+    const [BackColor, setBackColor] = useState('gray');
+    const [HoverTextColor, setHoverTextColor] = useState("gray");
+    const [HoverBackColor, setHoverBackColor] = useState('#ffffff');
     
     const LowData = useRef(null);
     const [ConnectionCnt, setConnectionCnt] = useState(0);
@@ -31,15 +31,15 @@ const Card = ( props ) => {
     useEffect(() => {
         if (isLoading === true) return;
         if (MaliciousCnt >= 1) {
-            setTextColor('rgb(255, 92, 82)');
-            setHoverBackColor('rgb(255, 92, 82)');
+            setBackColor('rgb(255, 92, 82)');
+            setHoverTextColor('rgb(255, 92, 82)');
         } else {
             if (WarningsCnt >= 1) {
-                setTextColor('rgb(255, 171, 46)');
-                setHoverBackColor('rgb(255, 171, 46)');
+                setBackColor('rgb(255, 171, 46)');
+                setHoverTextColor('rgb(255, 171, 46)');
             } else {
-                setTextColor('rgb(0, 120, 0)');
-                setHoverBackColor('rgb(0, 120, 0)');
+                setBackColor('rgb(0, 120, 0)');
+                setHoverTextColor('rgb(0, 120, 0)');
             }
         }
     }, [isLoading]);

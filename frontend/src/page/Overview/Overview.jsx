@@ -14,6 +14,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
+import background from "../../asset/background.png"; 
+
 
 const Overview = () => {
   // 새로고침 주기 (초)
@@ -194,10 +196,10 @@ const Overview = () => {
   }, [isAutoRefresh]);
 
   return (
-    <div>
+    <div style={{width: '100vw', height: '100vh', backgroundColor: 'rgb(7, 12, 39)', color: 'white' }}>
       <AppBar
         position="static"
-        style={{ alignItems: "center", backgroundColor: "#000000" }}
+        style={{ alignItems: "center", backgroundColor: "#171c36", borderBottom: '1px solid #868897' }}
       >
         <Toolbar style={{ width: "100%", padding: 0 }}>
           <div
@@ -316,7 +318,7 @@ const Overview = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: "flex", flexDirection: "row"}}>
         <div style={{ width: "75vw" }}>
           <div
             style={{
@@ -340,9 +342,10 @@ const Overview = () => {
                 fontSize: 32,
                 alignItems: "center",
                 justifyContent: "center",
+                letterSpacing: -1,
               }}
             >
-              현재 등록된 자산들
+              Device Overview
             </div>
           </div>
           <div
@@ -362,7 +365,7 @@ const Overview = () => {
               }}
             >
               <span>자동 새로고침</span>
-              <Switch checked={isAutoRefresh} onChange={handleAutoRefresh} />
+              <Switch checked={isAutoRefresh} onChange={handleAutoRefresh} sx={{ color: 'white'}} />
             </div>
             <div
               style={{
@@ -446,198 +449,11 @@ const Overview = () => {
               >
                 <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
               </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
-              <div
-                style={{
-                  height: "8vw",
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "gray",
-                  margin: "8px",
-                  borderRadius: "8px",
-                  border: "3px",
-                  borderColor: "gray",
-                }}
-              >
-                <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
             </div>
           )}
         </div>
-        <div style={{ width: "25vw", display: "flex", alignItems: "center" }}>
-          <div style={{ width: "25vw" }}>
+        <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '15px' }}>
+          <div style={{ width: "23vw", height: '89vh', backgroundColor: 'rgb(17, 22, 51)' }}>
             <div
               style={{
                 height: "4vh",
@@ -653,9 +469,8 @@ const Overview = () => {
             </div>
             <div
               style={{
-                height: "89vh",
+                height: "85vh",
                 backgroundColor: "transparent",
-                border: "1px solid black",
                 borderBottomWidth: "0px",
                 borderRightWidth: "0px",
               }}
@@ -813,7 +628,7 @@ const Overview = () => {
                           width: "70%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
-                          fontSize: "14px",
+                          fontSize: "12px",
                           padding: "6px",
                         }}
                       >
@@ -826,9 +641,10 @@ const Overview = () => {
                           display: "flex",
                           flexDirection: "row",
                           fontSize: "11px",
-                          padding: "6px",
+                          padding: "5px",
                           alignItems: "center",
                           justifyContent: "center",
+                          color: 'black',
                         }}
                       >
                         <div>{Threat1Cnt} (개)</div>
@@ -858,7 +674,7 @@ const Overview = () => {
                           width: "70%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
-                          fontSize: "14px",
+                          fontSize: "12px",
                           padding: "6px",
                         }}
                       >
@@ -871,9 +687,10 @@ const Overview = () => {
                           display: "flex",
                           flexDirection: "row",
                           fontSize: "11px",
-                          padding: "6px",
+                          padding: "5px",
                           alignItems: "center",
                           justifyContent: "center",
+                          color: 'black',
                         }}
                       >
                         <div>{Threat2Cnt} (개)</div>
@@ -903,7 +720,7 @@ const Overview = () => {
                           width: "70%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
-                          fontSize: "14px",
+                          fontSize: "12px",
                           padding: "6px",
                         }}
                       >
@@ -916,9 +733,10 @@ const Overview = () => {
                           display: "flex",
                           flexDirection: "row",
                           fontSize: "11px",
-                          padding: "6px",
+                          padding: "5px",
                           alignItems: "center",
                           justifyContent: "center",
+                          color: 'black',
                         }}
                       >
                         <div>{Threat3Cnt} (개)</div>
@@ -966,6 +784,7 @@ const Overview = () => {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
+                        color: 'white',
                       }}
                     >
                       <div
