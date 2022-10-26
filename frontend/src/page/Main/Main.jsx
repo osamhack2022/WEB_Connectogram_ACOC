@@ -47,6 +47,7 @@ const Main = () => {
         console.log(res.data);
         console.log(res.data.userInfo.user_name);
         setUserName(res.data.userInfo.user_name);
+        setPermission(res.data.userInfo.permission);
       });
   };
 
@@ -108,7 +109,7 @@ const Main = () => {
             </Typography>
             <div
               style={{
-                width: "20%",
+                width: "30%",
                 position: "absolute",
                 right: "0%",
                 marginRight: "48px",
@@ -123,12 +124,13 @@ const Main = () => {
                   alignItems: "center",
                 }}
               >
+                { Permission == "관리자" && <Link to="/admin" style={{textDecoration: 'none', color: 'white'}}><div style={{ marginRight: '48px', fontFamily: "Noto Sans KR"}}>계정 승인</div></Link> }
                 <div
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: "row"
                   }}
                 >
                   <img
