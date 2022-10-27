@@ -62,6 +62,7 @@ const App = () => {
           }
         />
         <Route path="/dashboard" element={<Main />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

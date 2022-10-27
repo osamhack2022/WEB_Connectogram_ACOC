@@ -124,7 +124,7 @@ const Main = () => {
                   alignItems: "center",
                 }}
               >
-                { Permission == "관리자" && <Link to="/admin" style={{textDecoration: 'none', color: 'white'}}><div style={{ marginRight: '48px', fontFamily: "Noto Sans KR"}}>계정 승인</div></Link> }
+                {/* Permission == "관리자" && <Link to="/admin" style={{textDecoration: 'none', color: 'white'}}><div style={{ marginRight: '48px', fontFamily: "Noto Sans KR"}}>계정 승인</div></Link> */}
                 <div
                   style={{
                     justifyContent: "center",
