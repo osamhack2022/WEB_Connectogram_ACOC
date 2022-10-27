@@ -389,7 +389,7 @@ const Overview = () => {
                   marginRight: "6px",
                 }}
               >
-                <span style={{ color: "blue" }}>
+                <span style={{ color: "#ffff22" }}>
                   {dayjs(TimeLeft).format("ss")}
                 </span>
                 초 후
@@ -783,6 +783,7 @@ const Overview = () => {
                     <a
                       key={i}
                       href={el.href}
+                      target="_blank"
                       style={{
                         width: "100%",
                         height: "4vh",
@@ -790,6 +791,7 @@ const Overview = () => {
                         flexDirection: "row",
                         alignItems: "center",
                         color: 'white',
+                        textDecoration: 'none',
                       }}
                     >
                       <div
