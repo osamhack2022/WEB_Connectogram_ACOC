@@ -252,7 +252,7 @@ const LogAndReport = ( props ) => {
     return (
         <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'column' }}>
             <div style={{ height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 8, paddingBottom: 8, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end', color: 'white'}}>
-                <span style={{ fontSize: 32}}>Client #1 위협 분석 보고서</span>
+                <span style={{ fontSize: 32}}>{props.LowData[0].public_ip} 위협 분석 보고서</span>
                 <span style={{ paddingLeft: 16}}>{props.LowData[0].time.split('.')[0]} 기준</span>
                 </div>
             {PieFlag ? 
