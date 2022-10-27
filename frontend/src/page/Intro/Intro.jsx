@@ -104,29 +104,15 @@ const Intro = () => {
             />
           </div>
         </div>
-      </div>
-      <Stack spacing={6} direction="row">
-        <div onClick={() => excuteLogin()}>
-          <ColorButton
-            variant="text"
-            // className="signin_button"
-            size="large"
-            color="primary"
-          >
+        <div style={{ width: '100%', marginTop: '24px', display: 'flex', flexDirection: 'row', userSelect: 'none', color: 'white'}}>
+          <div style={{width: '50%', textAlign: 'center', borderRight: '1px solid white'}} onClick={() => excuteLogin()}>
             LOGIN
-          </ColorButton>
+          </div>
+          <div style={{width: '50%', textAlign: 'center'}} onClick={() => gotoRegister()}>
+            REGISTER
         </div>
-        <div onClick={() => gotoRegister()}>
-          <ColorButton
-            variant="text"
-            // className="signup_button"
-            size="large"
-            color="primary"
-          >
-            Register
-          </ColorButton>
         </div>
-      </Stack>
+      </div>
       {ToastStatus && <Toast msg={ToastMsg} />}
     </div>
   );
