@@ -243,10 +243,16 @@ const LogAndReport = ( props ) => {
         }
     });
 
+    const lineGraphSettings = {
+        theme: {
+            textColor: 'white',
+        },
+    };
+
     return (
-        <div style={{backgroundColor: 'transparent', height: '88vh' , display: 'flex', flexDirection: 'column' }}>
-            <div style={{ height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 4, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end'}}>
-                <span style={{ fontSize: 32}}>Client #1 위협 분석 보고서</span>
+        <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'column' }}>
+            <div style={{ height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 8, paddingBottom: 8, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end', color: 'white'}}>
+                <span style={{ fontSize: 32}}>{props.LowData[0].public_ip} 위협 분석 보고서</span>
                 <span style={{ paddingLeft: 16}}>{props.LowData[0].time.split('.')[0]} 기준</span>
                 </div>
             {PieFlag ? 
@@ -268,7 +274,7 @@ const LogAndReport = ( props ) => {
                 <div style={{width: '50%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '100%'}}>
                         <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>국가별 위험</div>
-                        <div style={{ height: '30vh', backgroundColor: 'transparent', border: '1px solid black', position: 'relative'}}>
+                        <div style={{ height: '30vh', backgroundColor: '#ffffff22', border: '1px solid black', position: 'relative'}}>
                             { !PieFlag ? <div style={{fontFamily: 'Noto Sans KR', fontSize: 18, position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%)'}}>로딩 중...</div> : 
                             <ResponsiveChoropleth
                                 data={ChoroplethData}
@@ -296,14 +302,14 @@ const LogAndReport = ( props ) => {
                                         itemWidth: 94,
                                         itemHeight: 18,
                                         itemDirection: 'left-to-right',
-                                        itemTextColor: '#444444',
+                                        itemTextColor: '#ffffff',
                                         itemOpacity: 0.85,
                                         symbolSize: 18,
                                         effects: [
                                             {
                                                 on: 'hover',
                                                 style: {
-                                                    itemTextColor: '#000000',
+                                                    itemTextColor: '#fffff2',
                                                     itemOpacity: 1
                                                 }
                                             }
@@ -316,12 +322,12 @@ const LogAndReport = ( props ) => {
                     <div style={{ width: '100%', height: '44vh', display: 'flex', flexDirection: 'row'}}>
                         <div style={{width: '50%'}}>
                             <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 현황</div>
-                            <div style={{height: '40vh', border: '0.25px solid black', borderRightWidth: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <div style={{height: '40vh', backgroundColor: '#ffffff22', border: '0.25px solid black', borderRightWidth: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                 <ResponsiveBar
                                     data={IPsCnt}
                                     indexBy="IP"
                                     keys={['data', 'block']}
-                                    margin={{ top: 5, right: 50, bottom: 5, left: 100 }}
+                                    margin={{ top: 5, right: 30, bottom: 5, left: 100 }}
                                     layout="horizontal"
                                     axisLeft={{
                                         tickSize: 0,
@@ -329,6 +335,8 @@ const LogAndReport = ( props ) => {
                                         tickRotation: 0,
                                         legendPosition: 'left',
                                     }}
+                                    theme={lineGraphSettings.theme}
+                                    enableGridY={false}
                                     axisBottom={null}
                                     enableLabel={false}
                                 />
@@ -336,12 +344,12 @@ const LogAndReport = ( props ) => {
                         </div>
                         <div style={{width: '50%'}}>
                             <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 현황</div>
-                            <div style={{height: '40vh', border: '0.5px solid black', borderRightWidth: '0px'}}>
+                            <div style={{height: '40vh', backgroundColor: '#ffffff22', border: '0.5px solid black', borderRightWidth: '0px'}}>
                                 <ResponsiveBar
                                     data={ProcessesCnt}
                                     indexBy="Name"
                                     keys={['data', 'block']}
-                                    margin={{ top: 5, right: 50, bottom: 5, left: 170 }}
+                                    margin={{ top: 5, right: 30, bottom: 5, left: 180 }}
                                     layout="horizontal"
                                     axisLeft={{
                                         tickSize: 0,
@@ -349,6 +357,8 @@ const LogAndReport = ( props ) => {
                                         tickRotation: 0,
                                         legendPosition: 'left',
                                     }}
+                                    theme={lineGraphSettings.theme}
+                                    enableGridY={false}
                                     axisBottom={null}
                                     enableLabel={false}
                                 />
@@ -359,7 +369,7 @@ const LogAndReport = ( props ) => {
                 <div style={{ width: '25vw', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '100%',  height: '34vh', border: '1px solid black', justifyContent: 'center', position: 'relative'}}>
                         <div style={{height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 현황</div>
-                        <div style={{height: '30vh'}}>
+                        <div style={{height: '30vh', backgroundColor: '#ffffff22'}}>
                             <ResponsiveTreeMap
                                 data={ProtocolData}
                                 identity="name"
@@ -367,18 +377,10 @@ const LogAndReport = ( props ) => {
                                 tile="binary"
                                 label="id"
                                 margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-                                labelSkipSize={12}
+                                labelSkipSize={0}
                                 parentLabelSize={0}
-                                labelTextColor={{
-                                    from: 'color',
-                                    modifiers: [
-                                        [
-                                            'darker',
-                                            1.2
-                                        ]
-                                    ]
-                                }}
                                 orientLabel={false}
+                                labelTextColor="#ffffff"
                                 parentLabelTextColor={{
                                     from: 'color',
                                     modifiers: [
@@ -388,7 +390,7 @@ const LogAndReport = ( props ) => {
                                         ]
                                     ]
                                 }}
-                                colors={{ scheme: 'nivo' }}
+                                colors={{ scheme: 'category10' }}
                                 borderColor={{
                                     from: 'color',
                                     modifiers: [
@@ -403,12 +405,12 @@ const LogAndReport = ( props ) => {
                     </div>
                     <div style={{ width: '100%', height: '44vh'}}>
                         <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>현재 클라이언트의 위험도</div>
-                        <div style={{ height: '40vh', backgroundColor: 'transparent', border: '1px solid black' }}>
+                        <div style={{ height: '40vh', border: '1px solid black', backgroundColor: '#ffffff22', color: 'white' }}>
                             
                             <div style={{position: 'relative', zIndex: 1}}>
                                 <div style={{height: '25vh', paddingTop: '12px'}}>
                                 <ResponsiveRadialBar
-                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: '#ffffffff'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
+                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: 'rgb(40, 44, 68)'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
                                     startAngle={-90}
                                     endAngle={90}
                                     padding={0.1}
@@ -446,7 +448,7 @@ const LogAndReport = ( props ) => {
                         </div> 
                     </div>
                 </div>
-            </div> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingBottom: '60px'}}><Bars fill="#000000" height='3rem' /><span style={{ marginTop: '16px', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>보고서 생성 중...</span></div> }
+            </div> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingBottom: '60px'}}><Bars fill="#ffffff" height='3rem' /><span style={{ marginTop: '16px', fontFamily: 'Noto Sans KR', fontSize: '16px', color: 'white'}}>보고서 생성 중...</span></div> }
         </div>
     );
 }
