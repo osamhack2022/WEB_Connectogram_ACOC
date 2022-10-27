@@ -118,7 +118,7 @@ const Register = () => {
 
   return (
     <div className="Register">
-      <div className="subtitle">군 사이버 보안의 미래</div>
+      <div className="subtitle">軍 사이버 보안의 미래</div>
       <div className="title">Connectogram</div>
       <Grid alignItems="center">
         {NEXT ? (
@@ -174,7 +174,7 @@ const Register = () => {
                   />
                 </div>
               </div>
-              <div className="register_confirmbox">
+              <div className="register_confirmbox" style={{fontFamily: 'Noto Sans KR'}}>
                 {bothFieldsAreFilled ? (
                   passwordsMatch ? (
                     <p className="green">비밀번호가 일치합니다.</p>
@@ -224,26 +224,15 @@ const Register = () => {
                   />
                 </div>
               </div>
+              <div style={{ width: '100%', marginTop: '24px', display: 'flex', flexDirection: 'row', userSelect: 'none', color: 'white'}}>
+                <div style={{width: '50%', textAlign: 'center', borderRight: '1px solid white'}} onClick={() => gotoLogin()}>
+                  LOGIN
+                </div>
+                <div style={{width: '50%', textAlign: 'center'}} onClick={() => excuteRegister()}>
+                  REGISTER
+                </div>
+              </div>
             </div>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Stack spacing={6} direction="row">
-                <div onClick={() => gotoLogin()}>
-                  <ColorButton variant="text" size="large" color="primary">
-                    LOGIN
-                  </ColorButton>
-                </div>
-                <div onClick={() => excuteRegister()}>
-                  <ColorButton variant="text" size="large" color="primary">
-                    Register
-                  </ColorButton>
-                </div>
-              </Stack>
-            </Grid>
           </div>
         )}
       </Grid>

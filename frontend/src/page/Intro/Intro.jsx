@@ -110,7 +110,7 @@ const Intro = () => {
           </div>
           <div style={{width: '50%', textAlign: 'center'}} onClick={() => gotoRegister()}>
             REGISTER
-        </div>
+          </div>
         </div>
       </div>
       {ToastStatus && <Toast msg={ToastMsg} />}
