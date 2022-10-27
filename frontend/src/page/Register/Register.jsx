@@ -93,6 +93,7 @@ const Register = () => {
                                 user_name: NAME,
                                 email: EMAIL,
                                 phone: PHONE,
+                                permission: '육군 사이버작전센터',
                               },
                               { withCredentials: true }
                             )
@@ -100,7 +101,7 @@ const Register = () => {
                               if ("err_msg" in res.data)
                                 handleToast(res.data["err_msg"]);
                               else {
-                                handleToast("회원가입이 완료되었습니다.");
+                                handleToast("회원가입 요청이 완료되었습니다.");
                                 setNEXT(true);
                               }
                             });
@@ -122,10 +123,8 @@ const Register = () => {
       <div className="title">Connectogram</div>
       <Grid alignItems="center">
         {NEXT ? (
-          <div onClick={() => gotoLogin()}>
-            <ColorButton2 variant="text" size="large" color="primary">
-              LOGIN
-            </ColorButton2>
+          <div onClick={() => gotoLogin()} style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', userSelect: 'none', color: 'white', fontSize: '20px', fontFamily: 'Noto Sans KR', paddingLeft: '32px', paddingRight: '32px', paddingTop: '18px', paddingBottom: '18px', borderRadius: '8px'}}>
+              로그인 페이지로 이동
           </div>
         ) : (
           <div>
