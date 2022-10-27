@@ -409,8 +409,8 @@ const Overview = () => {
           {isLoading ? (
             <div
               style={{
-                height: "78vh",
-                width: "75vw",
+                height: "90%",
+                width: "70vw",
                 backgroundColor: "transparent",
                 textAlign: "center",
                 fontFamily: "Noto Sans KR",
@@ -437,7 +437,7 @@ const Overview = () => {
               {Clients.map((item, key) => (
                 <Card key={key} item={item} />
               ))}
-              <div
+              {/*<div
                 style={{
                   height: "8vw",
                   width: "8vw",
@@ -453,11 +453,11 @@ const Overview = () => {
                 }}
               >
                 <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
+            </div>*/}
             </div>
           )}
         </div>
-        <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '15px' }}>
+        <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '16px', position: 'absolute', left: '75%' }}>
           <div style={{ width: "23vw", height: '89vh', backgroundColor: 'rgb(17, 22, 51)' }}>
             <div
               style={{
