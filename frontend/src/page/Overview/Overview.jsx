@@ -437,7 +437,7 @@ const Overview = () => {
               {Clients.map((item, key) => (
                 <Card key={key} item={item} />
               ))}
-              <div
+              {/*<div
                 style={{
                   height: "8vw",
                   width: "8vw",
@@ -453,7 +453,7 @@ const Overview = () => {
                 }}
               >
                 <AddCircleOutlineIcon sx={{ fontSize: 100, color: "white" }} />
-              </div>
+            </div>*/}
             </div>
           )}
         </div>
