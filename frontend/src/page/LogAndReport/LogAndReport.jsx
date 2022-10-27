@@ -405,10 +405,10 @@ const LogAndReport = ( props ) => {
                         <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>현재 클라이언트의 위험도</div>
                         <div style={{ height: '40vh', backgroundColor: 'transparent', border: '1px solid black' }}>
                             
-                            <div>
+                            <div style={{position: 'relative', zIndex: 1}}>
                                 <div style={{height: '25vh', paddingTop: '12px'}}>
                                 <ResponsiveRadialBar
-                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: 'white'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
+                                    data={[{id: 'percent', data: [{x:'x', y: 100, color: '#ffffffff'}]}, {id: 'value', data: [{x:'x', y: ClientPercent, color: ClientPercent > 75 ? 'rgb(0, 140, 82)' : ClientPercent > 50 ? 'yellow' : 'red'}]}]}
                                     startAngle={-90}
                                     endAngle={90}
                                     padding={0.1}
@@ -422,7 +422,7 @@ const LogAndReport = ( props ) => {
                                     margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
                                 />
                             </div>
-                            <div style={{fontFamily: 'Noto Sans KR', marginTop: '-160px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            <div style={{fontFamily: 'Noto Sans KR', marginTop: '-160px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative',  zIndex: 2}}>
                                 <div style={{ fontSize: '32px'}}>{ClientPercent}<span style={{fontSize: '24px'}}>%</span></div>
                                 <div style={{ marginTop: '8px'}}>현재 클라이언트의 상태는 <span style={{fontSize: '22px', color: ClientPercent > 75 ? "green" : ClientPercent > 50 ? "yellow" : "red"}}>{ClientPercent > 75 ? "양호" : ClientPercent > 50 ? "주의" : "취약"}</span> 입니다.</div>
                                 <div style={{ marginTop: '8px'}}>Client #1 분석 결과 유해하다고 생각되는 연결 {MaliciousCnt}건, <br /> 의심해봐야할 연결 {WarningsCnt}건이 발견되었습니다.</div>

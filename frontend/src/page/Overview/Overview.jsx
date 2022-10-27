@@ -409,8 +409,8 @@ const Overview = () => {
           {isLoading ? (
             <div
               style={{
-                height: "78vh",
-                width: "75vw",
+                height: "90%",
+                width: "70vw",
                 backgroundColor: "transparent",
                 textAlign: "center",
                 fontFamily: "Noto Sans KR",
@@ -457,7 +457,7 @@ const Overview = () => {
             </div>
           )}
         </div>
-        <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '15px' }}>
+        <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '16px', position: 'absolute', left: '75%' }}>
           <div style={{ width: "23vw", height: '89vh', backgroundColor: 'rgb(17, 22, 51)' }}>
             <div
               style={{
