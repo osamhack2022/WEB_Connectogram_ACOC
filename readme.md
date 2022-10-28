@@ -100,7 +100,8 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 
 <img src="https://godbell.kr/content/images/2022/10/Screenshot_20221018-151500_Chrome.jpg">
 
-<img src="/img/login.png" width="700" height="370">
+
+<img src="https://user-images.githubusercontent.com/59403191/198613917-f0718996-d754-48ad-9de5-1dec07d9930d.PNG" width="700" height="370">
 
 * 유해 통신 로그 관제
 	* 통신 IP 평판조회 및 유해 여부 판단
