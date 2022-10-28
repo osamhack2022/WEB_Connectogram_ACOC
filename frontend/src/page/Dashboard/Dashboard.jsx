@@ -164,11 +164,11 @@ const Dashboard = ( props ) => {
         <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'row' }}>
             <div style={{width : '50vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '32px' }}>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: '#f85830', margin: '8px', borderRadius: '8px'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{MaliciousCnt}</span>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '16vh', backgroundColor: '#f6cd5a', margin: '8px', borderRadius: '8px'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{WarningsCnt}</span>
                     </div>
@@ -192,7 +192,7 @@ const Dashboard = ( props ) => {
                                 <div
                                     onClick={() => FocusEdge(item)} 
                                     key={i} 
-                                    style={{ backgroundColor: item.malicious === false ? 'green' : (item.malicious.length >= 3 ? 'rgb(255, 92, 82)' : 'rgb(255, 171, 46)'), height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
+                                    style={{ backgroundColor: item.malicious === false ? 'green' : (item.malicious.length >= 3 ? '#f85830' : '#f6cd5a'), height: '32px', color: 'white', display: 'flex', alignItems: 'center', fontFamily: 'Noto Sans KR', justifyContent: 'center'}}>
                                     <div style={{width: '5%', textAlign: 'center', fontSize: '12px'}}>{i + 1}</div>
                                     <div style={{width: '22.5%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[0]}</div>
                                     <div style={{width: '10%', textAlign: 'center', fontSize: '12px'}}>{item.local.split(":")[1]}</div>
