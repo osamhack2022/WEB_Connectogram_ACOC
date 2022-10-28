@@ -89,6 +89,8 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 <!-- USAGE EXAMPLES -->
 ## 기능
 
+
+
 * 軍 사이버 통신 상태를 한 눈에 점검할 수 있는 메인 대시보드
 	* 현재 접속 중인 장비 수
 	* 서버에 등록된 육군 자산 수
@@ -97,6 +99,8 @@ Connectogram은 軍 사이버 자산들 사이에 일어나는 통신을 시각�
 	* 통신 프로토콜 그래프
 
 <img src="https://godbell.kr/content/images/2022/10/Screenshot_20221018-151500_Chrome.jpg">
+
+<img src="/img/LOGIN.PNG" width="700" height="370">
 
 * 유해 통신 로그 관제
 	* 통신 IP 평판조회 및 유해 여부 판단
