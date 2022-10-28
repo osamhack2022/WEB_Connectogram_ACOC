@@ -206,7 +206,7 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 - 김종하 - 12191579@inha.edu
 
 팀원
-- 박길선 - 
+- 박길선 - ksparkbr@gmail.com
 - 신현규 - 
 - 김경환 - kyounghwankim@pusan.ac.kr
 
