@@ -10,6 +10,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import ColorButton from "../../components/ColorButton";
 import Stack from "@mui/material/Stack";
+import { motion } from "framer-motion";
 
 const Intro = () => {
   const [ToastStatus, setToastStatus] = useState(false);
@@ -68,7 +69,7 @@ const Intro = () => {
   };
 
   return (
-    <div className="Intro">
+    <motion.div className="Intro" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <div className="subtitle">軍 사이버 보안의 미래</div>
       <div className="title">Connectogram</div>
       <div className="signin_form">
@@ -114,7 +115,7 @@ const Intro = () => {
         </div>
       </div>
       {ToastStatus && <Toast msg={ToastMsg} />}
-    </div>
+    </motion.div>
   );
 };
 

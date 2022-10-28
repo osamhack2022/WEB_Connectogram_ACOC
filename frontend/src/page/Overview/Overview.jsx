@@ -458,7 +458,7 @@ const Overview = () => {
           )}
         </div>
         <div style={{ width: "25vw", display: "flex", alignItems: "center", color: 'rgb(203, 204, 210)', marginTop: '16px', position: 'absolute', left: '75%' }}>
-          <div style={{ width: "23vw", height: '89vh', backgroundColor: 'rgb(17, 22, 51)' }}>
+          <div style={{ width: "24vw", height: '89vh', backgroundColor: 'rgb(17, 22, 51)' }}>
             <div
               style={{
                 height: "4vh",
@@ -552,6 +552,7 @@ const Overview = () => {
                         textAlign: "center",
                         lineHeight: "4vh",
                         fontFamily: "Noto Sans KR",
+                        color: 'white',
                       }}
                     >
                       {InternetAlert}
@@ -619,7 +620,7 @@ const Overview = () => {
                       오늘의 사이버 위협
                     </span>
                   </div>
-                  <div style={{ width: "93%" }}>
+                  <div style={{ width: "95%" }}>
                     <div
                       style={{
                         display: "flex",
@@ -630,7 +631,7 @@ const Overview = () => {
                     >
                       <div
                         style={{
-                          width: "70%",
+                          width: "65%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
                           fontSize: "12px",
@@ -641,7 +642,7 @@ const Overview = () => {
                       </div>
                       <div
                         style={{
-                          width: "30%",
+                          width: "35%",
                           backgroundColor: "white",
                           display: "flex",
                           flexDirection: "row",
@@ -676,7 +677,7 @@ const Overview = () => {
                     >
                       <div
                         style={{
-                          width: "70%",
+                          width: "65%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
                           fontSize: "12px",
@@ -687,7 +688,7 @@ const Overview = () => {
                       </div>
                       <div
                         style={{
-                          width: "30%",
+                          width: "35%",
                           backgroundColor: "white",
                           display: "flex",
                           flexDirection: "row",
@@ -722,7 +723,7 @@ const Overview = () => {
                     >
                       <div
                         style={{
-                          width: "70%",
+                          width: "65%",
                           backgroundColor: "#ffff2222",
                           textAlign: "center",
                           fontSize: "12px",
@@ -733,7 +734,7 @@ const Overview = () => {
                       </div>
                       <div
                         style={{
-                          width: "30%",
+                          width: "35%",
                           backgroundColor: "white",
                           display: "flex",
                           flexDirection: "row",

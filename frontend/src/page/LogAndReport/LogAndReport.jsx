@@ -56,6 +56,8 @@ const LogAndReport = ( props ) => {
     const PORTDATA = {
         "80": "HTTP",
         "443": "HTTPS",
+        "3389": 'RDP',
+        
     }
 
     const getIPCountry = async ( IP ) => {
@@ -249,26 +251,51 @@ const LogAndReport = ( props ) => {
         },
     };
 
+    const barTheme = {
+        textColor: 'white',
+        fontFamily: 'Noto Sans KR',
+        fontSize: '10px',
+        axis: {
+          fontSize: '10px',
+        },
+    };
+
     return (
         <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'column' }}>
-            <div style={{ height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 8, paddingBottom: 8, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end', color: 'white'}}>
+            <div style={{ color: 'white', height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 8, paddingBottom: 8, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end', color: 'white'}}>
                 <span style={{ fontSize: 32}}>{props.LowData[0].public_ip} 위협 분석 보고서</span>
                 <span style={{ paddingLeft: 16}}>{props.LowData[0].time.split('.')[0]} 기준</span>
                 </div>
             {PieFlag ? 
-            <div style={{ display: 'flex', flexDirection: 'row', paddingRight: 60}}>
+            <div style={{ display: 'flex', flexDirection: 'row', paddingRight: 60, marginLeft: '48px'}}>
                 <div style={{display: 'flex', flexDirection: 'column', width: '25%', justifyContent: 'center', alignItems: 'center'}}>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(0, 140, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '93%', height: '15vh', backgroundColor: 'rgb(0, 140, 82)', margin: '8px', borderRadius: '8px'}}>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Connections</span>
                         <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{props.LowData[0].connection.length}</span>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(255, 92, 82)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{MaliciousCnt}</span>
-                    </div>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', height: '25vh', backgroundColor: 'rgb(255, 171, 46)', margin: '8px', borderRadius: '8px', boxShadow: '0 1px 3px 2px gray'}}>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
-                        <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{WarningsCnt}</span>
+                    <div style={{ width: '100%', height: '60vh',}}>
+                        <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 현황</div>
+                        <div style={{height: '57vh', backgroundColor: '#ffffff22', border: '0.25px solid black', borderRightWidth: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <ResponsiveBar
+                                data={IPsCnt}
+                                indexBy="IP"
+                                keys={['data', 'block']}
+                                margin={{ top: 5, right: 30, bottom: 5, left: 100 }}
+                                layout="horizontal"
+                                borderRadius={4}
+                                axisLeft={{
+                                    tickSize: 0,
+                                    tickPadding: 10,
+                                    tickRotation: 0,
+                                    legendPosition: 'left',
+                                }}
+                                padding={0.3}
+                                theme={barTheme}
+                                enableGridY={false}
+                                axisBottom={null}
+                                enableLabel={false}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div style={{width: '50%', height: '100%', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -321,20 +348,22 @@ const LogAndReport = ( props ) => {
                     </div>
                     <div style={{ width: '100%', height: '44vh', display: 'flex', flexDirection: 'row'}}>
                         <div style={{width: '50%'}}>
-                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>IP별 연결 현황</div>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 현황</div>
                             <div style={{height: '40vh', backgroundColor: '#ffffff22', border: '0.25px solid black', borderRightWidth: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                 <ResponsiveBar
-                                    data={IPsCnt}
-                                    indexBy="IP"
+                                    data={ProcessesCnt}
+                                    indexBy="Name"
                                     keys={['data', 'block']}
-                                    margin={{ top: 5, right: 30, bottom: 5, left: 100 }}
+                                    margin={{ top: 5, right: 20, bottom: 5, left: 165 }}
                                     layout="horizontal"
                                     axisLeft={{
                                         tickSize: 0,
-                                        tickPadding: 10,
+                                        tickPadding: 20,
                                         tickRotation: 0,
                                         legendPosition: 'left',
                                     }}
+                                    padding={0.3}
+                                    borderRadius={4}
                                     theme={lineGraphSettings.theme}
                                     enableGridY={false}
                                     axisBottom={null}
@@ -343,24 +372,38 @@ const LogAndReport = ( props ) => {
                             </div>
                         </div>
                         <div style={{width: '50%'}}>
-                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로세스별 연결 현황</div>
+                            <div style={{ height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 현황</div>
                             <div style={{height: '40vh', backgroundColor: '#ffffff22', border: '0.5px solid black', borderRightWidth: '0px'}}>
-                                <ResponsiveBar
-                                    data={ProcessesCnt}
-                                    indexBy="Name"
-                                    keys={['data', 'block']}
-                                    margin={{ top: 5, right: 30, bottom: 5, left: 180 }}
-                                    layout="horizontal"
-                                    axisLeft={{
-                                        tickSize: 0,
-                                        tickPadding: 30,
-                                        tickRotation: 0,
-                                        legendPosition: 'left',
+                                <ResponsiveTreeMap
+                                    data={ProtocolData}
+                                    identity="name"
+                                    value="loc"
+                                    tile="binary"
+                                    label="id"
+                                    margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                                    labelSkipSize={0}
+                                    parentLabelSize={0}
+                                    orientLabel={false}
+                                    labelTextColor="#ffffff"
+                                    parentLabelTextColor={{
+                                        from: 'color',
+                                        modifiers: [
+                                            [
+                                                'darker',
+                                                2
+                                            ]
+                                        ]
                                     }}
-                                    theme={lineGraphSettings.theme}
-                                    enableGridY={false}
-                                    axisBottom={null}
-                                    enableLabel={false}
+                                    colors={{ scheme: 'category10' }}
+                                    borderColor={{
+                                        from: 'color',
+                                        modifiers: [
+                                            [
+                                                'darker',
+                                                0.1
+                                            ]
+                                        ]
+                                    }}
                                 />
                             </div>
                         </div>
@@ -368,39 +411,15 @@ const LogAndReport = ( props ) => {
                 </div>
                 <div style={{ width: '25vw', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <div style={{ width: '100%',  height: '34vh', border: '1px solid black', justifyContent: 'center', position: 'relative'}}>
-                        <div style={{height: '4vh', backgroundColor: 'black', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center'}}>프로토콜별 연결 현황</div>
-                        <div style={{height: '30vh', backgroundColor: '#ffffff22'}}>
-                            <ResponsiveTreeMap
-                                data={ProtocolData}
-                                identity="name"
-                                value="loc"
-                                tile="binary"
-                                label="id"
-                                margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-                                labelSkipSize={0}
-                                parentLabelSize={0}
-                                orientLabel={false}
-                                labelTextColor="#ffffff"
-                                parentLabelTextColor={{
-                                    from: 'color',
-                                    modifiers: [
-                                        [
-                                            'darker',
-                                            2
-                                        ]
-                                    ]
-                                }}
-                                colors={{ scheme: 'category10' }}
-                                borderColor={{
-                                    from: 'color',
-                                    modifiers: [
-                                        [
-                                            'darker',
-                                            0.1
-                                        ]
-                                    ]
-                                }}
-                            />
+                        <div style={{height: '34vh', backgroundColor: 'transparent', color: 'white', fontFamily: 'Noto Sans KR', paddingLeft: '8px', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '93%', height: '25vh', backgroundColor: '#f85830', margin: '8px', borderRadius: '8px'}}>
+                                <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Malicious</span>
+                                <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{MaliciousCnt}</span>
+                            </div>
+                            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '93%', height: '25vh', backgroundColor: '#f6cd5a', margin: '8px', borderRadius: '8px'}}>
+                                <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '16px'}}>Warnings</span>
+                                <span style={{color: '#ffffff', fontFamily: 'Noto Sans KR', fontSize: '60px'}}>{WarningsCnt}</span>
+                            </div>
                         </div>
                     </div>
                     <div style={{ width: '100%', height: '44vh'}}>
@@ -427,7 +446,7 @@ const LogAndReport = ( props ) => {
                             <div style={{fontFamily: 'Noto Sans KR', marginTop: '-160px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative',  zIndex: 2}}>
                                 <div style={{ fontSize: '32px'}}>{ClientPercent}<span style={{fontSize: '24px'}}>%</span></div>
                                 <div style={{ marginTop: '8px'}}>현재 클라이언트의 상태는 <span style={{fontSize: '22px', color: ClientPercent > 75 ? "green" : ClientPercent > 50 ? "yellow" : "red"}}>{ClientPercent > 75 ? "양호" : ClientPercent > 50 ? "주의" : "취약"}</span> 입니다.</div>
-                                <div style={{ marginTop: '8px'}}>Client #1 분석 결과 유해하다고 생각되는 연결 {MaliciousCnt}건, <br /> 의심해봐야할 연결 {WarningsCnt}건이 발견되었습니다.</div>
+                                <div style={{ marginTop: '8px'}}>{props.LowData[0].public_ip} 분석 결과 유해하다고 생각되는 연결 {MaliciousCnt}건, <br /> 의심해봐야할 연결 {WarningsCnt}건이 발견되었습니다.</div>
                                 <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     {MalIP === null ? null : <div>주의해야 할 IP : {MalIP.length === 0 ? '없음' : MalIP[0]}{MalIP.length >= 1 && ' 등 ' + MalIP.length + '건'}</div>}
                                     {MalProcess === null ? null : <div>주의해야 할 프로세스 : {MalProcess.length === 0 ? '없음' : MalProcess[0]}{MalProcess.length > 1 && ' 등 ' + MalProcess.length + '건'}</div>}

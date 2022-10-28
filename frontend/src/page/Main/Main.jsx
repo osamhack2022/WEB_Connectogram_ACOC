@@ -8,6 +8,7 @@ import LogAndReport from "../LogAndReport/LogAndReport";
 import Overview from "../Overview/Overview";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Main = () => {
   };
 
   return (
-    <div className="root" style={{ height: "100vh" }}>
+    <motion.div className="root" style={{ height: "100vh", backgroundColor: 'rgb(7, 12, 39)' }} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <div style={{ height: "12vh" }}>
         <AppBar
           position="static"
@@ -212,7 +213,7 @@ const Main = () => {
         ) : (
           <LogAndReport LowData={LowData} />
         ))}
-    </div>
+    </motion.div>
   );
 };
 
