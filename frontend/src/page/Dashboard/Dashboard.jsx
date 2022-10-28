@@ -18,8 +18,10 @@ const Dashboard = ( props ) => {
     const cy = useRef(null);
 
     const PORTDATA = {
-        "443": "HTTPS",
         "80": "HTTP",
+        "443": "HTTPS",
+        "3389": 'RDP',
+        
     }
 
     const [ConnectionsCnt, setConnectionsCnt] = useState(0);
@@ -77,12 +79,12 @@ const Dashboard = ( props ) => {
                 // 악성 노드 색 바꾸기.
                 if (ConnectionData.connection[i].malicious !== false) {
                     if (ConnectionData.connection[i].malicious.length >= 3) {
-                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'red'});
-                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": 'red'});
+                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': '#f85830', 'text-outline-color': '#f85830', 'text-outline-width': 0.4});
+                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": '#f85830'});
                     }
                     else {
-                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': 'yellow'});
-                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": 'yellow'});
+                        cy.current.elements('node[id = "' + ConnectionData.connection[i].foreign + '"]').style({ 'background-color': '#f6cd5a', 'text-outline-color': '#f6cd5a', 'text-outline-width': 0.4});
+                        cy.current.elements('edge[source = "' + ConnectionData.connection[i].foreign + '"]').style({ "line-color": '#f6cd5a'});
                     }
                 }
             }
@@ -231,7 +233,7 @@ const Dashboard = ( props ) => {
                                     label: "data(label)",
                                     "text-valign": 'bottom',
                                     "text-outline-color": 'gray',
-                                    "text-outline-width": 1,
+                                    "text-outline-width": 0.4,
                                     color: 'white',
                                     "text-margin-y": 4,
                                     "font-size": 12,
@@ -239,7 +241,7 @@ const Dashboard = ( props ) => {
                                     "text-wrap": "wrap",
                                     "text-max-width": 50,
                                     shape: 'round-rectangle',
-                                    "background-color": 'whitegray',
+                                    "background-color": 'white',
                                     'background-image': require('./client.png'),
                                     "background-fit": "cover cover",
                                     }
@@ -252,6 +254,8 @@ const Dashboard = ( props ) => {
                                     label: "data(label)",
                                     "text-valign": 'bottom',
                                     "text-margin-y": 4,
+                                    "text-outline-color": 'rgb(0, 140, 82)',
+                                    "text-outline-width": 0.4,
                                     "font-size": 7,
                                     "font-family": 'Noto Sans KR',
                                     "text-wrap": "wrap",
@@ -268,7 +272,7 @@ const Dashboard = ( props ) => {
                                     selector: "edge",
                                     style: {
                                         width: 1,
-                                        "line-color": 'white',
+                                        "line-color": 'rgb(0, 140, 82)',
                                         "target-arrow-shape": "triangle",
                                         "target-arrow-color": "#9dbaea",
                                         "line-style": "dashed",
@@ -278,21 +282,22 @@ const Dashboard = ( props ) => {
                             ]}
                         />
                         { isFocus && FocusInfo !== null ? 
-                        <div style={{ backgroundColor: 'white', position: 'absolute', zIndex: 0, bottom: '3%', right: '3%', width: '15vw', height: '30vh', border: '0.5px solid gray', borderRadius: '4px', fontFamily: 'Noto Sans KR' }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingRight: '18px', paddingTop: '18px', paddingLeft: '18px'}}>
-                                <div>연결 상세 정보</div>
+                        <div style={{ backgroundColor: 'white', position: 'absolute', zIndex: 0, bottom: '3%', right: '3%', width: '15vw', height: 'auto', border: '0.5px solid gray', borderRadius: '12px', fontFamily: 'Noto Sans KR', paddingBottom: '24px' }}>
+                            <div style={{ height: '3vh', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingRight: '18px', paddingTop: '12px', paddingLeft: '18px'}}>
+                                <div style={{ fontSize: '20px'}}>연결 상세 정보</div>
                                 <div onClick={FocusEdge}>
                                     <CancelIcon />
                                 </div>
                             </div>
-                            <div style={{ paddingLeft: '24px', paddingTop: '8px'}}>
-                                <div>외부 IP : {FocusInfo.foreign.split(":")[0]}</div>
-                                <div>포트번호 : {FocusInfo.foreign.split(":")[1]}</div>
-                                <div>프로세스 : {FocusInfo.pname}</div>
-                                { FocusInfo.malicious !== false && <div>악성 연결 판단 근거</div> }
+                            <div style={{ height: '100%', maxHeight: '27vh', paddingLeft: '24px', paddingTop: '12px', display: 'flex', flexDirection: 'column'}}>
+                                <div style={{fontSize: '14px'}}>외부 IP : {FocusInfo.foreign.split(":")[0]}</div>
+                                <div style={{fontSize: '14px', marginTop: '4px'}}>포트번호 : {FocusInfo.foreign.split(":")[1]}</div>
+                                <div style={{fontSize: '14px', marginTop: '4px'}}>프로세스 : {FocusInfo.pname}</div>
+                                <div style={{fontSize: '14px', marginTop: '4px'}}>연결 상태 : <span style={{ fontSize: '16px', color: FocusInfo.malicious == false ? 'rgb(0, 140, 82)' : FocusInfo.malicious.length >= 3 ? '#f85830' : 'rgb(255, 171, 46)'}}>{FocusInfo.malicious == false ? '양호' : FocusInfo.malicious.length >= 3 ? '위험' : '경고'}</span></div>
+                                { FocusInfo.malicious !== false && <div style={{fontSize: '14px', marginTop: '4px', marginBottom: '4px'}}>악성 연결 판단 근거</div> }
                                 { FocusInfo.malicious !== false ? 
                                 FocusInfo.malicious.map((el, i) => (
-                                    <div style={{fontSize: '8px'}}>{i + 1}. {el.SOURCE}</div>
+                                    <div style={{paddingLeft: '12px', fontSize: '8px'}}>{i + 1}. {el.SOURCE}</div>
                                 ))
                                 : null }
                             </div>

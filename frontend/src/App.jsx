@@ -10,6 +10,7 @@ import Admin from "./page/Admin/Admin";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Overview from "./page/Overview/Overview";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const [isAuth, setisAuth] = useState(false);
@@ -38,32 +39,34 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AuthRoutes
-              auth={!isAuth}
-              component={<Intro />}
-              redirect="/overview"
-            />
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <AuthRoutes auth={!isAuth} component={<Register />} redirect="/" />
-          }
-        />
-        <Route
-          path="/overview"
-          element={
-            <AuthRoutes auth={isAuth} component={<Overview />} redirect="/" />
-          }
-        />
-        <Route path="/dashboard" element={<Main />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
+      <AnimatePresence>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AuthRoutes
+                auth={!isAuth}
+                component={<Intro />}
+                redirect="/overview"
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <AuthRoutes auth={!isAuth} component={<Register />} redirect="/" />
+            }
+          />
+          <Route
+            path="/overview"
+            element={
+              <AuthRoutes auth={isAuth} component={<Overview />} redirect="/" />
+            }
+          />
+          <Route path="/dashboard" element={<Main />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </AnimatePresence>
     </BrowserRouter>
   );
 };

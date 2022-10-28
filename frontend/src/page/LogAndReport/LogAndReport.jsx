@@ -56,6 +56,8 @@ const LogAndReport = ( props ) => {
     const PORTDATA = {
         "80": "HTTP",
         "443": "HTTPS",
+        "3389": 'RDP',
+        
     }
 
     const getIPCountry = async ( IP ) => {
