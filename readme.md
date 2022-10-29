@@ -1,12 +1,7 @@
-
+# 🖧 Connectogram - 軍 사이버 보안의 미래
   
 <a name="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -22,7 +17,16 @@
     <br />
     <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a>
   </p>
+  
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 </div>
+
+<br />
 
 - [🌐 Connectogram이란?](#---connectogram이란)
   * [軍 사이버 보안의 미래, Connectogram](#軍-사이버-보안의-미래--connectogram)
@@ -99,7 +103,7 @@
  #### 사용 조건
  
  다음과 같은 조건 하에 사용할 수 있습니다.
- - EMCAScript 6 지원 브라우저 (Chrome 77버전 이상 권장)
+ - ECMAScript 6 지원 브라우저 (Chrome 77버전 이상 권장)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -137,21 +141,19 @@
 <!-- USAGE EXAMPLES -->
 ## 🖧 기능
 
-<div align="center">
-	<img src="https://user-images.githubusercontent.com/59403191/198613917-f0718996-d754-48ad-9de5-1dec07d9930d.PNG" width="480">
-	<img src="https://user-images.githubusercontent.com/59403191/198634845-26288606-61bb-4135-9c83-fbb12baba54f.PNG" width="480">
-</div>
+### 1. 회원가입, 회원가입 승인 및 로그인
 
+|<img src="https://user-images.githubusercontent.com/59403191/198613917-f0718996-d754-48ad-9de5-1dec07d9930d.PNG">|
+|:---:|
+|로그인|
+|승인된 계정을 통해 로그인할 수 있습니다.|
 
-* 로그인 및 회원가입
-	* 해당 기능을 통해 계정 등록 신청을 할 수 있습니다.
-	* 승인된 사용자가 승인된 위치에서만 커넥토그램을 이용할 수 있습니다.
+|<img src="https://user-images.githubusercontent.com/59403191/198634845-26288606-61bb-4135-9c83-fbb12baba54f.PNG">|![ADMIN](https://user-images.githubusercontent.com/59403191/198825937-1f71dfe1-9b6b-4aa5-ad47-393ff8acde57.PNG)|
+|:---:|:---:|
+|회원가입|회원가입 승인|
+|아이디, 비밀번호, 전화번호, 이름, 이메일, 전화번호를 입력하고 회원가입을 신청할 수 있습니다.|관리자 계정을 통해 회원가입 요청을 확인 후 승인할 수 있습니다.|
 
 <br />
-
-<div align="center">
-	<img src="https://user-images.githubusercontent.com/59403191/198637995-faa85945-9b82-4aa9-8d83-e17925c5dbbf.PNG" width="960">
-</div>
 
 
 * 軍 사이버 통신 상태를 한 눈에 점검할 수 있는 메인 대시보드
@@ -211,19 +213,77 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-## 📞 Contact: Team ACOC
-팀장 
-* 육군/상병/김종하 - 12191579@inha.edu
-	* 기획 및 프론트엔드 디자인
-
-팀원
-* 육군/중사/박길선 - ksparkbr@gmail.com
-	* Backend 인프라 구축
-* 육군/병장/신현규 - tlsgusrb70@jejunu.ac.kr
-	* 프론트엔드 페이지 작성
-* 육군/상병/김경환 - kyounghwankim@pusan.ac.kr
-	* 프론트엔드 페이지 작성
+<!-- TEAM INFO -->
+## 👥 About Team ACOC
+<br>
+<table width="788">
+<thead>
+<tr>
+<th width="130" align="center">📝 NAME</th>
+<th width="150" align="center">🚩 ROLE</th>
+<th width="150" align="center">🐱 GITHUB</th>
+<th width="190" align="center">📩 EMAIL</th>
+</tr> 
+</thead>
+<tbody>
+<tr>
+<td width="130" align="center">(팀장) 김종하</td>
+<td width="150" align="center">FE</td>
+<td width="150" align="left">
+	<a href="https://github.com/Godbell">
+		<img src="http://img.shields.io/badge/Godbell-655ced?style=social&logo=github"/>
+	</a>
+</td>
+<td width="190" align="left">
+	<a href="mailto:12191579@inha.edu">
+		<img src="https://img.shields.io/badge/12191579@inha.edu-655ced?style=social&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAbFBMVEUnv//O4/V2ueOZyOomo9qr0e73+v0nv/8io9r///+dyuqbyeqmzuxotOHt9fxutuL+/v/Z6ff8/v+41/Bbr981pttCqdzM4vSv0u682fD1+v30+f2Pw+dHqt1Srd7a6vjF3/Pg7fljsuBRrd71WwlTAAAACHRSTlPP////////KRn8dkgAAABvSURBVBjTXc/JDoMwDARQA4EwpGXpwtay//8/gn2IYuYQyU/JRCZLeRCyJPNUpFceLDLPP3AyucNHjzFV0GEwCiIUDCgrD04AsYeEoW6e+knY4e6Q6I5Fw74Bf4bX+yMQA6tpfQflh7t++/rl7uufqGgI5kfAXmcAAAAASUVORK5CYII="/>
+	</a>
+</td>
+</tr>
+<tr>
+<td width="130" align="center">김경환</td>
+<td width="150" align="center">FE</td>
+<td width="150" align="left">
+	<a href="https://github.com/KyoungHwanKim">
+		<img src="http://img.shields.io/badge/KyoungHwanKim-655ced?style=social&logo=github"/>
+	</a>
+</td>
+<td width="190" align="left">
+	<a href="mailto:kyounghwankim@pusan.ac.kr">
+                <img src="https://img.shields.io/badge/kyounghwankim@pusan.ac.kr-655ced?style=social&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABXFBMVEUAAAAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAAW5IAXZAAX44AV5YAV5UAmVMATaAATaAATaAAmVMAmVMAmVMAmVMAmVMAmVMATaAATaAAmVMAmVMAmVMAmVMAmVMAmVMAmVMATaAATaAATaAATaAAmVMAmVMAmVMAmVMAmVMATaAAaIUAmVMAmVMAmVMAmVMAZ4UATaAATaAATaAATaAAUZwAmVMAmVMAmVMAmVMAmVMAUZwATaAATaAATaAATaAATaAATaAATaAATaAATaAATaAATaD///+4w70AAAAAc3RSTlMAAB0vJVVjIzkeCyo+UgQxaGlaRxArIi4kOycFRAwycUxcMw53YiB8i3gPHxFrOn9kUA1OLQSMfYF+AUpLQgaRS0xvlU1tY02FU4ZtaE9JPFmLvbTAbkERLDZJUBFdLDUpOnFgdHZyOVg9RjZeN1tlQxVIrUMxRgAAAAFiS0dEc0EJPc4AAAAHdElNRQfmCh0FAxjagMyiAAAA/klEQVQY02NgYGBgZGJmYWVj5+BkZAADLm4eXj5+AUZBIW4uMF9YhJNXVExcQlJKWkYWqF5OXkEUIiMqpKjEyMCkrMyvoqqmriHKpsmhpczEwKKlraOrp29gqM8hb6StxcKgZGxiamZubmFpbm5mJWqtxGBjK2Zn7+Do5OTo4Gwn4aLHYOzKYufm7uHp6eXtYyfh68fgHyBu5xYYFBwcEupjx69qyyCqGhbuExEZFR0ZERrjEhvHwBSfkJiUnJySmpyclp6RycTAKGrtFw9xWHyWLT/QO1zZOYZZchLs3LnGrHIQGSX+PJd83oLCInEuiHcZmcT9FTKFTZhA3gcA82Uo/f6a4+MAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMTAtMjlUMDU6MDM6MjQrMDA6MDAOniFTAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTEwLTI5VDA1OjAzOjI0KzAwOjAwf8OZ7wAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyMi0xMC0yOVQwNTowMzoyNCswMDowMCjWuDAAAAAASUVORK5CYII="/>
+	</a>
+</td>
+</tr>
+<tr>
+	<td width="130" align="center">신현규</td>
+	<td width="150" align="center">FE<br></td>
+	<td width="150" align="left">
+		<a href="https://github.com/stanaly">
+			<img src="http://img.shields.io/badge/stanaly-655ced?style=social&logo=github"/>
+		</a>
+	</td>
+	<td width="190" align="left">
+		<a href="mailto:tlsgusrb70@jejunu.ac.kr">
+			<img src="http://img.shields.io/badge/tlsgusrb70@jejunu.ac.kr-655ced?style=social&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAAAvCAMAAABg4OxeAAACJVBMVEXu7u7w7+/x8O/x8fHr7Ovl5ebd3t6/wMD08/Pm5uf29vTFxcbp6urX2Nj09PLb29vT1NTz8vPf3+DGzd3V1dbQ0NHLy8zv8fLDxMSpucGpqqvJycrHyMjb3+SisdDNzs63uLgATKcARqEAM6Dh4eGztLWtrq+kpaaeoKD08e7f5ObBy9HBwsO8vb66u7vi5uvo6OjOz8/MzM26x8ult7+6vLz5+Pbq7fL38+7l5+nV2uPD0OGcrtG9yNC1trewsbIBGpn6+vr18vXu7/Do7OfK1uTQ1+LZ3uC1xd3L09nGz9aSp82yv8mhoqOZmpyPkJGBg4Wl2P243vqM0PkAtffP5vWx3PTg6/Ll6O3j4+PT2t28yNve69rZ2trDytqxvdfY6NKpttK6xM7N5cWNncW7ysG23KsEVKkAO6GTlJZNugDm7/eb0/dIvvdlw/TE4fO54vLR2+m6zOTj6+DI5t3Q192ittbL1tNzzNDC0sx2m8tnkMeuvMaquMWWocVgysSx2KYAQKMBIJ+m1puu2Zqi1ISU0IKOy3hvcXOKy3CKzV9Ww/xzy/ew1fKP0PKi3Ojv8OeO1OaBy+Sh3Nuu29jS4de3zdW2v82FoMtXicTH5MB10L11i7yhs7tgfbiu0be+3rZTd7YxYKwZWqqQyaiP0qd/y6apyqUaTqOi05aS0JWr2Y2Ji414enye03R7xmN4yFh/x014xUhlwT15xiRavwA9uQAaqgmnAAAEe0lEQVRIx7WV5XLbQBSFl8SSBZFcY+22pprCbcNpmJMyMzMzMzMzM+PzVZHjpP0hx2mnd8ZjSbv6dM49VyPw/wua9Q+3Y5ihYIz/igNZwBEIFVmXFYoCCI2YwHI0EWgepHTB253ySQqF8IiU8JyoxYqZEowFF+MMexiBUWQa4PwVINrrkz3RdLnMaq4AvUAI+pS6oNMpq3naQWIRE4t4GGOBTAEMEYSEDuk9etJDiyAvM5BzpbxhRtBYzDeYQGj+MDuHkjwSV16clwbe56WDehELAVi8TR26TBuyZ02E44efBRJwugxB7O+cOn+lyYDZFSBH0rpLh8O5ALIzmPRS2DppOHwcVVSg7JpKSxzDcHiYMJRuWvIOpDerYfHnxbPbB3VALPkEjhumpWiOXm4QmBG0edblT4cbl/rxoEvRx5SUUzllqBJjlAcGtoyfORWdOkkSCTTUKZAs14pzMlQtGvORAaGTZk5rOnOmKdElDjEgRQtRhc1hgwopUS27YdLFafO/nmpa6o5jcwkhaLlzBTiJQPtEKcYTprI+Zm2YsmztMbGrrDWLsIqVGYLsE/VFI3r2bPz66TNO/Fzmd7tbMao8eHD5wsZ+oUCI1VE5EEY4OShixvT1d9eebKop64ojx8Kj9fXVo6C5h+i0nqOfaPJkkYOZw4kbN2z/8m3+DndZDQCOglWvV48eZS3xkycg+9EUaZrgbBzTN59Yu8y/3+2uxCZizNhxGQQKKSWCbTNwiEkzRXhAxLSVPx73ExIA/oGgBUEB0DaQ4kCthi0Rm85d//7G3+UuK61A4HcEEIkk2zpBnBIYeMCkC+ffnr2xtMydEB34DxWYDnrSIrZTwbnCjBUYRFOunl3ZXubuiFMVcfKHEcqbLrY1gkRdckrYSn/K7o97bj1o97fP7dgxt4IfRCDOoIIytk2EAKAZwHrW1EPv9hwoBXMT8ZrKDv+EIQRhUoxhi0DEWRsRrEEeP/XQ8dIDrXxraaK0tIYaQqiSiw5pOUZLYXyMhq3Z3H1sRY2I41XN/paWQqsXSxymUCjUagGSY7ZQSZAxkDUXV16sWAjwzn1bt1QvWoQKjqxeVdCPIEVS2AugPQLoGiKZV2TTvVcdoHDvna1tnber0ZLVR+/PtuRjLNu/ZZkNKLOORl16uWJiYXNVW1vVvMLCh/XPChzZPfl80qxM1l17vgtNmLdvb+fsCZ31R5bYtNBeTD9j+6NdsHBLc1Xz8vqniyCELMwbwJIAxTcC2BC/WdXSUlD9ZNXyShWqYASfdtG5JhgCEJq5VLbt7Kye5wcO82pJ1Mnm+2WnI7He9zIGLEYOhJCD53mMkVMReuh8ZWC653SUEKdeBBpZR/+TOXMmiRTtC3J5ymDlD70cNmJriiEnKSU0DsQ8vcJk43RMAjBPJ1xS4em6um4v76319aV4oTfSU8tSSY2H+WcKATa665y8y5PsS7FiOpz2zMFABSMoSPiQKyRCTYj0pVRMUYQuwmDEBVUMEF4QNsw/FavoLwjWPcj09M+FIPjv9QuFqaqwFN7J3gAAAABJRU5ErkJggg=="/>
+		</a>
+	</td>
+	</tr>
+<tr>
+<td width="130" align="center">박길선</td>
+<td width="150" align="center">BE<br></td>
+<td width="150" align="left">
+	<a href="https://github.com/ksparkbr">
+		<img src="http://img.shields.io/badge/ksparkbr-655ced?style=social&logo=github"/>
+	</a>
+</td>
+<td width="190" align="left">
+	<a href="mailto:ksparkbr@gmail.com">
+		<img src="http://img.shields.io/badge/ksparkbr@gmail.com-655ced?style=social&logo=gmail"/>
+	</a>
+</td>
+</tr>
+</tbody>
+</table>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
