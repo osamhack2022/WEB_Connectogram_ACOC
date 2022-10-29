@@ -42,7 +42,7 @@
     + [사용 조건](#사용-조건)
 - [⭐ 프로젝트 시작하기](#---프로젝트-시작하기)
 - [🖧 기능](#🖧-기능)
-- [🗺️ Roadmap](#-roadmap)
+- [🏞 Roadmap](#-roadmap)
 - [📝 License](#-license)
 - [👥 About Team ACOC](#-about-team-acoc)
 
@@ -200,7 +200,7 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
-## 🗺️ Roadmap
+## 🏞 Roadmap
 
 - [x] 인프라 구축
 - [x] 기획 및 디자인
