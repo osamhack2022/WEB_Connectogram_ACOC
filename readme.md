@@ -34,7 +34,7 @@
     + [모래 속 바늘 찾기](#모래-속-바늘-찾기)
     + [행위 분석을 위한 도구의 필요성](#행위-분석을-위한-도구의-필요성)
     + [그래서 커넥토그램이 제공합니다.](#그래서-커넥토그램이-제공합니다)
-  * [Built With](#built-with)
+  * [🛠️ Built With (Used Open Source)](#%EF%B8%8F-built-with-used-open-source)
     + [Front-end](#front-end)
     + [Back-end](#back-end)
     + [Client Application](#client-application)
@@ -96,16 +96,17 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
+### 🛠️ Built With (Used Open Source)
 #### Front-end
- [![React][React.js]][React-url]
+ [![React][React.js]][React-url] [![Cytoscape][Cytoscape.js]][Cytoscape.js-url] [![MaterialUI][MaterialUI]][MaterialUI-url]
+ - [**Nivo**](https://nivo.rocks/) : Chart, Treemap 등 데이터 시각화 라이브러리
 #### Back-end
- [![NodeJS][Node.js]][Node-url] [![MariaDB][MariaDB]][MariaDB-url] [![MySQL][MySQL]][MySQL-url] [![Nginx][Nginx]][Nginx-url]
- #### Client Application
+ [![NodeJS][Node.js]][Node-url] [![MariaDB][MariaDB]][MariaDB-url] [![MySQL][MySQL]][MySQL-url] [![Nginx][Nginx]][Nginx-url] [![Axios][Axios]][Axios-url]
+#### Client Application
  [![Python][Python]][Python-url]
- #### Communications
- [![Notion][Notion]][Notion-url] [![figma][Figma]][Figma-url] [![Github][Github]][Github]
- #### 사용 조건
+#### Communications
+ [![Notion][Notion]][Notion-url] [![figma][Figma]][Figma-url] [![Github][Github]][Github] [![Zoom][Zoom]][Zoom-url]
+#### 사용 조건
  
  다음과 같은 조건 하에 사용할 수 있습니다.
  - ECMAScript 6 지원 브라우저 (Chrome 77버전 이상 권장)
@@ -326,6 +327,14 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
 
+[MaterialUI]: https://img.shields.io/badge/material%20ui-20232A?style=for-the-badge&logo=mui&logoColor=007FFF
+[MaterialUI-url]: https://mui.com/
+[Axios]: https://img.shields.io/badge/axios-20232A?style=for-the-badge&logo=axios&logoColor=5A29E4
+[Axios-url]: https://axios-http.com/
+[Zoom]: https://img.shields.io/badge/zoom-20232A?style=for-the-badge&logo=zoom&logoColor=#2D8CFF
+[Zoom-url]: https://zoom.us/
+[Cytoscape.js]: https://img.shields.io/badge/cytoscape.js-20232A?style=for-the-badge&logo=cytoscape.js&logoColor=F7DF1E
+[Cytoscape.js-url]: https://js.cytoscape.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Node.js]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=Node.js
