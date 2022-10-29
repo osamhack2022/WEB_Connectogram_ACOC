@@ -58,4 +58,4 @@ if __name__ == '__main__':
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         res = requests.post(URL, data=json.dumps(data), headers=headers)
         print(res.text)
-        time.sleep(10)
+        time.sleep(30)
