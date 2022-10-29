@@ -1,11 +1,6 @@
+# 🖧 Connectogram - 軍 사이버 보안의 미래
 
 <a name="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -13,6 +8,7 @@
   <a href="https://github.com/osamhack2022/WEB_Connectogram_ACOC">
     <img src="https://godbell.kr/content/images/2022/10/logo.JPG" alt="Logo" width="300" height="300">
   </a>
+  
 
 <h3 align="center">Connectogram</h3>
 
@@ -21,7 +17,16 @@
     <br />
     <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a>
   </p>
+  
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 </div>
+
+<br />
 
 <!-- TABLE OF CONTENTS -->
 1. [Connectogram이란?](#connectogram이란?)
@@ -35,7 +40,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## 🌐 Connectogram 이란?
+## 🌐 Connectogram이란?
 
 ### 軍 사이버 보안의 미래, Connectogram
 
@@ -203,7 +208,7 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 <!-- TEAM INFO -->
 ## 👥 About Team ACOC
 <br>
-<table align="left" width="788">
+<table width="788">
 <thead>
 <tr>
 <th width="130" align="center">📝 NAME</th>
@@ -271,8 +276,6 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 </tr>
 </tbody>
 </table>
-<br>
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
