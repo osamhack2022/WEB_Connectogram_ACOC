@@ -39,6 +39,7 @@ const Admin = () => {
       for (let i = 0; i < res.data.length; i++) {
         if (res.data[i].approval == "승인대기") temp.push(res.data[i]);
       }
+      console.log(res.data);
       setApprovalList(temp);
     });
   };
@@ -215,9 +216,9 @@ const Admin = () => {
             <div key={i} style={{width: '25vw', height: '10vw', backgroundColor: '#ffffff22', borderRadius: '8px'}}>
               <div style={{ height: '8vw',}}>
                 <div style={{ padding: '32px'}}>
-                  <div>유저 ID : {el.idx}</div>
-                  <div>유저 EMAIL : {el.email}</div>
-                  <div>가입 신청 일시 : {el.reg_date}</div>
+                  <div>유저 이름 : {el.user_name}</div>
+                  <div>유저 ID : {el.user_id}</div>
+                  <div>가입 신청 일시 : {el.reg_date.split('.')[0].split("T")[0]} {el.reg_date.split('.')[0].split("T")[1]}</div>
                   <div>권한 : {el.permission}</div>
                 </div>
               </div>
