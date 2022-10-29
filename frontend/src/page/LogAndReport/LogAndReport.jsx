@@ -260,6 +260,15 @@ const LogAndReport = ( props ) => {
         },
     };
 
+    const barTheme2 = {
+        textColor: 'white',
+        fontFamily: 'Noto Sans KR',
+        fontSize: '11px',
+        axis: {
+          fontSize: '11px',
+        },
+    };
+
     return (
         <div style={{backgroundColor: "rgb(7, 12, 39)", height: '88vh' , display: 'flex', flexDirection: 'column' }}>
             <div style={{ color: 'white', height: '5vh', width: '100%', backgroundColor: 'transparent', paddingLeft: 60, paddingTop: 8, paddingBottom: 8, fontFamily: 'Noto Sans KR', display: 'flex', alignItems: 'flex-end', color: 'white'}}>
@@ -364,7 +373,7 @@ const LogAndReport = ( props ) => {
                                     }}
                                     padding={0.3}
                                     borderRadius={4}
-                                    theme={lineGraphSettings.theme}
+                                    theme={barTheme2}
                                     enableGridY={false}
                                     axisBottom={null}
                                     enableLabel={false}
