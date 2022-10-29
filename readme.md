@@ -15,8 +15,14 @@
   <p align="center">
     軍 사이버 보안의 미래
     <br />
-    <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a>
-  </p>
+    <br />
+    <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a> |
+	  <a href="/">View Demo Page</a>
+    <br />
+	  DEMO ID : <code>demo</code><br />
+	  PW : <code>demo</code>
+</p>
+<br />
   
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -166,7 +172,7 @@
 |![CLIENT](https://user-images.githubusercontent.com/59403191/198826187-9b98aea2-2a7a-46ef-b6f3-8fceaeec4cb9.PNG)|
 |:---:|
 |클라이언트 로그 수집 소프트웨어|
-|<ul><li>데이터를 수집하려는 클라이언트에서 해당 소프트웨어를 실행시키면, 클라이언트의 연결 데이터를 단위 시간마다 서버로 전송합니다.</li><li>데이터를 수신받은 서버는, 연결 데이터를 분석 및 구조화하여 DB에 저장합니다.</li></ul>|
+|데이터를 수집하려는 클라이언트에서 해당 소프트웨어를 실행시키면, 클라이언트의 연결 데이터를 단위 시간마다 서버로 전송합니다.<br />데이터를 수신받은 서버는, 연결 데이터를 분석 및 구조화하여 DB에 저장합니다.|
 
 <br />
 
