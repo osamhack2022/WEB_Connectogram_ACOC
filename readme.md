@@ -40,8 +40,13 @@
     + [Client Application](#client-application)
     + [Communications](#communications)
     + [사용 조건](#사용-조건)
-- [⭐ 프로젝트 시작하기](#---프로젝트-시작하기)
-- [🖧 기능](#🖧-기능)
+- [⭐ 프로젝트 시작하기](#-프로젝트-시작하기)
+- [💡 커넥토그램의 기능 소개](#-커넥토그램의-기능-소개)
+  * [회원가입, 회원가입 승인 및 로그인](#1-회원가입-회원가입-승인-및-로그인)
+  * [Client Application](#2-client-application)
+  * [메인 대시보드](#3-메인-대시보드)
+  * [특정 자산의 상세 대시보드 #1 - 시각화](#4-특정-자산의-상세-대시보드-1---시각화)
+  * [특정 자산의 상세 대시보드 #2 - 위협 분석](#5-특정-자산의-상세-대시보드-2---위협-분석)
 - [🏞 Roadmap](#-roadmap)
 - [📝 License](#-license)
 - [👥 About Team ACOC](#-about-team-acoc)
@@ -139,7 +144,7 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## 🖧 기능
+## 💡 커넥토그램의 기능 소개
 
 ### 1. 회원가입, 회원가입 승인 및 로그인
 
