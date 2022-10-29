@@ -207,7 +207,7 @@ MIT License를 따릅니다. 자세한 사항은 `LICENSE` 파일을 참고해 �
 
 팀원
 - 박길선 - ksparkbr@gmail.com
-- 신현규 - 
+- 신현규 - tlsgusrb70@gmail.com
 - 김경환 - kyounghwankim@pusan.ac.kr
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
