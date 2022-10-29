@@ -17,7 +17,7 @@
     <br />
     <br />
     <a href="https://www.figma.com/file/w4HFPuxqQCViAglWjtuOTC/Connectogram?node-id=179%3A740">View Design Page</a> |
-	  <a href="/">View Demo Page</a>
+	  <a href="http://connectogram.godbell.kr/">View Demo Page</a>
     <br />
 	  DEMO ID : <code>demo</code><br />
 	  DEMO PW : <code>demo</code>
