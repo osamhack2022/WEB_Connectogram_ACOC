@@ -1,4 +1,4 @@
-# 🖧 Connectogram - 軍 사이버 보안의 미래
+# 🔗 Connectogram - 軍 사이버 보안의 미래
   
 <a name="readme-top"></a>
 
@@ -28,8 +28,8 @@
 
 <br />
 
-- [🌐 Connectogram이란?](#---connectogram이란)
-  * [軍 사이버 보안의 미래, Connectogram](#軍-사이버-보안의-미래--connectogram)
+* [Connectogram이란?](#🌐-connectogram이란)
+  * [軍 사이버 보안의 미래, Connectogram](#軍-사이버-보안의-미래--Connectogram)
   * [왜 커넥토그램인가?](#왜-커넥토그램인가)
     + [모래 속 바늘 찾기](#모래-속-바늘-찾기)
     + [행위 분석을 위한 도구의 필요성](#행위-분석을-위한-도구의-필요성)
