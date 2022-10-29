@@ -28,8 +28,8 @@
 
 <br />
 
-* [Connectogram이란?](#-connectogram이란)
-  * [軍 사이버 보안의 미래, Connectogram](#軍-사이버-보안의-미래--Connectogram)
+* [🌐 Connectogram이란?](#-connectogram이란)
+  * [軍 사이버 보안의 미래, Connectogram](#軍-사이버-보안의-미래-connectogram)
   * [왜 커넥토그램인가?](#왜-커넥토그램인가)
     + [모래 속 바늘 찾기](#모래-속-바늘-찾기)
     + [행위 분석을 위한 도구의 필요성](#행위-분석을-위한-도구의-필요성)
@@ -42,9 +42,9 @@
     + [사용 조건](#사용-조건)
 - [⭐ 프로젝트 시작하기](#---프로젝트-시작하기)
 - [🖧 기능](#🖧-기능)
-- [🗺️ Roadmap](#---roadmap)
-- [📝 License](#---license)
-- [📞 Contact: Team ACOC](#---contact--team-acoc)
+- [🗺️ Roadmap](#🗺️-roadmap)
+- [📝 License](#-license)
+- [👥 About Team ACOC](#-about-team-acoc)
 
 <!-- ABOUT THE PROJECT -->
 ## 🌐 Connectogram이란?
