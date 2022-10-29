@@ -20,7 +20,7 @@
 	  <a href="/">View Demo Page</a>
     <br />
 	  DEMO ID : <code>demo</code><br />
-	  PW : <code>demo</code>
+	  DEMO PW : <code>demo</code>
 </p>
 <br />
   
