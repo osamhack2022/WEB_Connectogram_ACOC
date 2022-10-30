@@ -21,7 +21,7 @@ const globalConfig = {
         // keepAliveInitialDelay에서 설정한 시간마다 체크하여 만료된 세션을 삭제한다.
     },
     corsOptions: {
-        origin: ['http://144.24.89.242:3000', 'http://144.24.89.242', 'http://146.56.100.135:3000', 'http://146.56.100.135'],
+        origin: ['http://144.24.89.242:3000', 'http://144.24.89.242', 'http://146.56.100.135:3000', 'http://146.56.100.135', 'http://connectogram.godbell.kr'],
         credentials: true,            //access-control-allow-credentials:true
         optionSuccessStatus: 200,
     }
